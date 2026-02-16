@@ -1,1 +1,22 @@
 
+@if (supabase.selectedContact(); as contact) {
+  <div class="contact-detail">
+    <div class="header">
+      <div class="avatar">{{ getInitials(contact.name) }}</div>
+      <div class="info">
+        <h2>{{ contact.name }}</h2>
+        <div class="actions">
+          <button (click)="editContact()">Edit</button>
+          <button (click)="deleteContact()">Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="details">
+      <h3>Contact Information</h3>
+      <p><strong>Email:</strong> <a href="mailto:{{contact.email}}">{{ contact.email }}</a></p>
+      <p><strong>Phone:</strong> {{ contact.phone || '-' }}</p>
+    </div>
+  </div>
+} @else {
+  <p>Selectează un contact</p>
+}
