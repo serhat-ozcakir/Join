@@ -20,6 +20,7 @@ export const routes: Routes = [
     path: '',
     component: AppLayout,
     children: [
+    { path: '', component: SummaryPage },
     { path: 'contacts', component: ContactsPage },
     { path: 'summary', component: SummaryPage },
     { path: 'add-task', component: AddTaskPage },
