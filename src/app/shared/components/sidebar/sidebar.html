@@ -1,27 +1,27 @@
 <section>
   <img class="logo" src="assets/icons/logo.png" alt="Join Logo" />
   <div class="button-bar">
-    <button class="button">
+    <button class="button" routerLink="/summary" routerLinkActive="active" #summaryRla="routerLinkActive">
       <div class="sidebar-button">
-        <img class="sidebar-button-image" src="/assets/icons/summary.svg" alt="Summary" />
+        <img class="sidebar-button-image" [src]="summaryRla.isActive ? '/assets/icons/summary-active.svg' : '/assets/icons/summary.svg'" alt="Summary" />
         <span class="sidebar-button-text">Summary</span>
       </div>
     </button>
-    <button class="button">
+    <button class="button" routerLink="/add-task" routerLinkActive="active" #addTaskRla="routerLinkActive">
       <div class="sidebar-button">
-        <img class="sidebar-button-image" src="/assets/icons/add-task.svg" alt="Add Task" />
+        <img [src]="addTaskRla.isActive ? 'assets/icons/add-task-active.svg' : 'assets/icons/add-task.svg'" alt="Add Task" />
         <span class="sidebar-button-text">Add Task</span>
       </div>
     </button>
-    <button class="button">
+    <button class="button" routerLink="/board" routerLinkActive="active" #boardRla="routerLinkActive">
       <div class="sidebar-button">
-        <img class="sidebar-button-image" src="/assets/icons/board.svg" alt="Board" />
+        <img [src]="boardRla.isActive ? 'assets/icons/board-active.svg' : 'assets/icons/board.svg'" alt="Board" />
         <span class="sidebar-button-text">Board</span>
       </div>
     </button>
-    <button class="button active">
+    <button class="button" routerLink="/contacts" routerLinkActive="active" #contactsRla="routerLinkActive">
       <div class="sidebar-button">
-        <img class="sidebar-button-image" src="/assets/icons/contacts.svg" alt="Contacts" />
+        <img [src]="contactsRla.isActive ? 'assets/icons/contacts-active.svg' : 'assets/icons/contacts.svg'" alt="Contacts" />
         <span class="sidebar-button-text">Contacts</span>
       </div>
     </button>

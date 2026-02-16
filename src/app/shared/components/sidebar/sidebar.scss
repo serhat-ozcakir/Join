@@ -21,10 +21,12 @@ section{
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #CDCDCD;
 }
 
 .active{
   background-color: #091931;
+  color: #FFFFFF;
 }
 
 .button-bar{
@@ -55,7 +57,7 @@ section{
   }
 
   & .sidebar-button-text{
-    color: #CDCDCD;
+    color: inherit;
     font-size: 16px;
   }
 }
