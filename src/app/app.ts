@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Supabase } from './supabase';
 
@@ -8,6 +8,10 @@ import { Supabase } from './supabase';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  dbJoin= inject(Supabase)
+export class App implements OnInit {
+  supabase = inject(Supabase);
+
+  ngOnInit() {
+    this.supabase.getUsers();
+  }
 }
