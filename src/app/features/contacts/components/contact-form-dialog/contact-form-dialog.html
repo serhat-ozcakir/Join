@@ -1,1 +1,45 @@
 
+@if (supabase.showForm()) {
+  <div class="modal-overlay" (click)="closeForm()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2>{{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}</h2>
+      <button class="close-btn" (click)="closeForm()">✕</button>
+
+      <form (ngSubmit)="saveContact()">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Name"
+            [ngModel]="name()"
+            (ngModelChange)="name.set($event)"
+            name="name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            placeholder="Email"
+            [ngModel]="email()"
+            (ngModelChange)="email.set($event)"
+            name="email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="tel"
+            placeholder="Phone"
+            [ngModel]="phone()"
+            (ngModelChange)="phone.set($event)"
+            name="phone"
+          />
+        </div>
+        <div class="form-actions">
+          <button type="button" (click)="closeForm()">Cancel</button>
+          <button type="submit">{{ supabase.editMode() ? 'Save' : 'Create' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

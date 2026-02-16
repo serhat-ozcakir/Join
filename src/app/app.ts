@@ -1,6 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Supabase } from './supabase';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +7,4 @@ import { Supabase } from './supabase';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
-  supabase = inject(Supabase);
-
-  ngOnInit() {
-    this.supabase.getUsers();
-  }
-}
+export class App {}

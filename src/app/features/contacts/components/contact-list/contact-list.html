@@ -1,1 +1,24 @@
 
+<div class="contact-list">
+  <button class="add-btn" (click)="supabase.showForm.set(true)">
+    Add new contact
+  </button>
+
+  @if (supabase.loading()) {
+    <p>Loading...</p>
+  }
+
+  @for (contact of supabase.contacts(); track contact.id) {
+    <div
+      class="contact-item"
+      [class.selected]="supabase.selectedContact()?.id === contact.id"
+      (click)="selectContact(contact)"
+    >
+      <div class="avatar">{{ getInitials(contact.name) }}</div>
+      <div class="info">
+        <span class="name">{{ contact.name }}</span>
+        <span class="email">{{ contact.email }}</span>
+      </div>
+    </div>
+  }
+</div>
