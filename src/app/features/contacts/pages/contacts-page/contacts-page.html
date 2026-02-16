@@ -1,12 +1,17 @@
 <section class="contacts-page">
-    <div class="contacts-page-liste">
-        <app-contact-list>Contakt Liste</app-contact-list>
-    </div>
-    <div class="contacts-page-detail">
-        <app-contact-detail>Contakt Detail</app-contact-detail>
-    </div>
+  <app-sidebar></app-sidebar>
 
-    <div class="contacts-page-form">
-        <app-contact-form-dialog>Add Contact</app-contact-form-dialog>
+  <div class="contacts-main">
+    <app-header></app-header>
+
+    <div class="contacts-content">
+      <div class="contacts-page-liste">
+        <app-contact-list></app-contact-list>
+      </div>
+
+      <div class="contacts-page-detail">
+        <app-contact-detail></app-contact-detail>
+      </div>
     </div>
+  </div>
 </section>
