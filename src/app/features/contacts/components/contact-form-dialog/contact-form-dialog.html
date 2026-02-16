@@ -1,31 +1,41 @@
-
 @if (supabase.showForm()) {
   <div class="modal-overlay" (click)="closeForm()">
     <div class="modal" (click)="$event.stopPropagation()">
       <h2>{{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}</h2>
       <button class="close-btn" (click)="closeForm()">✕</button>
 
-      <form (ngSubmit)="saveContact()">
+      <form #contactForm="ngForm" (ngSubmit)="contactForm.valid && saveContact()">
         <div class="form-group">
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Name *"
             [ngModel]="name()"
             (ngModelChange)="name.set($event)"
             name="name"
             required
+            #nameInput="ngModel"
           />
+          @if (nameInput.invalid && nameInput.touched) {
+            <span class="error">Name is required</span>
+          }
         </div>
+
         <div class="form-group">
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email *"
             [ngModel]="email()"
             (ngModelChange)="email.set($event)"
             name="email"
             required
+            email
+            #emailInput="ngModel"
           />
+          @if (emailInput.invalid && emailInput.touched) {
+            <span class="error">Valid email is required</span>
+          }
         </div>
+
         <div class="form-group">
           <input
             type="tel"
@@ -35,9 +45,12 @@
             name="phone"
           />
         </div>
+
         <div class="form-actions">
           <button type="button" (click)="closeForm()">Cancel</button>
-          <button type="submit">{{ supabase.editMode() ? 'Save' : 'Create' }}</button>
+          <button type="submit" [disabled]="contactForm.invalid">
+            {{ supabase.editMode() ? 'Save' : 'Create' }}
+          </button>
         </div>
       </form>
     </div>
