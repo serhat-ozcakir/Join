@@ -1,0 +1,87 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h1>Sign Up</h1>
+
+    @if (successMessage()) {
+      <div class="success-message">{{ successMessage() }}</div>
+      <div class="links">
+        <a routerLink="/login">Back to Login</a>
+      </div>
+    } @else {
+      @if (supabase.authError()) {
+        <div class="error-message">{{ supabase.authError() }}</div>
+      }
+
+      <form #signupForm="ngForm" (ngSubmit)="signupForm.valid && signup()">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Display Name"
+            [ngModel]="displayName()"
+            (ngModelChange)="displayName.set($event)"
+            name="displayName"
+            required
+            #nameInput="ngModel"
+          />
+          @if (nameInput.invalid && nameInput.touched) {
+            <span class="error">Name is required</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <input
+            type="email"
+            placeholder="Email"
+            [ngModel]="email()"
+            (ngModelChange)="email.set($event)"
+            name="email"
+            required
+            email
+            #emailInput="ngModel"
+          />
+          @if (emailInput.invalid && emailInput.touched) {
+            <span class="error">Valid email is required</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            placeholder="Password"
+            [ngModel]="password()"
+            (ngModelChange)="password.set($event)"
+            name="password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+          />
+          @if (passwordInput.invalid && passwordInput.touched) {
+            <span class="error">Password must be at least 6 characters</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            [ngModel]="confirmPassword()"
+            (ngModelChange)="confirmPassword.set($event)"
+            name="confirmPassword"
+            required
+            #confirmInput="ngModel"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="signupForm.invalid || supabase.authLoading()">
+            {{ supabase.authLoading() ? 'Loading...' : 'Sign Up' }}
+          </button>
+        </div>
+      </form>
+
+      <div class="links">
+        <a routerLink="/login">Already have an account? Login</a>
+      </div>
+    }
+  </div>
+</div>

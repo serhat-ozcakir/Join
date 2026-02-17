@@ -1,3 +1,54 @@
-<p>login-page works!</p>
-<button>Login</button>
-<button routerLink="/summary">Guest Login</button>
+<div class="login-container">
+  <div class="login-card">
+    <h1>Login</h1>
+
+    @if (supabase.authError()) {
+      <div class="error-message">{{ supabase.authError() }}</div>
+    }
+
+    <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && login()">
+      <div class="form-group">
+        <input
+          type="email"
+          placeholder="Email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          required
+          email
+          #emailInput="ngModel"
+        />
+        @if (emailInput.invalid && emailInput.touched) {
+          <span class="error">Valid email is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          required
+          minlength="6"
+          #passwordInput="ngModel"
+        />
+        @if (passwordInput.invalid && passwordInput.touched) {
+          <span class="error">Password must be at least 6 characters</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="loginForm.invalid || supabase.authLoading()">
+          {{ supabase.authLoading() ? 'Loading...' : 'Login' }}
+        </button>
+      </div>
+    </form>
+
+    <div class="links">
+      <a routerLink="/signup">Sign up</a>
+      <button class="guest-btn" (click)="guestLogin()">Guest Login</button>
+    </div>
+  </div>
+</div>

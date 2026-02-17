@@ -1,0 +1,120 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    margin: 0 0 24px;
+    color: #333;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: unset;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  transition: color 100ms;
+
+  &:hover {
+    color: #333;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: unset;
+    border-bottom: 2px solid #ddd;
+    border-radius: 0;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: #f9f9f9;
+    transition: border-color 100ms;
+
+    &:focus {
+      outline: none;
+      border-color: #4a90d9;
+      background: #fff;
+    }
+
+    &.invalid {
+      border-color: #e74c3c;
+      background: #fef5f5;
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 6px;
+    display: block;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  button {
+    padding: 12px 24px;
+    border: unset;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 100ms, opacity 100ms;
+
+    &[type="button"] {
+      background: #f0f0f0;
+      color: #333;
+
+      &:hover {
+        background: #e0e0e0;
+      }
+    }
+
+    &[type="submit"] {
+      background: #4a90d9;
+      color: #fff;
+
+      &:hover:not(:disabled) {
+        background: #357abd;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
