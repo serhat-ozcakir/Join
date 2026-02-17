@@ -24,6 +24,7 @@ export class LoginPage {
   }
 
   guestLogin() {
+    this.supabase.guestLogin();
     this.router.navigate(['/summary']);
   }
 }

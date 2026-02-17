@@ -46,9 +46,27 @@ export class Supabase {
   currentUser = signal<User | null>(null);
 
   /**
+   * Gibt an, ob der Benutzer als Gast eingeloggt ist.
+   */
+  isGuest = signal<boolean>(false);
+
+  /**
+   * Aktuelles Benutzerprofil (aus user_metadata).
+   */
+  currentProfile = computed(() => {
+    const user = this.currentUser();
+    if (!user) return null;
+    return {
+      id: user.id,
+      email: user.email,
+      display_name: user.user_metadata?.['display_name'] || null
+    };
+  });
+
+  /**
    * Gibt an, ob der Benutzer eingeloggt ist.
    */
-  isLoggedIn = computed(() => !!this.currentUser());
+  isLoggedIn = computed(() => !!this.currentUser() || this.isGuest());
 
   /**
    * Auth Fehlermeldung.
@@ -85,8 +103,17 @@ export class Supabase {
     const { data: { session } } = await this.supabase.auth.getSession();
     this.currentUser.set(session?.user ?? null);
 
+    // Wenn User eingeloggt ist, ist er kein Gast
+    if (session?.user) {
+      this.isGuest.set(false);
+    }
+
     this.supabase.auth.onAuthStateChange((event, session) => {
       this.currentUser.set(session?.user ?? null);
+      // Wenn User eingeloggt ist, ist er kein Gast
+      if (session?.user) {
+        this.isGuest.set(false);
+      }
     });
   }
 
@@ -110,6 +137,7 @@ export class Supabase {
     }
 
     this.currentUser.set(data.user);
+    this.isGuest.set(false);
     return true;
   }
 
@@ -142,9 +170,17 @@ export class Supabase {
    * Benutzer ausloggen.
    */
   async signOut() {
-    await this.supabase.auth.signOut();
+    await this.supabase.auth.signOut({ scope: 'local' });
     this.currentUser.set(null);
+    this.isGuest.set(false);
     this.router.navigate(['/login']);
+  }
+
+  /**
+   * Als Gast einloggen.
+   */
+  guestLogin() {
+    this.isGuest.set(true);
   }
 
   /**

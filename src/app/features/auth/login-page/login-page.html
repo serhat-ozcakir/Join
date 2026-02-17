@@ -13,6 +13,7 @@
           placeholder="Email"
           [ngModel]="email()"
           (ngModelChange)="email.set($event)"
+          autocomplete="email"
           name="email"
           required
           email
@@ -27,6 +28,7 @@
         <input
           type="password"
           placeholder="Password"
+          autocomplete="current-password"
           [ngModel]="password()"
           (ngModelChange)="password.set($event)"
           name="password"

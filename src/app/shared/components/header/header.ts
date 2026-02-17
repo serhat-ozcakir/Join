@@ -13,10 +13,24 @@ export class Header {
  supabase = inject(Supabase);
 
   getInitials(): string {
-    const user = this.supabase.currentUser();
-    if (!user) return '?';
-    const name = user.user_metadata?.['display_name'] || user.email || '';
-    return name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) || '?';
+    if (this.supabase.isGuest()) {
+      return 'G';
+    }
+
+    const profile = this.supabase.currentProfile();
+    if (!profile) return '?';
+
+    const displayName = profile.display_name;
+
+    if (displayName && displayName.trim()) {
+      const parts = displayName.trim().split(' ').filter((p: string) => p.length > 0);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return displayName.slice(0, 2).toUpperCase();
+    }
+
+    return '?';
   }
 
 

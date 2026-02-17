@@ -10,6 +10,11 @@ export const authGuard: CanActivateFn = async () => {
   const supabase = inject(Supabase);
   const router = inject(Router);
 
+  // Guest Login erlauben
+  if (supabase.isGuest()) {
+    return true;
+  }
+
   // Warte auf Session-Check
   const { data: { session } } = await supabase.supabase.auth.getSession();
 
