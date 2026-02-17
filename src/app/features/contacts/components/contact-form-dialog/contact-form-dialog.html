@@ -4,14 +4,23 @@
       <h2>{{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}</h2>
       <button class="close-btn" (click)="closeForm()">✕</button>
 
+      <!-- ngSubmit ist ein Angular-Event, das ausgelöst wird, wenn ein Formular abgeschickt wird -->
       <form #contactForm="ngForm" (ngSubmit)="contactForm.valid && saveContact()">
         <div class="form-group">
+<!--             ngModel ist eine Angular-Direktive, mit der du Formularfelder mit Daten in deiner Component verbindest.
+            Ohne ngModel musst du Werte manuell auslesen.
+            Mit ngModel passiert das automatisch.
+            (ngModelChange) ist ein Angular-Event, das ausgelöst wird, wenn sich der Wert eines Feldes mit ngModel ändert.
+             -->
           <input
             type="text"
             placeholder="Name *"
             [ngModel]="name()"
             (ngModelChange)="name.set($event)"
             name="name"
+            Dieses Feld muss ausgefüllt werden, sonst ist das Formular ungültig.
+            	•	Feld leer → ungültig
+	            •	Feld gefüllt → gültig
             required
             #nameInput="ngModel"
           />

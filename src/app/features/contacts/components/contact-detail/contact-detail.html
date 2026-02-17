@@ -1,7 +1,8 @@
-
 @if (supabase.selectedContact(); as contact) {
   <div class="contact-detail">
     <div class="header">
+<!--       .from('contacts')
+      .select('*') -->
       <div class="avatar">{{ getInitials(contact.name) }}</div>
       <div class="info">
         <h2>{{ contact.name }}</h2>

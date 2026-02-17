@@ -14,11 +14,19 @@ export class ContactDetail {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
 
+  /**
+   * steuern nur die Oberfläche (UI) — sie ändern keine Datenbankdaten.
+   * „Zeige jetzt das Formular und setze es in den Bearbeitungsmodus.“
+   */
   editContact() {
     this.supabase.editMode.set(true);
     this.supabase.showForm.set(true);
   }
 
+  /**
+  * Holt den aktuell ausgewählten Kontakt und löscht ihn nach
+  * Bestätigung durch den Benutzer aus der Datenbank.
+  */
   async deleteContact() {
     const contact = this.supabase.selectedContact();
     if (contact?.id && confirm('Confirm to delete?')) {

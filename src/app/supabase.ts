@@ -114,6 +114,7 @@ async getContacts() {
     return;
   }
 
+  /* Daten werden im Signal gespeichert */
   this.contacts.set(data || []);
 }
 
@@ -140,6 +141,11 @@ async getContacts() {
    */
   async updateContact(id: string, contact: Partial<Contact>) {
     const { error } = await this.supabase
+    /**
+      * Aktualisiert den Datensatz in der Tabelle `contacts`
+      * mit den neuen Werten aus `contact`,
+      * dessen `id` dem übergebenen Wert entspricht.
+      */
       .from('contacts')
       .update(contact)
       .eq('id', id);
