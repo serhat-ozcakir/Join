@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 import { ContactsPage } from './features/contacts/pages/contacts-page/contacts-page';
 import { LoginPage } from './features/auth/login-page/login-page';
+import { SignupPage } from './features/auth/signup-page/signup-page';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { AppLayout } from './layouts/app-layout/app-layout';
 import { AddTaskPage } from './features/add-task/pages/add-task-page/add-task-page';
 import { BoardPage } from './features/board/pages/board-page/board-page';
 import { SummaryPage } from './features/summary/pages/summary-page/summary-page';
+import { authGuard } from './auth.guard';
 
 /**
  * Routing-Konfiguration der gesamten Anwendung.
@@ -39,6 +41,11 @@ export const routes: Routes = [
       { path: 'login', component: LoginPage },
 
       /**
+       * Signup-Seite → erreichbar unter /signup
+       */
+      { path: 'signup', component: SignupPage },
+
+      /**
        * Standardroute:
        * Leerer Pfad wird zu /login umgeleitet.
        * Beispiel: "/" → "/login"
@@ -50,10 +57,12 @@ export const routes: Routes = [
   /**
    * Routen des Hauptanwendungsbereichs.
    * Verwendet AppLayout als übergeordnetes Layout.
+   * canActivate: authGuard schützt diese Routen.
    */
   {
     path: '',
     component: AppLayout,
+    canActivate: [authGuard],
     children: [
       /** Kontaktübersicht → /contacts */
       { path: 'contacts', component: ContactsPage },
