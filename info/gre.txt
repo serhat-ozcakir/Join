@@ -44,3 +44,181 @@ JSON
 Sonstiges
 	•	bytea – Datei/Binärdaten
 	•	text[] – Liste → ["Angular","SQL"]
+
+	•	auth.uid() → Speichert automatisch die ID des aktuell eingeloggten Users.
+	•	gen_random_uuid() → Erstellt eine zufällige neue ID.
+
+    -----------------------------
+
+Primary Key = eindeutige ID pro Zeile
+
+Primary Key
+	•	eindeutige ID einer Tabelle
+	•	jeder Wert nur einmal
+	•	identifiziert jede Zeile
+
+Foreign Key
+	•	verweist auf andere Tabelle
+	•	verbindet Tabellen
+	•	Wert darf mehrfach vorkommen   
+
+    -----------------------------
+
+Wenn Primary grün ist, bedeutet das:
+	•	✅ Spalte ist Primärschlüssel
+	•	✅ Wert muss eindeutig sein
+	•	✅ Darf nicht NULL sein
+	•	✅ Identifiziert jede Tabellenzeile eindeutig
+
+    -----------------------------
+
+    •	Is Nullable → Feld darf leer (NULL) sein.
+	•	Is Unique → Jeder Wert darf nur einmal vorkommen.
+	•	Define as Array → Feld speichert eine Liste von Werten.
+
+    -----------------------------
+
+    Das ist für Zugriffsregeln (Policies) in Supabase.
+
+    Damit legst du fest:
+	•	✅ Wer Daten lesen darf
+	•	✅ Wer Daten ändern darf
+	•	✅ Wer Daten löschen darf
+
+    -----------------------------
+
+    •	Disabled → Keine Datenfreigabe
+	•	Schema Only → Nur Tabellenstruktur teilen
+	•	Schema & Logs → Struktur + Logs teilen
+	•	Schema, Logs & Data → Struktur + echte Daten teilen
+
+    -----------------------------
+
+    Projektname („join“) & Plan („NANO“)
+	•	Das ist dein Supabase-Projekt.
+	•	NANO ist der kleine/Starter-Plan mit begrenzten Ressourcen.
+
+Projekt-URL
+	•	Die URL (…supabase.co) ist der API-Endpunkt deines Projekts.
+	•	Diese URL benutzt deine App, um mit der Datenbank, Auth oder Storage zu sprechen.
+    Das ist die direkte Verbindungszeichenfolge (Connection String) deiner Supabase-Datenbank.
+
+Damit kann sich eine Anwendung direkt mit deiner PostgreSQL-Datenbank verbinden.
+
+Status: Healthy
+	•	Dein Projekt läuft korrekt.
+	•	Server & Datenbank sind erreichbar.
+
+Last Migration: No migrations
+	•	Du hast noch keine Datenbank-Migrationen ausgeführt.
+	•	Migrationen werden genutzt, um Schema-Änderungen versioniert zu speichern.
+
+Last Backup: No backups
+	•	Es wurde noch kein Backup erstellt (oder auf diesem Plan nicht automatisch verfügbar).
+
+Recent Branch: No branches
+	•	Du nutzt aktuell keine Datenbank-Branches (Feature für Entwicklungs-Umgebungen).
+    In Supabase bedeutet ein Branch eine separate Kopie deiner Datenbank, ähnlich wie Branches in Git für Code.
+    Branch → Migration exportieren → in eigene DB ausführen
+
+    -----------------------------
+
+    Bucket name
+
+Name des Dateiordners, z. B. avatars.
+
+⚠️ Kann später nicht geändert werden.
+Typische Namen:
+	•	avatars (Profilbilder)
+	•	uploads
+	•	documents
+	•	images
+
+⸻
+
+Public bucket
+
+Wenn aktiviert:
+	•	Jeder kann Dateien lesen, wenn er die URL kennt.
+	•	Gut für Bilder, die öffentlich angezeigt werden.
+
+Wenn deaktiviert:
+	•	Dateien sind privat.
+	•	Zugriff nur über Login oder Server-Code.
+
+✅ Für Profilbilder meist Public aktivieren.
+
+⸻
+
+Restrict file size
+
+Begrenzt die maximale Dateigröße.
+
+Beispiel:
+	•	max. 2 MB pro Bild
+
+Hilft, große Uploads zu verhindern.
+
+⸻
+
+Restrict MIME types
+
+Erlaubt nur bestimmte Dateitypen.
+
+Beispiel:
+	•	nur Bilder: image/png, image/jpeg
+
+Gut, um Upload von falschen Dateien zu verhindern.
+
+-----------------------------
+
+Wenn ein Nutzer Bilder hochlädt, werden diese im Storage gespeichert.
+
+Files
+
+Hier verwaltest du deine hochgeladenen Dateien:
+	•	Dateien ansehen
+	•	hochladen
+	•	löschen
+	•	Ordner/Buckets durchsuchen
+
+Analytics
+
+Zeigt Statistiken zu deinem Storage:
+	•	Anzahl der Uploads/Downloads
+	•	Speicherverbrauch
+	•	Traffic & Nutzung
+
+Hilfreich, um Limits und Kosten im Blick zu behalten.
+
+Vectors
+
+Bereich für Vektordatenbanken bzw. Embeddings:
+	•	Wird für KI-Suche oder semantische Suche genutzt
+	•	Dokumente können dort durchsuchbar gemacht werden
+
+Nur relevant, wenn du KI-Suchfunktionen nutzt.
+
+Configuration → S3
+
+Hier kannst du deinen Storage S3-kompatibel anbinden:
+	•	Zugriff über S3-Tools
+	•	Nutzung mit externen Apps oder Servern
+	•	API-Zugriff konfigurieren
+
+    	•	API-Zugangsdaten erstellen (Access Key, Secret Key)
+Zugangsschlüssel erzeugen, damit Programme sicher auf den Speicher zugreifen können.
+	•	S3-Endpoint festlegen
+Serveradresse definieren, über die Anwendungen den Storage erreichen.
+	•	Bucket auswählen oder erstellen
+Speicherbereich (Ordner/Container) anlegen oder auswählen, in dem Dateien gespeichert werden.
+	•	Zugriffsrechte konfigurieren (lesen/schreiben/löschen)
+Festlegen, welche Nutzer oder Anwendungen Daten ansehen, hochladen oder löschen dürfen.
+	•	Region einstellen (falls erforderlich)
+Speicherstandort auswählen, um Zugriffsgeschwindigkeit oder gesetzliche Vorgaben einzuhalten.
+	•	Zugangsdaten in App oder Server eintragen
+Schlüssel und Endpoint in der verwendeten Software konfigurieren.
+	•	Verbindung testen
+Prüfen, ob Dateien erfolgreich hoch- und heruntergeladen werden können.
+	•	Automatische Zugriffe oder Backups einrichten
+Prozesse konfigurieren, damit Daten automatisch gespeichert oder synchronisiert werden.
