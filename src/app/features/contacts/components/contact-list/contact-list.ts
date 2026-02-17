@@ -10,6 +10,23 @@ import { Supabase, Contact } from '../../../../supabase';
 export class ContactList implements OnInit {
   supabase = inject(Supabase);
 
+    /**
+   * Array von Farben für Avatare.
+   */
+  private avatarColors = [
+    '#FF7A00', // Orange
+    '#9327FF', // Lila
+    '#6E52FF', // Blau-Lila
+    '#FC71FF', // Pink
+    '#FFBB2B', // Gelb
+    '#1FD7C1', // Türkis
+    '#462F8A', // Dunkel-Lila
+    '#FF4646', // Rot
+    '#00BEE8', // Cyan
+    '#FF745E', // Koralle
+  ];
+
+
   /**
    * Gruppiert Kontakte nach Anfangsbuchstaben.
    * Gibt ein Array von { letter, contacts } zurück.
@@ -42,4 +59,19 @@ export class ContactList implements OnInit {
   getInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
+
+
+  /**
+   * Gibt eine konsistente Farbe basierend auf dem Namen zurück.
+   * Gleicher Name = gleiche Farbe.
+   */
+  getAvatarColor(name: string): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % this.avatarColors.length;
+    return this.avatarColors[index];
+  }
 }
+

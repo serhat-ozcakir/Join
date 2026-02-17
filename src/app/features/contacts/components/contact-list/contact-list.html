@@ -18,8 +18,9 @@
         [class.selected]="supabase.selectedContact()?.id === contact.id"
         (click)="selectContact(contact)"
       >
-        <div class="avatar">{{ getInitials(contact.name) }}</div>
-        <div class="info">
+ <div class="avatar" [style.background]="getAvatarColor(contact.name)">
+          {{ getInitials(contact.name) }}
+        </div>        <div class="info">
           <span class="name">{{ contact.name }}</span>
           <span class="email">{{ contact.email }}</span>
         </div>
