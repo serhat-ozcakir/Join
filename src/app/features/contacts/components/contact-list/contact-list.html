@@ -1,7 +1,8 @@
 
 <div class="contact-list">
   <button class="add-btn" (click)="supabase.showForm.set(true)">
-    Add new contact
+    <span>Add new contact</span>
+    <img src="/assets/icons/add-contact.svg" alt="Add Contact">
   </button>
 
   @if (supabase.loading()) {
