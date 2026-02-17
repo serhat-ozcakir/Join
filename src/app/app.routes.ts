@@ -10,6 +10,8 @@ import { SummaryPage } from './features/summary/pages/summary-page/summary-page'
 import { authGuard } from './auth.guard';
 import { PrivacyPolicyPage } from './features/privacy/privacy-policy-page/privacy-policy-page';
 import { LegalNoticePage } from './features/legal/legal-notice-page/legal-notice-page';
+import { HelpPage } from './features/help/help-page/help-page';
+
 
 /**
  * Routing-Konfiguration der gesamten Anwendung.
@@ -77,6 +79,9 @@ export const routes: Routes = [
 
       /** Board-/Kanban-Ansicht → /board */
       { path: 'board', component: BoardPage },
+        {path: 'privacy', component: PrivacyPolicyPage },
+  {path: 'legal', component: LegalNoticePage },
+  {path: 'help', component: HelpPage },
     ],
   },
 
@@ -84,8 +89,7 @@ export const routes: Routes = [
    * Wildcard-Route:
    * Fängt alle unbekannten URLs ab und leitet zum Login um.
    */
-  {path: 'privacy-policy', component: PrivacyPolicyPage },
-  {path: 'legal-notice', component: LegalNoticePage },
+
   { path: '**', redirectTo: 'login' },
 
 ];
