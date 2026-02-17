@@ -1,7 +1,7 @@
 <section class="content">
   <span class="header-text">Kanban Project Management Tool</span>
   <div class="header-buttons">
-    <button class="help-button"><img src="/assets/icons/help.svg" alt="Help Button" /></button>
+    <button routerLink="/help" class="help-button"><img src="/assets/icons/help.svg" alt="Help Button" /></button>
     <button (click)="toggleMenu()" class="nav-button">{{ getInitials() }}</button>
   </div>
 </section>
@@ -10,8 +10,8 @@
   <div class="backdrop" (click)="closeMenu()"></div>
   <div class="header-menu" (click)="$event.stopPropagation()">
     <a class="header-links d-none" routerLink="">Help</a>
-    <a class="header-links" routerLink="">Legal Notice</a>
-    <a class="header-links" routerLink="">Privacy Policy</a>
+    <a class="header-links" routerLink="/legal">Legal Notice</a>
+    <a class="header-links" routerLink="/privacy">Privacy Policy</a>
     <a class="header-links" routerLink="">Log out</a>
   </div>
 }

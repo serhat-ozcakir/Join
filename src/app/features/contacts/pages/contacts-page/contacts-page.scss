@@ -1,39 +1,32 @@
-
-
-.contacts-page{
+.contacts-page {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
-app-sidebar{
-  flex: 0 0 232px;
-}
-
-.contacts-main{
+.contacts-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
-app-header{
-  flex: 0 0 auto;
-}
-
-.contacts-content{
+.contacts-content {
   flex: 1;
   display: flex;
   min-height: 0;
+  overflow: hidden;
 }
 
-.contacts-page-liste{
+.contacts-page-liste {
   flex: 0 0 456px;
-  overflow: auto;
-  border-right: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
-.contacts-page-detail{
+.contacts-page-detail {
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
 }

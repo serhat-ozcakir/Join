@@ -1,7 +1,17 @@
-.app-layout{
-    display: flex;
+.app-layout {
+  display: flex;
+  height: 100vh;
 }
 
-.main{
-    width: 100%;
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
 }

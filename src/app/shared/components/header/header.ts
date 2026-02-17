@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component,inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Supabase } from '../../../supabase';
 
 @Component({
@@ -10,37 +10,22 @@ import { Supabase } from '../../../supabase';
   styleUrl: './header.scss',
 })
 export class Header {
- supabase = inject(Supabase);
+  supabase = inject(Supabase);
 
   getInitials(): string {
-    if (this.supabase.isGuest()) {
-      return 'G';
-    }
-
-    const profile = this.supabase.currentProfile();
-    if (!profile) return '?';
-
-    const displayName = profile.display_name;
-
-    if (displayName && displayName.trim()) {
-      const parts = displayName.trim().split(' ').filter((p: string) => p.length > 0);
-      if (parts.length >= 2) {
-        return (parts[0][0] + parts[1][0]).toUpperCase();
-      }
-      return displayName.slice(0, 2).toUpperCase();
-    }
-
-    return '?';
+    const user = this.supabase.currentUser();
+    if (!user) return '?';
+    const name = user.user_metadata?.['display_name'] || user.email || '';
+    return name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) || '?';
   }
 
+  isMenuOpen = false;
 
-isMenuOpen = false;
-
-  toggleMenu(){
+  toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  closeMenu(){
+  closeMenu() {
     this.isMenuOpen = false;
   }
 }
