@@ -1,4 +1,4 @@
-section{
+section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -6,30 +6,33 @@ section{
   padding: 80px 0;
   width: 230px;
   height: 100vh;
-  background-color: #2A3647;
+  position: sticky;
+  top: 0;
+  background-color: #2a3647;
+  flex-shrink: 0;
 }
 
-.logo{
+.logo {
   width: 100px;
   height: 120px;
 }
 
-.button{
+.button {
   border: none;
   background-color: transparent;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #CDCDCD;
+  color: #cdcdcd;
 }
 
-.active{
+.active {
   background-color: #091931;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.button-bar{
+.button-bar {
   display: flex;
   flex-direction: column;
   padding-bottom: 240px;
@@ -37,7 +40,7 @@ section{
   width: 100%;
 }
 
-.sidebar-button{
+.sidebar-button {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -46,32 +49,31 @@ section{
   padding-bottom: 8px;
   width: 100%;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
-    background-color: #29ABE21A;
+    background-color: #29abe21a;
   }
 
-  & .sidebar-button-image{
+  & .sidebar-button-image {
     width: 30px;
     height: 30px;
   }
 
-  & .sidebar-button-text{
+  & .sidebar-button-text {
     color: inherit;
     font-size: 16px;
   }
 }
 
-.legal-information{
+.legal-information {
   display: flex;
   flex-direction: column;
-  color: #CDCDCD;
+  color: #cdcdcd;
   font-size: 16px;
   gap: 16px;
 
-  & a:hover{
+  & a:hover {
     cursor: pointer;
-    color: #29ABE2;
+    color: #29abe2;
   }
 }
-
