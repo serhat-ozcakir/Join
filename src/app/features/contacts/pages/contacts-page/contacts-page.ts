@@ -7,6 +7,7 @@ import { Sidebar } from '../../../../shared/components/sidebar/sidebar';
 
 @Component({
   selector: 'app-contacts-page',
+  standalone:true,
   imports: [ContactList,ContactDetail,ContactFormDialog, Header, Sidebar ],
   templateUrl: './contacts-page.html',
   styleUrl: './contacts-page.scss',
