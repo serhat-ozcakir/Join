@@ -1,0 +1,46 @@
+Supabase
+
+---------------
+
+Eine CSV-Datei ist eine einfache Tabelle, in der Daten als Text gespeichert sind (z. B. aus Excel oder anderen Programmen). Mit dieser Funktion kann man solche Tabellendaten in ein Programm laden.
+
+	•	Set as NULL → Feld bekommt den Wert NULL (kein Wert gespeichert).
+	•	Set the default value as NULL value → Standardwert ist NULL, wenn nichts eingegeben wird.
+	•	Set as empty string → Feld bekommt "" (leerer Text).
+	•	Set the default value as empty string → Standardwert ist leerer Text, wenn nichts eingegeben wird.
+
+
+Zahlen
+	•	int2 – Kleine ganze Zahl → 12
+	•	int4 (integer) – Ganze Zahl → 25
+	•	int8 (bigint) – Große Zahl → 123456789
+	•	numeric / decimal – Exakte Zahl → 19.99
+	•	float4 – Kommazahl → 3.14
+	•	float8 – Genauere Kommazahl → 4.56789
+
+Text
+	•	text – Beliebiger Text → "Hallo Welt"
+	•	varchar(50) – Text mit Limit → "Max"
+	•	char(2) – Feste Länge → "DE"
+
+Datum & Zeit
+	•	date – Datum → 2026-02-17
+	•	time – Uhrzeit → 12:30:00
+	•	timestamp – Datum + Zeit → 2026-02-17 12:30
+	•	timestamptz – Mit Zeitzone → 2026-02-17 12:30+01
+
+Boolean
+	•	bool – Wahr/Falsch → true
+
+IDs
+	•	uuid – Zufällige ID →
+550e8400-e29b-41d4-a716-446655440000
+	•	serial – Auto-Zahl → 1,2,3
+
+JSON
+	•	json – JSON-Daten → {"name":"Max"}
+	•	jsonb – Schneller JSON → {"role":"admin"}
+
+Sonstiges
+	•	bytea – Datei/Binärdaten
+	•	text[] – Liste → ["Angular","SQL"]
