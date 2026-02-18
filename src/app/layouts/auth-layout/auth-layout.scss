@@ -17,18 +17,24 @@
   letter-spacing: 1px;
 }
 
-.top-cta {
+.top-right {
   display: flex;
   align-items: center;
   gap: 12px;
   color: #2a3647;
 }
 
+.top-right-mobil{
+  display: none;
+}
+
 .auth-main {
-  flex: 1;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+    flex: 1;
+    display: flex;
+    place-items: center;
+    padding: 24px;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .auth-footer {
@@ -61,3 +67,15 @@
   color: #fff;
 }
 .btn-dark:hover { background: #29abe2; }
+
+
+@media screen and (max-width:991px) {
+  .top-right{
+    display:none
+  }
+  .top-right-mobil{
+  display: flex;
+  margin-top: 20px;
+}
+
+}
