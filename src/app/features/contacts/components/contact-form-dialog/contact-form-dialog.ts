@@ -99,8 +99,6 @@ export class ContactFormDialog {
       this.supabase.showForm.set(false);
       this.supabase.editMode.set(false);
       this.isClosing.set(false);
-      this.supabase.showForm.set(false);
-      this.supabase.editMode.set(false);
       this.name.set('');
       this.email.set('');
       this.phone.set('');

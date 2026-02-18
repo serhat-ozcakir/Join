@@ -152,6 +152,12 @@
     box-sizing: border-box;
     color: black;
     transition: border-color 100ms;
+     &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+    -webkit-text-fill-color: black;
+  }
 
     &:focus {
       outline: none;
