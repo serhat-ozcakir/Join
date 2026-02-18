@@ -13,7 +13,6 @@
 
 .modal {
   display: flex;
-  max-height: 600px;
   height: auto;
   min-height: 600px;
   max-width: 1200px;
@@ -42,7 +41,7 @@
     transform: translateX(0%);
     opacity: 1;
   }
-    80% {
+  80% {
     transform: translateX(80%);
     opacity: 1;
   }
@@ -58,23 +57,22 @@
   justify-content: center;
   gap: 12px;
   background-color: #2a3647;
-  padding: 48px 66px;
+  padding: 48px 40px;
   border-radius: 30px 0 0 30px;
-  min-width: 300px;
-  flex-shrink: 0;
+  min-width: 250px;
 
   & .logo {
     width: 56px;
   }
 
   & .description-headline {
-    font-size: 62px;
+    font-size: clamp(47px, 5vw, 62px);
     color: white;
     white-space: nowrap;
   }
 
   & .description-text {
-    font-size: 27px;
+    font-size: clamp(20px, 2vw, 27px);
     color: white;
   }
 
@@ -93,6 +91,7 @@
   border-radius: 0 30px 30px 0;
   background-color: white;
   width: 100%;
+  min-width: 400px;
 }
 
 .close-btn {
@@ -108,8 +107,7 @@
   font-size: 20px;
   cursor: pointer;
   color: #2a3647;
-  transition:
-    background-color 100ms;
+  transition: background-color 100ms;
   width: 28px;
   height: 28px;
   align-self: flex-end;
@@ -124,15 +122,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
-  padding: 0 40px;
+  gap: clamp(16px, 2vw, 24px);
+  padding: 0 clamp(20px, 3vw, 40px);
   width: 100%;
 }
 
 .contact-icon {
   height: 120px;
   width: 120px;
-  margin: 0 40px;
+  margin: 0 clamp(20px, 3vw, 40px);
+  flex-shrink: 0;
 
   &.avatar-circle {
     border-radius: 50%;
@@ -153,6 +152,7 @@
   align-items: flex-start;
   width: 100%;
   padding-top: 40px;
+  min-width: 0;
 }
 
 .form-group {
@@ -169,12 +169,12 @@
     box-sizing: border-box;
     color: black;
     transition: border-color 100ms;
-     &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px white inset;
-    -webkit-text-fill-color: black;
-  }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px white inset;
+      -webkit-text-fill-color: black;
+    }
 
     &:focus {
       outline: none;
@@ -211,14 +211,13 @@
 
 .form-actions {
   display: flex;
-  gap: 24px;
+  gap: clamp(20px, 2vw, 24px);
   justify-content: flex-end;
-  // margin-top: 24px;
 
   button {
     display: flex;
     align-items: center;
-    padding: 16px;
+    padding: clamp(12px, 1.5vw, 16px);
     border: 1px solid #2a3647;
     border-radius: 10px;
     font-size: 21px;
@@ -226,6 +225,7 @@
     gap: 8px;
     transition: 125ms;
     min-width: fit-content;
+    white-space: nowrap;
 
     & img {
       width: 21px;
@@ -277,5 +277,35 @@
         height: 11px;
       }
     }
+  }
+}
+
+@media (max-width: 1240px) {
+  .contact-icon {
+    margin: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .modal {
+    position: relative;
+  }
+
+  .inner-form {
+    flex-direction: column;
+    padding-top: 80px;
+  }
+
+  .contact-icon,
+  .avatar-circle {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  .form {
+    width: 100%;
   }
 }
