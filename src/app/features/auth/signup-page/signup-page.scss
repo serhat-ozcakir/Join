@@ -6,76 +6,129 @@
 }
 
 .signup-card {
+  width: min(500px, 92vw);           
   background: #fff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  border-radius: 24px;                 
+  padding: 48px 56px;                   
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  text-align: center;
 
   h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+    font-size: 48px;                    
+    margin: 0;
+    color: #2a3647;
   }
 }
 
+.underline {
+  width: 120px;
+  height: 3px;
+  background: #29abe2;               
+  margin: 14px auto 28px;
+  border-radius: 2px;
+}
+
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  text-align: left;
 
   input {
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 14px 14px;
+    padding-right: 48px;               
+    border-radius: 10px;
+    border: 1px solid #d1d1d1;
+    outline: none;
     font-size: 16px;
     box-sizing: border-box;
 
     &:focus {
-      outline: none;
-      border-color: #4a90d9;
+      border-color: #29abe2;
     }
   }
 
   .error {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 4px;
     display: block;
+    margin-top: 6px;
+    color: #ff3d00;
+    font-size: 13px;
   }
 }
 
 .error-message {
-  background: #fee;
-  color: #c00;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  color: #ff3d00;
   text-align: center;
 }
 
 .success-message {
-  background: #efe;
-  color: #060;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  color: #2e7d32;
   text-align: center;
 }
 
+
+.input-wrap {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.input-wrap:focus-within .input-icon {
+  opacity: 1;
+}
+
+
+.form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+
+  input[type="checkbox"]{
+    width: 18px;
+    height: 18px;
+    accent-color: #29abe2;
+  }
+
+  label {
+    font-size: 14px;
+    color: #2a3647;
+
+    span {
+      color: #29abe2;
+      cursor: pointer;
+    }
+  }
+}
+
 .form-actions {
+  margin-top: 18px;
+
   button {
-    width: 100%;
-    padding: 14px;
-    background: #4a90d9;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border: unset;
     cursor: pointer;
+    border-radius: 10px;
+    padding: 12px 18px;
+    transition: 100ms;
+    font-weight: 600;
+    width: auto;                       
+    background: #2a3647;
+    color: #fff;
 
     &:hover:not(:disabled) {
-      background: #357abd;
+      background: #29abe2;
     }
 
     &:disabled {
@@ -90,11 +143,17 @@
   text-align: center;
 
   a {
-    color: #4a90d9;
+    color: #29abe2;                     
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+@media screen and (max-width:548px) {
+  .signup-card {
+    padding: 32px 20px;               
   }
 }

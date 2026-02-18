@@ -1,6 +1,7 @@
 <div class="signup-container">
   <div class="signup-card">
     <h1>Sign Up</h1>
+    <div class="underline"></div>
 
     @if (successMessage()) {
       <div class="success-message">{{ successMessage() }}</div>
@@ -14,21 +15,25 @@
 
       <form #signupForm="ngForm" (ngSubmit)="signupForm.valid && signup()">
         <div class="form-group">
+            <div class="input-wrap">
           <input
             type="text"
-            placeholder="Display Name"
+            placeholder="Name"
             [ngModel]="displayName()"
             (ngModelChange)="displayName.set($event)"
             name="displayName"
             required
             #nameInput="ngModel"
           />
+           <img class="input-icon" src="assets/icons/person.png" alt="" aria-hidden="true" />
+          </div>
           @if (nameInput.invalid && nameInput.touched) {
             <span class="error">Name is required</span>
           }
         </div>
 
         <div class="form-group">
+            <div class="input-wrap">
           <input
             type="email"
             placeholder="Email"
@@ -39,12 +44,15 @@
             email
             #emailInput="ngModel"
           />
+           <img class="input-icon" src="assets/icons/mail.png" alt="" aria-hidden="true" />
+          </div>
           @if (emailInput.invalid && emailInput.touched) {
             <span class="error">Valid email is required</span>
           }
         </div>
 
         <div class="form-group">
+             <div class="input-wrap">
           <input
             type="password"
             placeholder="Password"
@@ -55,12 +63,15 @@
             minlength="6"
             #passwordInput="ngModel"
           />
+           <img class="input-icon" src="assets/icons/lock.png" alt="" aria-hidden="true" />
+          </div>
           @if (passwordInput.invalid && passwordInput.touched) {
             <span class="error">Password must be at least 6 characters</span>
           }
         </div>
 
         <div class="form-group">
+           <div class="input-wrap">
           <input
             type="password"
             placeholder="Confirm Password"
@@ -70,6 +81,13 @@
             required
             #confirmInput="ngModel"
           />
+           <img class="input-icon" src="assets/icons/lock.png" alt="" aria-hidden="true" />
+          </div>
+        </div>
+        <div class="form-group form-check">
+          <input 
+          type="checkbox" name="" id="checkbox">
+          <label for="checkbox">I accept the <span>Privacy Policy</span></label>
         </div>
 
         <div class="form-actions">
