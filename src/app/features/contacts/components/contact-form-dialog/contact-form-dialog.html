@@ -1,6 +1,6 @@
 @if (supabase.showForm()) {
   <div class="modal-overlay" (click)="closeForm()">
-    <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal" (click)="$event.stopPropagation()" [class.closing]="isClosing()">
       <aside class="description-area">
         <img class="logo" src="/assets/icons/logo.png" alt="Join Logo" />
         <h2 class="description-headline">

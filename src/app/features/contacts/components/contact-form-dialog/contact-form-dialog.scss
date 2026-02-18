@@ -19,6 +19,29 @@
   width: 100%;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideInFromRight 400ms ease-out;
+
+  &.closing {
+    animation: slideOutToRight 400ms ease-in;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .description-area {

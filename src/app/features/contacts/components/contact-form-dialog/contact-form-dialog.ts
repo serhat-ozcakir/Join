@@ -10,6 +10,7 @@ import { Supabase, Contact } from '../../../../supabase';
 })
 export class ContactFormDialog {
   supabase = inject(Supabase);
+  isClosing = signal(false);
 
   name = signal('');
   email = signal('');
@@ -32,7 +33,7 @@ export class ContactFormDialog {
     const value = this.name().trim();
     if (!value) return 'Name is required';
     if (/\d/.test(value)) return 'Name must not contain numbers';
-    const words = value.split(/\s+/).filter(w => w.length > 0);
+    const words = value.split(/\s+/).filter((w) => w.length > 0);
     if (words.length < 2) return 'Please enter first and last name';
     return null;
   });
@@ -93,14 +94,20 @@ export class ContactFormDialog {
    * Schließt das Formular und setzt alle Felder zurück.
    */
   closeForm() {
-    this.supabase.showForm.set(false);
-    this.supabase.editMode.set(false);
-    this.name.set('');
-    this.email.set('');
-    this.phone.set('');
-    this.nameTouched.set(false);
-    this.emailTouched.set(false);
-    this.phoneTouched.set(false);
+    this.isClosing.set(true);
+    setTimeout(() => {
+      this.supabase.showForm.set(false);
+      this.supabase.editMode.set(false);
+      this.isClosing.set(false);
+      this.supabase.showForm.set(false);
+      this.supabase.editMode.set(false);
+      this.name.set('');
+      this.email.set('');
+      this.phone.set('');
+      this.nameTouched.set(false);
+      this.emailTouched.set(false);
+      this.phoneTouched.set(false);
+    }, 400);
   }
 
   /**
@@ -119,7 +126,7 @@ export class ContactFormDialog {
     const contact: Contact = {
       name: this.name().trim(),
       email: this.email().trim(),
-      phone: this.phone().trim()
+      phone: this.phone().trim(),
     };
 
     try {
