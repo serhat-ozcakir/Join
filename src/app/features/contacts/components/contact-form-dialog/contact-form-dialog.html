@@ -93,7 +93,7 @@
                   />
                 }
               </button>
-              <button type="submit" [disabled]="saving()" (click)="contactPage.disappearSwitch(true)">
+              <button type="submit" [disabled]="saving()">
                 {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create contact' }}
                 <img class="submit-icon" src="/assets/icons/check.svg" alt="Close Button" />
               </button>

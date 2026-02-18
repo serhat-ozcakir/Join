@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ContactList } from '../../components/contact-list/contact-list';
 import { ContactDetail } from '../../components/contact-detail/contact-detail';
 import { ContactFormDialog } from '../../components/contact-form-dialog/contact-form-dialog';
@@ -9,15 +9,18 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
   templateUrl: './contacts-page.html',
   styleUrl: './contacts-page.scss',
 })
+
 export class ContactsPage {
-  y: boolean = false;
+
+  y = signal(false);
 
   disappearSwitch(x: boolean) {
-    this.y = x;
+    this.y.set(x);
+
     if (x) {
       setTimeout(() => {
-        this.y = false;
-      }, 4800);
+        this.y.set(false);
+      }, 3000);
     }
   }
 }

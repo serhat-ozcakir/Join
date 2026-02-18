@@ -165,6 +165,7 @@ phoneError = computed(() => {
         await this.supabase.addContact(contact);
       }
       this.closeForm();
+      this.contactPage.disappearSwitch(true);
     } catch (err: any) {
       console.error('Error:', err);
     } finally {
