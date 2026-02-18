@@ -23,7 +23,7 @@
   align-items: flex-start;
   position: relative;
 
-  #Toast-Notification {
+  .Toast-Notification {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -52,4 +52,5 @@
   flex: 1;
   overflow: hidden;
 }
+
 

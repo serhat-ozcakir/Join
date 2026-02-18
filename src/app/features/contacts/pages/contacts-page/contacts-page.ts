@@ -5,11 +5,14 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
 
 @Component({
   selector: 'app-contacts-page',
-  standalone:true,
-  imports: [ContactList,ContactDetail,ContactFormDialog ],
+  imports: [ContactList,ContactDetail,ContactFormDialog],
   templateUrl: './contacts-page.html',
   styleUrl: './contacts-page.scss',
 })
 export class ContactsPage {
+  y:true | false = true;
 
+  disappearSwitch(x:boolean) {
+    this.y = x;
+  }
 }
