@@ -1,62 +1,87 @@
 @if (supabase.showForm()) {
   <div class="modal-overlay" (click)="closeForm()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h2>{{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}</h2>
-      <button class="close-btn" (click)="closeForm()">✕</button>
+      <aside class="description-area">
+        <img class="logo" src="/assets/icons/logo.png" alt="Join Logo" />
+        <h2 class="description-headline">
+          {{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}
+        </h2>
+        <p class="description-text">
+          {{ supabase.editMode() ? '' : 'Tasks are better with a team!' }}
+        </p>
+        <div class="blue-line"></div>
+      </aside>
 
-      <form (ngSubmit)="saveContact()" novalidate>
-        <div class="form-group">
-          <input
-            type="text"
-            placeholder="Name (First and Last) *"
-            [ngModel]="name()"
-            (ngModelChange)="name.set($event)"
-            (blur)="nameTouched.set(true)"
-            name="name"
-            [class.invalid]="nameError() && nameTouched()"
-          />
-          @if (nameError() && nameTouched()) {
-            <span class="error">{{ nameError() }}</span>
-          }
-        </div>
+      <article class="form-area">
+        <button class="close-btn" (click)="closeForm()">
+          <img src="/assets/icons/close-button.svg" alt="" />
+        </button>
+        <div class="inner-form">
+          <img class="contact-icon" src="/assets/images/contact.png" alt="Contact Icon" />
+          <form class="form" (ngSubmit)="saveContact()" novalidate>
+            <div class="form-group">
+              <input
+                type="text"
+                placeholder="Name"
+                [ngModel]="name()"
+                (ngModelChange)="name.set($event)"
+                (blur)="nameTouched.set(true)"
+                name="name"
+                [class.invalid]="nameError() && nameTouched()"
+              />
+              <img class="form-icon" src="/assets/icons/name.svg" alt="Person Icon" />
+              @if (nameError() && nameTouched()) {
+                <span class="error">{{ nameError() }}</span>
+              }
+            </div>
 
-        <div class="form-group">
-          <input
-            type="text"
-            placeholder="Email *"
-            [ngModel]="email()"
-            (ngModelChange)="email.set($event)"
-            (blur)="emailTouched.set(true)"
-            name="email"
-            [class.invalid]="emailError() && emailTouched()"
-          />
-          @if (emailError() && emailTouched()) {
-            <span class="error">{{ emailError() }}</span>
-          }
-        </div>
+            <div class="form-group">
+              <input
+                type="text"
+                placeholder="Email"
+                [ngModel]="email()"
+                (ngModelChange)="email.set($event)"
+                (blur)="emailTouched.set(true)"
+                name="email"
+                [class.invalid]="emailError() && emailTouched()"
+              />
+              <img class="form-icon" src="/assets/icons/mail.svg" alt="Person Icon" />
+              @if (emailError() && emailTouched()) {
+                <span class="error">{{ emailError() }}</span>
+              }
+            </div>
 
-        <div class="form-group">
-          <input
-            type="text"
-            placeholder="Phone *"
-            [ngModel]="phone()"
-            (ngModelChange)="phone.set($event)"
-            (blur)="phoneTouched.set(true)"
-            name="phone"
-            [class.invalid]="phoneError() && phoneTouched()"
-          />
-          @if (phoneError() && phoneTouched()) {
-            <span class="error">{{ phoneError() }}</span>
-          }
-        </div>
+            <div class="form-group">
+              <input
+                type="text"
+                placeholder="Phone"
+                [ngModel]="phone()"
+                (ngModelChange)="phone.set($event)"
+                (blur)="phoneTouched.set(true)"
+                name="phone"
+                [class.invalid]="phoneError() && phoneTouched()"
+              />
+              <img class="form-icon" src="/assets/icons/phone.svg" alt="Person Icon" />
+              @if (phoneError() && phoneTouched()) {
+                <span class="error">{{ phoneError() }}</span>
+              }
+            </div>
 
-        <div class="form-actions">
-          <button type="button" (click)="closeForm()">Cancel</button>
-          <button type="submit" [disabled]="saving()">
-            {{ saving() ? 'Saving...' : (supabase.editMode() ? 'Save' : 'Create') }}
-          </button>
+            <div class="form-actions">
+              <button type="button" (click)="closeForm()">
+                {{ supabase.editMode() ? 'Delete' : 'Cancel' }}
+                @if (!supabase.editMode()) {
+                  <img class="icon-default" src="/assets/icons/close-button.svg" alt="Close Button" />
+                  <img class="icon-hover" src="/assets/icons/close-button-hover.svg" alt="Close Button" />
+                }
+              </button>
+              <button type="submit" [disabled]="saving()">
+                {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create' }}
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </article>
     </div>
   </div>
 }
