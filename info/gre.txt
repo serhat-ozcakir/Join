@@ -48,7 +48,7 @@ Sonstiges
 	•	auth.uid() → Speichert automatisch die ID des aktuell eingeloggten Users.
 	•	gen_random_uuid() → Erstellt eine zufällige neue ID.
 
-    -----------------------------
+-----------------------------
 
 Primary Key = eindeutige ID pro Zeile
 
@@ -62,7 +62,7 @@ Foreign Key
 	•	verbindet Tabellen
 	•	Wert darf mehrfach vorkommen   
 
-    -----------------------------
+-----------------------------
 
 Wenn Primary grün ist, bedeutet das:
 	•	✅ Spalte ist Primärschlüssel
@@ -70,13 +70,13 @@ Wenn Primary grün ist, bedeutet das:
 	•	✅ Darf nicht NULL sein
 	•	✅ Identifiziert jede Tabellenzeile eindeutig
 
-    -----------------------------
+-----------------------------
 
     •	Is Nullable → Feld darf leer (NULL) sein.
 	•	Is Unique → Jeder Wert darf nur einmal vorkommen.
 	•	Define as Array → Feld speichert eine Liste von Werten.
 
-    -----------------------------
+-----------------------------
 
     Das ist für Zugriffsregeln (Policies) in Supabase.
 
@@ -85,14 +85,14 @@ Wenn Primary grün ist, bedeutet das:
 	•	✅ Wer Daten ändern darf
 	•	✅ Wer Daten löschen darf
 
-    -----------------------------
+-----------------------------
 
     •	Disabled → Keine Datenfreigabe
 	•	Schema Only → Nur Tabellenstruktur teilen
 	•	Schema & Logs → Struktur + Logs teilen
 	•	Schema, Logs & Data → Struktur + echte Daten teilen
 
-    -----------------------------
+-----------------------------
 
     Projektname („join“) & Plan („NANO“)
 	•	Das ist dein Supabase-Projekt.
@@ -121,7 +121,7 @@ Recent Branch: No branches
     In Supabase bedeutet ein Branch eine separate Kopie deiner Datenbank, ähnlich wie Branches in Git für Code.
     Branch → Migration exportieren → in eigene DB ausführen
 
-    -----------------------------
+-----------------------------
 
     Bucket name
 
@@ -176,6 +176,8 @@ Wenn ein Nutzer Bilder hochlädt, werden diese im Storage gespeichert.
 
 Files
 
+Files -> Settings -> Das ist die zentrale Konfiguration für Datei-Uploads und Bildverarbeitung in Supabase Storage.
+
 Hier verwaltest du deine hochgeladenen Dateien:
 	•	Dateien ansehen
 	•	hochladen
@@ -222,3 +224,468 @@ Schlüssel und Endpoint in der verwendeten Software konfigurieren.
 Prüfen, ob Dateien erfolgreich hoch- und heruntergeladen werden können.
 	•	Automatische Zugriffe oder Backups einrichten
 Prozesse konfigurieren, damit Daten automatisch gespeichert oder synchronisiert werden.
+
+-----------------------------
+
+Was ist das? (Supabase Storage Settings)
+	•	Einstellungen für Supabase Storage (Dateispeicher)
+	•	Aktivierung von Bild-Optimierung & Größenänderung
+	•	Festlegung der maximalen Upload-Dateigröße
+	•	Free-Plan: Upload-Limit auf 50 MB begrenzt
+	•	Hinweis: Keine Berechtigung, Einstellungen zu ändern
+
+⸻
+
+Was ist das? (Policy für „avatars“-Bucket)
+	•	Fenster zum Erstellen einer Zugriffsregel (Policy)
+	•	Regel bestimmt, wer was mit Dateien tun darf
+	•	Gilt für den Storage-Bucket avatars
+	•	Policy basiert auf SQL-Bedingungen
+
+⸻
+
+Allowed operations (Aktionen)
+	•	SELECT → Dateien lesen / herunterladen
+	•	INSERT → Dateien hochladen
+	•	UPDATE → Dateien ändern oder ersetzen
+	•	DELETE → Dateien löschen
+
+⸻
+
+Target roles (Rollen)
+	•	public → alle Nutzer, auch ohne Login
+	•	authenticated → nur eingeloggte Nutzer
+	•	service_role → Server/Backend, volle Rechte
+	•	Optional eigene Rollen möglich
+
+    Catalog URI
+	•	Adresse, über die ein Programm auf deinen Storage zugreift
+	•	Erklärung: Das ist der Einstiegspunkt, damit externe Tools wissen, wo dein Speicher liegt
+	•	Beispiel: Ein Analyse-Tool lädt Daten aus deinem Bucket
+
+⸻
+
+Catalog token
+	•	Sicherheitsschlüssel für den Zugriff
+	•	Erklärung: Beweist, dass dein Server Zugriff haben darf
+	•	Beispiel: Dein Backend verbindet sich automatisch mit Storage
+
+⸻
+
+Warehouse name
+	•	Name des Buckets
+	•	Erklärung: Gibt an, welcher Speicherbereich genutzt wird
+	•	Beispiel: Bucket avatars speichert alle Profilbilder
+
+⸻
+
+S3 endpoint
+	•	S3-kompatible Speicheradresse
+	•	Erklärung: Lässt Supabase wie Amazon S3 funktionieren
+	•	Beispiel: Backup-Software verbindet sich wie mit AWS S3
+
+⸻
+
+S3 access key ID
+	•	Zugriffsschlüssel (Benutzername)
+	•	Erklärung: Identifiziert das Programm beim Zugriff
+	•	Beispiel: Backup-Tool meldet sich mit diesem Key an
+
+⸻
+
+S3 secret access key
+	•	Geheimer Zugriffsschlüssel (Passwort)
+	•	Erklärung: Erlaubt dem Programm Zugriff auf Dateien
+	•	Beispiel: Server lädt automatisch Bilder hoch
+
+⸻
+
+Kurz zusammengefasst
+	•	Diese Daten braucht man, wenn Server oder Tools automatisch auf Storage zugreifen sollen
+	•	Für normale App-Nutzer meist nicht nötig
+
+-----------------------------
+
+Tables-Bereich im Supabase Storage
+	•	Hier werden Tabellen für Vektor-Daten im Bucket verwaltet
+	•	Aktuell existiert noch keine Tabelle
+	•	Man kann hier neue Tabellen erstellen
+
+⸻
+
+Wofür diese Tabellen da sind
+	•	Speicherung von Vektordaten (Embeddings)
+	•	Nutzung für:
+	•	KI-Suche
+	•	Ähnlichkeitssuche
+	•	Dokumentensuche
+	•	Chatbot-Wissensdatenbanken
+
+⸻
+
+Create table
+	•	Erstellt eine neue Vektor-Tabelle
+
+⸻
+
+Query from Postgres
+	•	Zugriff über Postgres-Abfragen
+
+⸻
+
+Beispiel-Nutzung
+	•	App speichert Text als Vektoren
+	•	Nutzer sucht nach ähnlichen Inhalten
+	•	System findet passende Daten über Vektorvergleich
+
+⸻
+
+Kurz gesagt
+	•	Bereich für KI- oder Suchdaten, nicht für normale Dateien oder Bilder
+
+-----------------------------
+
+Create vector table – Was wird hier gemacht?
+	•	Hier wird eine Vektor-Tabelle für Such- oder KI-Daten erstellt
+	•	Tabelle speichert Inhalte als Vektoren (Embeddings)
+	•	Wird für intelligente Suche oder KI genutzt
+
+⸻
+
+Name
+	•	Name der neuen Tabelle
+	•	Beispiel: documents, search_data, chat_memory
+
+⸻
+
+Dimension
+	•	Länge des Vektors
+	•	Muss zur verwendeten KI passen
+	•	Beispiel:
+	•	OpenAI Embeddings → oft 1536 Dimensionen
+	•	Andere Modelle haben andere Werte
+
+⸻
+
+Distance metric
+Bestimmt, wie Ähnlichkeit berechnet wird:
+	•	Cosine (Standard)
+	•	Vergleicht Richtung der Vektoren
+	•	Gut für Textsuche
+	•	Meist beste Wahl
+	•	Euclidean
+	•	Berechnet echte Distanz
+	•	Seltener für Text genutzt
+
+⸻
+
+Metadata keys
+	•	Zusätzliche Infos zu Daten
+	•	Beispiel:
+	•	Dokumentname
+	•	User-ID
+	•	Kategorie
+	•	Datum
+
+⸻
+
+Kurz gesagt
+	•	Du erstellst hier eine Datenbank für intelligente Suche in deiner App.
+
+    Key ID / Zugangsschlüssel – Erklärung
+	•	Eine Key ID ist der öffentliche Teil eines Zugangsschlüssels
+	•	Funktioniert wie ein Benutzername für Programme
+	•	Wird zusammen mit einem Secret Key benutzt
+
+⸻
+
+Wie Login mit Schlüsseln funktioniert
+	•	Access Key ID → Benutzername
+	•	Secret Access Key → Passwort
+	•	Zusammen geben sie Zugriff auf Storage
+
+⸻
+
+Beispiel
+	•	Backup-Programm verbindet sich mit Storage
+	•	Key ID = Benutzername
+	•	Secret Key = Passwort
+	•	Programm darf Dateien lesen oder speichern
+
+-----------------------------
+
+Wichtig (Vercel)
+	•	Key ID darf sichtbar sein
+	•	Secret Key niemals öffentlich machen
+	•	Secret Key gibt vollen Zugriff auf Daten
+
+    •	Plattform zum Hosten von Websites & Web-Apps
+	•	Automatisches Deployment aus GitHub
+	•	Erstellt Preview-Versionen bei Änderungen
+	•	Schnelles weltweites Hosting (CDN)
+	•	Ideal für Next.js, React, Frontend-Projekte
+	•	Arbeitet oft zusammen mit Supabase (Backend)
+
+-----------------------------
+
+	•	Database Size → Größe deiner Datenbank
+	•	Monthly Active Users (MAU) → Aktive Nutzer pro Monat
+	•	Egress → Daten, die aus Supabase heraus an Nutzer gesendet werden
+	•	Storage Size → Speicher für Dateien/Bilder
+	•	Realtime Connections → Gleichzeitige Live-Verbindungen
+	•	Realtime Messages → Echtzeit-Nachrichten
+	•	Edge Function Invocations → Serverfunktionen-Aufrufe
+	•	Cached Egress → Datenverkehr aus Cache
+
+-----------------------------
+
+⚙️ General
+	•	Name der Organisation ändern
+	•	Mitglieder verwalten
+	•	Projekte der Organisation
+
+🔐 Security
+	•	Sicherheits-Einstellungen
+	•	Zugriff & Berechtigungen verwalten
+
+🔑 OAuth Apps
+	•	Login über externe Anbieter konfigurieren
+(z. B. Google, GitHub Login für deine App)
+
+🏢 SSO
+	•	Single Sign-On für Firmen/Teams
+	•	Login über Firmenkonten
+
+📜 Audit Logs
+	•	Protokoll aller Aktionen
+	•	Wer hat was im Projekt geändert?
+
+📄 Legal Documents
+	•	Vertrags- & Nutzungsdokumente
+	•	rechtliche Infos
+
+-----------------------------
+
+Mit der Project ID in Supabase kannst du ein Projekt eindeutig identifizieren und verbinden.
+
+Typische Verwendungen:
+	•	✅ Projekt in CLI / Terminal verbinden
+(supabase link)
+	•	✅ Deployment oder Tools mit dem richtigen Projekt verbinden
+	•	✅ APIs & Skripte auf das richtige Projekt zeigen lassen
+	•	✅ Support oder Teammitgliedern das Projekt eindeutig nennen
+	•	✅ Automatisierung & CI/CD verbinden
+
+-----------------------------
+
+Type
+	•	Format der Verbindungsdaten
+	•	URI = alles in einer URL
+	•	Parameters = einzelne Werte (Host, User, Passwort usw.)
+
+Source
+	•	Welche Datenbank genutzt wird
+	•	Meist Primary Database (Hauptdatenbank)
+
+Method
+	•	Art der Verbindung
+	•	Direct connection = direkte Verbindung zur DB
+	•	Gut für Server & dauerhafte Verbindungen
+	•	Alternative: Pooler für viele kurze Verbindungen
+
+IPv4 Add-on
+	•	Aktiviert IPv4-Unterstützung
+	•	Nötig, wenn dein Hosting kein IPv6 unterstützt
+
+Pooler Settings
+	•	Einstellungen für Connection Pooler
+	•	Steuert Anzahl & Verwaltung von Verbindungen
+	•	Meist Standardwerte ausreichend
+
+Reset your database password
+	•	Setzt DB-Passwort neu
+	•	Alte Connection Strings funktionieren danach nicht mehr
+	•	Apps müssen aktualisiert werden
+
+-----------------------------
+
+Framework
+	•	Basis-Technologie für deine App (z. B. Next.js)
+	•	Gibt Projektstruktur & Funktionen vor
+	•	Vereinfacht Routing, Serverlogik & Rendering
+
+Using
+	•	Welche interne Struktur/Funktion des Frameworks genutzt wird
+	•	Beispiel: App Router in Next.js
+	•	Bestimmt, wie Seiten & Routen organisiert werden
+
+With
+	•	Zusätzliche Bibliothek oder SDK
+	•	Beispiel: supabase-js
+	•	Wird genutzt, um mit Supabase (DB, Auth, Storage) zu kommunizieren
+
+-----------------------------
+
+    ORM (Object-Relational Mapping) macht:
+	•	Verbindet Programmcode mit einer Datenbank
+	•	Tabellen werden als Objekte/Klassen nutzbar
+	•	Daten können ohne SQL direkt im Code gelesen/geschrieben werden
+	•	Wandelt Datenbankzeilen in Programmobjekte um
+	•	Vereinfacht Datenbankabfragen
+	•	Reduziert manuelles Schreiben von SQL
+	•	Macht Code übersichtlicher & wartbarer
+
+Kurz gesagt:
+👉 ORM lässt dich mit Datenbanken arbeiten, als wären es normale Objekte im Code.
+
+-----------------------------
+
+Prisma
+	•	Beliebtes modernes ORM für Node.js & TypeScript
+	•	Arbeitet mit einem eigenen Schema-Dateiformat
+	•	Generiert typsicheren Datenbank-Code
+	•	Sehr einsteigerfreundlich
+	•	Viele Komfortfunktionen & Tools
+	•	Gut für größere Projekte & Teams
+
+⸻
+
+Drizzle ORM
+	•	Leichtgewichtiges, modernes TypeScript-ORM
+	•	Kein eigenes Schema nötig – alles direkt in TypeScript
+	•	Sehr nah an echtem SQL
+	•	Weniger Abstraktion, mehr Kontrolle
+	•	Sehr schnell & minimalistisch
+	•	Beliebt für moderne Serverless-Stacks
+
+⸻
+
+Kurzvergleich
+
+Prisma
+	•	✅ einfacher Einstieg
+	•	✅ viele Tools
+	•	➖ etwas schwergewichtiger
+
+Drizzle
+	•	✅ sehr schnell & leicht
+	•	✅ volle SQL-Kontrolle
+	•	➖ etwas technischer
+
+⸻
+
+Faustregel
+	•	Anfänger / große Apps → Prisma
+	•	Performance / moderne Serverless Apps → Drizzle
+
+-----------------------------
+
+MCP (Model Context Protocol)
+	•	Offenes Protokoll zur Verbindung von KI-Modellen mit Tools & Datenquellen
+	•	Ermöglicht KI Zugriff auf externe Systeme (Dateien, APIs, Datenbanken)
+	•	Standardisiert, wie Tools einer KI zur Verfügung gestellt werden
+	•	Macht KI-Apps modular & erweiterbar
+	•	Wird genutzt, um Assistenten mit Funktionen auszustatten
+
+Kurz gesagt:
+👉 MCP ist eine Schnittstelle, damit KI sicher mit externen Tools und Daten arbeiten kann.
+
+-----------------------------
+
+Schema (in einer Datenbank) macht:
+	•	Ordnet und organisiert Datenbankobjekte
+	•	Enthält Tabellen, Views, Funktionen usw.
+	•	Trennt Datenbereiche logisch voneinander
+	•	Erlaubt mehrere Strukturen in einer Datenbank
+	•	Hilft bei Übersicht & Rechteverwaltung
+
+----------------------------- 
+
+RLS policies (Row Level Security) im Table Editor
+	•	RLS = Row Level Security
+	•	Steuert, wer welche Datenzeilen sehen oder ändern darf
+	•	Regeln gelten pro Tabelle
+	•	Wird oft für Benutzer- oder Rollenrechte genutzt
+	•	Wichtig für sichere Apps mit Login
+
+Beispiel
+	•	Nutzer darf nur seine eigenen Daten sehen
+	•	Admin darf alle Daten sehen
+
+Anzeige „2 RLS policies“
+	•	Bedeutet: Für diese Tabelle existieren 2 Sicherheitsregeln.
+
+
+----------------------------- 
+
+
+1. profile_select_own
+	•	Gilt für SELECT
+	•	Nutzer dürfen eigene Daten lesen
+	•	Betrifft angemeldete Nutzer (anonymous sign-ins / auth users)
+
+👉 User kann sein eigenes Profil sehen.
+
+⸻
+
+2. profile_update_own
+	•	Gilt für UPDATE
+	•	Nutzer dürfen eigene Daten ändern
+	•	Gilt ebenfalls für angemeldete Nutzer
+
+👉 User kann sein eigenes Profil bearbeiten.
+
+⸻
+
+✅ Zusammengefasst:
+	•	Regel 1 → eigenes Profil lesen
+	•	Regel 2 → eigenes Profil ändern
+	•	Zugriff auf andere Profile ist gesperrt.
+
+----------------------------- 
+
+    	•	Allow all (ALL)
+→ Erlaubt alle Aktionen (lesen, einfügen, ändern, löschen).
+	•	Allow insert contacts (INSERT)
+→ Nutzer dürfen neue Kontakte anlegen.
+	•	Allow read contacts (SELECT)
+→ Nutzer dürfen Kontakte lesen.
+	•	contacts_delete_own (DELETE)
+→ Nutzer dürfen eigene Kontakte löschen.
+	•	contacts_insert_auto (INSERT)
+→ Automatische Regel zum Einfügen von Kontakten.
+	•	contacts_manage_own (ALL)
+→ Nutzer dürfen alle Aktionen auf eigenen Kontakten ausführen.
+	•	contacts_select_own (SELECT)
+→ Nutzer sehen nur ihre eigenen Kontakte.
+	•	contacts_update_own (UPDATE)
+→ Nutzer dürfen eigene Kontakte ändern.
+
+----------------------------- 
+
+postgres role
+	•	Admin-/Superuser-Rolle
+	•	Hat volle Datenbankrechte
+	•	Umgeht alle RLS-Regeln
+	•	Sinn: Für Admin-Zugriffe, Serverfunktionen und Wartung der Datenbank
+
+anon role
+	•	Rolle für nicht eingeloggte Nutzer
+	•	Zugriff ohne Benutzerkonto
+	•	Rechte über RLS steuerbar
+	•	Sinn: Öffentliche Inhalte oder Funktionen ohne Login erlauben
+
+authenticated role
+	•	Rolle für eingeloggte Nutzer
+	•	Standardrolle nach Login
+	•	Rechte über RLS geregelt
+	•	Sinn: Zugriff auf persönliche oder geschützte Daten nach Anmeldung ermöglichen
+
+----------------------------- 
+
+SQL Editor
+	•	Bereich zum Schreiben und Ausführen von SQL-Befehlen
+	•	Direkter Zugriff auf die Datenbank
+	•	Tabellen erstellen oder ändern
+	•	Daten lesen, einfügen, ändern oder löschen
+	•	Abfragen testen und Ergebnisse sehen
