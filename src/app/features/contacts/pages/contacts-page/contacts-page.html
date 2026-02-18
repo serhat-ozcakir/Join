@@ -7,7 +7,11 @@
       <div class="contacts-page-detail">
         <app-contact-detail></app-contact-detail>
       </div>
-      <div [style.display]="y ? 'flex' : 'none'" class="Toast-Notification">Contact succesfully created</div>
+      @if (y) {
+        <div class="Toast-Notification">
+          Contact successfully created
+        </div>
+      }
     </div>
   </div>
   <app-contact-form-dialog></app-contact-form-dialog>

@@ -10,9 +10,14 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
   styleUrl: './contacts-page.scss',
 })
 export class ContactsPage {
-  y:true | false = false;
+  y: boolean = false;
 
-  disappearSwitch(x:boolean) {
+  disappearSwitch(x: boolean) {
     this.y = x;
+    if (x) {
+      setTimeout(() => {
+        this.y = false;
+      }, 4800);
+    }
   }
 }
