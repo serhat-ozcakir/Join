@@ -18,6 +18,22 @@
   display: flex;
   min-height: 0;
   overflow: hidden;
+  align-items: flex-start;
+  position: relative;
+
+  #Toast-Notification {
+    position: absolute;
+    bottom: 20px;     
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 50px;
+    border: red 2px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
 }
 
 .contacts-page-liste {
@@ -30,3 +46,4 @@
   flex: 1;
   overflow: hidden;
 }
+

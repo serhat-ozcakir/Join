@@ -1,31 +1,31 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { Supabase, Contact } from '../../../../supabase';
 
+    /**
+   * Array von Farben für Avatare.
+   */
+export const avatarColors = [
+  '#FF7A00',
+  '#9327FF',
+  '#6E52FF',
+  '#FC71FF',
+  '#FFBB2B',
+  '#1FD7C1',
+  '#462F8A',
+  '#FF4646',
+  '#00BEE8',
+  '#FF745E',
+];
+
 @Component({
   selector: 'app-contact-list',
   imports: [],
   templateUrl: './contact-list.html',
   styleUrl: './contact-list.scss',
 })
+
 export class ContactList implements OnInit {
   supabase = inject(Supabase);
-
-    /**
-   * Array von Farben für Avatare.
-   */
-  private avatarColors = [
-    '#FF7A00', // Orange
-    '#9327FF', // Lila
-    '#6E52FF', // Blau-Lila
-    '#FC71FF', // Pink
-    '#FFBB2B', // Gelb
-    '#1FD7C1', // Türkis
-    '#462F8A', // Dunkel-Lila
-    '#FF4646', // Rot
-    '#00BEE8', // Cyan
-    '#FF745E', // Koralle
-  ];
-
 
   /**
    * Gruppiert Kontakte nach Anfangsbuchstaben.
@@ -70,8 +70,8 @@ export class ContactList implements OnInit {
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
-    const index = Math.abs(hash) % this.avatarColors.length;
-    return this.avatarColors[index];
+    const index = Math.abs(hash) % avatarColors.length;
+    return avatarColors[index];
   }
 }
 
