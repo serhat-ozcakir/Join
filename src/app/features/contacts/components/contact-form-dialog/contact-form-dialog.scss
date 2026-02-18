@@ -15,7 +15,6 @@
   max-height: 600px;
   height: 600px;
   max-width: 1200px;
-  // padding: 32px;
   border-radius: 30px;
   width: 100%;
   position: relative;
@@ -112,9 +111,9 @@
 }
 
 .form-group {
-  // display: flex;
   margin-bottom: 20px;
   width: 100%;
+  min-height: 70px;
 
   input {
     width: 100%;
@@ -128,12 +127,12 @@
 
     &:focus {
       outline: none;
-      border-color: #4a90d9;
+      border-color: #29abe2;
       background: #fff;
     }
 
     &.invalid {
-      border-color: #e74c3c;
+      border-color: #e60026;
       background: #fef5f5;
     }
 
@@ -143,17 +142,16 @@
   }
 
   .form-icon {
-    width: 16px;
+    width: 18px;
     position: absolute;
     right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 18px;
     pointer-events: none;
     opacity: 0.6;
   }
 
   .error {
-    color: #e74c3c;
+    color: #e60026;
     font-size: 12px;
     margin-top: 6px;
     display: block;
@@ -162,20 +160,21 @@
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 24px;
   justify-content: flex-end;
   margin-top: 24px;
 
   button {
     display: flex;
     align-items: center;
-    padding: 15px 24px;
+    padding: 16px;
     border: 1px solid #2a3647;
     border-radius: 10px;
     font-size: 21px;
     cursor: pointer;
-    gap: 16px;
+    gap: 8px;
     transition: 125ms;
+    min-width: fit-content;
 
     & img {
       width: 21px;
@@ -193,6 +192,7 @@
       &:hover {
         border-color: #29abe2;
         color: #29abe2;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 
         .icon-default {
           display: none;
@@ -200,27 +200,30 @@
 
         .icon-hover {
           display: block;
-
-          & img {
-            width: 10px;
-            height: 10px;
-          }
         }
       }
     }
 
     &[type='submit'] {
-      background: #2A3647;
+      background: #2a3647;
       color: #fff;
+      font-weight: 700;
       white-space: nowrap;
+      max-width: 180px;
 
       &:hover:not(:disabled) {
-        background: #357abd;
+        background: #29abe2;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
       }
 
       &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+      }
+
+      & .submit-icon {
+        width: 15px;
+        height: 11px;
       }
     }
   }
