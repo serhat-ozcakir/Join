@@ -44,6 +44,9 @@ export const routes: Routes = [
        */
       { path: 'login', component: LoginPage },
 
+    { path: 'privacy', component: PrivacyPolicyPage },
+    { path: 'legal', component: LegalNoticePage },
+
       /**
        * Signup-Seite → erreichbar unter /signup
        */
