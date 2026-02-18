@@ -1,106 +1,117 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+.login-card {
+width: min(500px, 92vw);
+  background: #fff;
+  border-radius: 24px;
+  padding: 48px 56px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  text-align: center;
 }
 
-.login-card {
-  background: #fff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+.title {
+  font-size: 48px;
+  margin: 0;
+  color: #2a3647;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-  }
+.underline {
+  width: 120px;
+  height: 3px;
+  background: #29abe2;
+  margin: 14px auto 28px;
+  border-radius: 2px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  text-align: left;
+}
 
-  input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
+input {
+  width: 100%;
+  padding: 14px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  outline: none;
+  font-size: 16px;
+}
+input:focus { border-color: #29abe2; }
 
-    &:focus {
-      outline: none;
-      border-color: #4a90d9;
-    }
-  }
-
-  .error {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 4px;
-    display: block;
-  }
+.error {
+  display: block;
+  margin-top: 6px;
+  color: #ff3d00;
+  font-size: 13px;
 }
 
 .error-message {
-  background: #fee;
-  color: #c00;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
+  margin-bottom: 16px;
+  color: #ff3d00;
 }
 
-.form-actions {
-  button {
-    width: 100%;
-    padding: 14px;
-    background: #4a90d9;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-
-    &:hover:not(:disabled) {
-      background: #357abd;
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.links {
-  margin-top: 24px;
-  text-align: center;
+.actions {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+}
 
-  a {
-    color: #4a90d9;
-    text-decoration: none;
+.btn {
+  border: unset;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 12px 18px;
+  transition: 100ms;
+  font-weight: 600;
+}
+.btn-primary {
+  background: #2a3647;
+  color: #fff;
+}
+.btn-primary:hover { background: #29abe2; }
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+.btn-secondary {
+  background: #fff;
+  border: 1px solid #2a3647;
+  color: #2a3647;
+}
+.btn-secondary:hover {
+  border-color: #29abe2;
+  color: #29abe2;
+}
 
-  .guest-btn {
-    background: transparent;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-    &:hover {
-      background: #f5f5f5;
-    }
+.input-wrap{
+  position: relative;
+}
+
+.input-wrap input{
+  width: 100%;
+  padding-right: 48px; /* sağda ikon için alan */
+}
+
+.input-icon{
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.input-wrap:focus-within .input-icon{
+  opacity: 1;
+}
+
+
+@media screen and (max-width:548px) {
+  .actions{
+    flex-direction: column;
   }
 }
