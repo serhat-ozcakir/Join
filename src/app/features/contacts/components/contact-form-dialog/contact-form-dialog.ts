@@ -1,6 +1,7 @@
 import { Component, inject, signal, effect, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Supabase, Contact } from '../../../../supabase';
+import { ContactsPage } from '../../pages/contacts-page/contacts-page';
 
 @Component({
   selector: 'app-contact-form-dialog',
@@ -10,6 +11,7 @@ import { Supabase, Contact } from '../../../../supabase';
 })
 export class ContactFormDialog {
   supabase = inject(Supabase);
+  contactPage = inject(ContactsPage);
   isClosing = signal(false);
 
   name = signal('');
