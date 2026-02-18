@@ -1,4 +1,9 @@
 @if (supabase.selectedContact(); as contact) {
+    <div class="no-contact">
+    <h1>Contacts</h1>
+    <span class="divider"></span>
+    <p>Better with a team</p>
+  </div>
   <div class="contact-detail">
     <div class="header">
       <div class="avatar">{{ getInitials(contact.name) }}</div>
@@ -22,10 +27,6 @@
       </div>
     </div>
   </div>
-} @else {
-  <div class="no-contact">
-    <h1>Contacts</h1>
-    <span class="divider"></span>
-    <p>Better with a team</p>
-  </div>
+
+
 }
