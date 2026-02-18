@@ -29,7 +29,7 @@ export class ContactDetail {
   */
   async deleteContact() {
     const contact = this.supabase.selectedContact();
-    if (contact?.id && confirm('Confirm to delete?')) {
+    if (contact?.id ) {
       await this.supabase.deleteContact(contact.id);
     }
   }
