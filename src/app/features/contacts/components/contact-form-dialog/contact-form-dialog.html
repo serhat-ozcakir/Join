@@ -17,7 +17,16 @@
           <img src="/assets/icons/close-button.svg" alt="" />
         </button>
         <div class="inner-form">
-          <img class="contact-icon" src="/assets/images/contact.png" alt="Contact Icon" />
+          @if (supabase.editMode() && supabase.selectedContact()) {
+            <div
+              class="contact-icon avatar-circle"
+              [style.background]="getAvatarColor(supabase.selectedContact()!.name)"
+            >
+              {{ getInitials(supabase.selectedContact()!.name) }}
+            </div>
+          } @else {
+            <img class="contact-icon" src="/assets/images/contact.png" alt="Contact Icon" />
+          }
           <form class="form" (ngSubmit)="saveContact()" novalidate>
             <div class="form-group">
               <input

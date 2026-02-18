@@ -69,6 +69,37 @@ export class ContactFormDialog {
     return !this.nameError() && !this.emailError() && !this.phoneError();
   });
 
+  private avatarColors = [
+    '#FF7A00',
+    '#9327FF',
+    '#6E52FF',
+    '#FC71FF',
+    '#FFBB2B',
+    '#1FD7C1',
+    '#462F8A',
+    '#FF4646',
+    '#00BEE8',
+    '#FF745E',
+  ];
+
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
+
+  getAvatarColor(name: string): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % this.avatarColors.length;
+    return this.avatarColors[index];
+  }
+
   constructor() {
     effect(() => {
       if (this.supabase.showForm()) {
@@ -82,7 +113,6 @@ export class ContactFormDialog {
           this.email.set('');
           this.phone.set('');
         }
-        // Reset touched state
         this.nameTouched.set(false);
         this.emailTouched.set(false);
         this.phoneTouched.set(false);

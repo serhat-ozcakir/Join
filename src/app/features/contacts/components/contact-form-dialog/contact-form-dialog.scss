@@ -129,6 +129,18 @@
   height: 120px;
   width: 120px;
   margin: 0 40px;
+
+  &.avatar-circle {
+    border-radius: 50%;
+    border: 3px solid white;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 48px;
+    flex-shrink: 0;
+  }
 }
 
 .form {
