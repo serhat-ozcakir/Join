@@ -1,2 +1,22 @@
-<p>auth-layout works!</p>
-<router-outlet></router-outlet>
+<div class="auth-shell">
+  <header class="auth-top">
+    <div class="logo">
+        <img src="/assets/img/Capa-1.png" alt="Join logo" />
+
+    </div>
+
+    <div class="top-cta">
+      <span>Not a Join user?</span>
+      <a class="btn btn-dark" routerLink="/signup">Sign up</a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="auth-footer">
+    <a routerLink="/privacy">Privacy Policy</a>
+    <a routerLink="/legal">Legal notice</a>
+  </footer>
+</div>
