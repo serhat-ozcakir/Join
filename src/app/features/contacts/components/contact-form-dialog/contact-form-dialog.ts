@@ -16,12 +16,10 @@ export class ContactFormDialog {
   email = signal('');
   phone = signal('');
 
-  // Track wenn Felder berührt wurden
   nameTouched = signal(false);
   emailTouched = signal(false);
   phoneTouched = signal(false);
 
-  // Loading state
   saving = signal(false);
 
   /**
@@ -54,13 +52,15 @@ export class ContactFormDialog {
    * Validiert die Telefonnummer.
    * Darf nur Zahlen und optional "+" am Anfang enthalten.
    */
-  phoneError = computed(() => {
-    const value = this.phone().trim();
-    if (!value) return 'Phone is required';
-    const phoneRegex = /^\+?[0-9]+$/;
-    if (!phoneRegex.test(value)) return 'Phone must contain only numbers (and optional +)';
-    return null;
-  });
+phoneError = computed(() => {
+  const value = this.phone().trim();
+  if (!value) return 'Phone is required';
+  const cleaned = value.replace(/\s/g, '');
+
+  const phoneRegex = /^\+?[0-9]+$/;
+  if (!phoneRegex.test(cleaned)) return 'Phone must contain only numbers (and optional +)';
+  return null;
+});
 
   /**
    * Prüft ob das gesamte Formular gültig ist.
@@ -107,7 +107,7 @@ export class ContactFormDialog {
           const contact = this.supabase.selectedContact()!;
           this.name.set(contact.name);
           this.email.set(contact.email);
-          this.phone.set(contact.phone || '');
+          this.phone.set(this.formatPhoneInput(contact.phone || ''));
         } else {
           this.name.set('');
           this.email.set('');
@@ -142,7 +142,6 @@ export class ContactFormDialog {
    * Speichert den Kontakt (neu oder aktualisiert).
    */
   async saveContact() {
-    // Markiere alle Felder als berührt
     this.nameTouched.set(true);
     this.emailTouched.set(true);
     this.phoneTouched.set(true);
@@ -154,7 +153,7 @@ export class ContactFormDialog {
     const contact: Contact = {
       name: this.name().trim(),
       email: this.email().trim(),
-      phone: this.phone().trim(),
+      phone: this.phone().replace(/\s/g, ''),
     };
 
     try {
@@ -170,4 +169,28 @@ export class ContactFormDialog {
       this.saving.set(false);
     }
   }
+
+formatPhoneInput(value: string): string {
+  const cleaned = value.replace(/[^\d+]/g, '');
+  if (cleaned.startsWith('+')) {
+    const countryCode = cleaned.substring(0, 3);
+    const rest = cleaned.substring(3);
+    const formatted = rest.match(/.{1,4}/g)?.join(' ') || '';
+    return `${countryCode} ${formatted}`.trim();
+  }
+  return cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
+}
+
+updatePhone(value: string) {
+  const formatted = this.formatPhoneInput(value);
+  this.phone.set(formatted);
+}
+
+onPhoneKeyPress(event: KeyboardEvent) {
+  const char = event.key;
+  if (!/[\d+]/.test(char) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(char)) {
+    event.preventDefault();
+  }
+}
+
 }
