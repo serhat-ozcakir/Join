@@ -76,7 +76,10 @@
                 }
               </button>
               <button type="submit" [disabled]="saving()">
-                {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create' }}
+                {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create contact' }}
+              @if (!supabase.editMode()) {
+                  <img class="icon-hover" src="/assets/icons/check.svg" alt="Close Button" />
+                }
               </button>
             </div>
           </form>
