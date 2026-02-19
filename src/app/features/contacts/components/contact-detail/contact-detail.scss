@@ -187,19 +187,25 @@
   }
 }
 
-@media (max-width: 991px) {
-  .contacts-top .icon-btn {
+
+@media (max-width: 900px) {
+    .contacts-top .icon-btn {
     display: flex;
   }
+  .contact-detail {
+    animation: slideInFromRight 400ms ease-out;
 
-    .fab-wrap{
+    &.closing {
+      animation: slideOutToRight 400ms ease-in forwards;
+    }
+  }
+   .fab-wrap{
     display: block;
     position: fixed;
     right: 18px;
     bottom: 86px;
     z-index: 9999;
   }
-
 
   .fab{
     display: flex;
@@ -222,7 +228,6 @@
     height: 56px;
     display: block;
   }
-
 
   .fab-menu{
     position: absolute;
@@ -260,22 +265,6 @@
   }
   .header .actions { display: none !important; }
 }
-
-
-
-
-
-@media (max-width: 900px) {
-  .contact-detail {
-    animation: slideInFromRight 400ms ease-out;
-
-    &.closing {
-      animation: slideOutToRight 400ms ease-in forwards;
-    }
-  }
-}
-
-
 
 
 @keyframes slideInFromRight {

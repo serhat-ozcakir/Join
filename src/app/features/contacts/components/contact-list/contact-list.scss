@@ -27,19 +27,19 @@
 }
 
 .letter-separator {
-  font-size: 18px;
-  font-weight: bold;
-  color: #4a90d9;
-  padding: 12px 0 8px 8px;
-  border-bottom: 1px solid #eee;
+  font-size: 20px;
+  color: black;
+  padding: 12px 0 16px 40px;
+  border-bottom: 1px solid #D1D1D1;
   margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
+  gap: 35px;
+  padding: 15px 24px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
@@ -61,7 +61,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
   font-size: 16px;
 }
 
