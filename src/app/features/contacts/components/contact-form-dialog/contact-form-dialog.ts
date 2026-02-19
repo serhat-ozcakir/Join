@@ -152,32 +152,12 @@ export class ContactFormDialog {
     }, 400);
   }
 
-  /**
-   * Speichert den Kontakt (neu oder aktualisiert).
-   */
   async saveContact() {
-    Object.keys(this.contactForm.controls).forEach(key => {
-      this.contactForm.get(key)?.markAsTouched();
-    });
-
+    this.markAllFieldsAsTouched();
     if (!this.contactForm.valid) return;
-
     this.saving.set(true);
-
-    const formValue = this.contactForm.value;
-    const contact: Contact = {
-      name: formValue.name?.trim() || '',
-      email: formValue.email?.trim() || '',
-      phone: formValue.phone?.replace(/\s/g, '') || '',
-    };
-
     try {
-      if (this.supabase.editMode() && this.supabase.selectedContact()?.id) {
-        await this.supabase.updateContact(this.supabase.selectedContact()!.id!, contact);
-      } else {
-        await this.supabase.addContact(contact);
-        this.contactPage.disappearSwitch(true);
-      }
+      await this.createOrUpdateContact();
       this.closeForm();
     } catch (err: any) {
       console.error('Error:', err);
@@ -186,8 +166,36 @@ export class ContactFormDialog {
     }
   }
 
+  private markAllFieldsAsTouched() {
+    Object.keys(this.contactForm.controls).forEach(key => {
+      this.contactForm.get(key)?.markAsTouched();
+    });
+  }
+
+  private buildContactFromForm(): Contact {
+    const formValue = this.contactForm.value;
+    return {
+      name: formValue.name?.trim() || '',
+      email: formValue.email?.trim() || '',
+      phone: formValue.phone?.replace(/\s/g, '') || '',
+    };
+  }
+
+  private async createOrUpdateContact() {
+    const contact = this.buildContactFromForm();
+    const selectedId = this.supabase.selectedContact()?.id;
+    if (this.supabase.editMode() && selectedId) {
+      await this.supabase.updateContact(selectedId, contact);
+    } else {
+      await this.supabase.addContact(contact);
+      this.contactPage.disappearSwitch(true);
+    }
+  }
+
 formatPhoneInput(value: string): string {
-  const cleaned = value.replace(/[^\d+]/g, '');
+  const hasPlus = value.startsWith('+');
+  const digits = value.replace(/[^\d]/g, '');
+  const cleaned = hasPlus ? '+' + digits : digits;
   if (cleaned.startsWith('+')) {
     const countryCode = cleaned.substring(0, 3);
     const rest = cleaned.substring(3);
