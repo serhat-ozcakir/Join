@@ -42,7 +42,7 @@
 }
 
 .contacts-page-liste {
-  flex: 0 0 360px;
+  flex: 0 0 400px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   height: 100%;
@@ -81,7 +81,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
   .contacts-page {
     position: relative;
   }
