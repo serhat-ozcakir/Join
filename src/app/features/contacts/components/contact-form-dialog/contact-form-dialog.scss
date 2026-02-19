@@ -97,8 +97,9 @@
 
 .close-btn {
   position: absolute;
-  top: 40px;
-  right: 16px;
+  top: 28px;
+  right: 0px;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -374,8 +375,8 @@
   }
 
   .close-btn {
-    top: -200px;
-    right: 16px;
+    top: 26px;
+    right: 6px;
     margin-right: 30px;
 
     & img {
