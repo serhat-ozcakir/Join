@@ -12,6 +12,8 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
 
 export class ContactsPage {
 
+  showForm = signal(false);
+  showDetailOnMobile = signal(false);
   y = signal(false);
 
   disappearSwitch(x: boolean) {
