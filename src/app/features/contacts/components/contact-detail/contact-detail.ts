@@ -1,6 +1,7 @@
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { Supabase } from '../../../../supabase';
 import { CommonModule } from '@angular/common';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-contact-detail',
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ContactDetail {
   supabase = inject(Supabase);
+  fabOpen = false;
 
   @Output() closeDetail = new EventEmitter<void>();
 
@@ -32,13 +34,26 @@ export class ContactDetail {
   */
   async deleteContact() {
     const contact = this.supabase.selectedContact();
-    if (contact?.id ) {
+    if (contact?.id) {
       await this.supabase.deleteContact(contact.id);
     }
   }
 
-
   onClose() {
     this.closeDetail.emit();
+  }
+  
+  toggleFab(e?: Event) {
+    e?.stopPropagation();
+    this.fabOpen = !this.fabOpen;
+  }
+
+  closeFab() {
+    this.fabOpen = false;
+  }
+
+  @HostListener('document:click')
+  onDocClick() {
+    this.fabOpen = false;
   }
 }

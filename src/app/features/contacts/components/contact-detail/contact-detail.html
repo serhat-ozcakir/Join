@@ -1,17 +1,23 @@
-    <div class="no-contact">
+<div class="contacts-top">
+  <div class="top-row">
     <h1>Contacts</h1>
-    <span class="divider"></span>
-    <p>Better with a team</p>
+
+    @if (supabase.selectedContact()) {
+      <button class="icon-btn" (click)="onClose()" aria-label="Back">
+        <img src="assets/icons/arrow-left-line.png" alt="Back">
+      </button>
+    }
   </div>
+
+  <p>Better with a team</p>
+  <span class="blue-underline"></span>
+</div>
+
 @if (supabase.selectedContact(); as contact) {
-
   <div class="contact-detail">
-    <button class="back-button" (click)="onClose()">
-      ← Back to contacts
-    </button>
-
     <div class="header">
       <div class="avatar">{{ getInitials(contact.name) }}</div>
+
       <div class="info">
         <h2>{{ contact.name }}</h2>
         <div class="actions">
@@ -20,12 +26,15 @@
         </div>
       </div>
     </div>
+
     <div class="details">
       <h3>Contact Information</h3>
+
       <div class="field">
         <span class="label">Email</span>
         <a href="mailto:{{contact.email}}">{{ contact.email }}</a>
       </div>
+
       <div class="field">
         <span class="label">Phone</span>
         <span class="value">{{ contact.phone || '-' }}</span>
@@ -33,5 +42,26 @@
     </div>
   </div>
 
+<div class="fab-wrap" (click)="$event.stopPropagation()">
+  <button
+    type="button"
+    class="fab"
+    aria-label="More actions"
+    [attr.aria-expanded]="fabOpen"
+    (click)="toggleFab($event)"
+  >
+    <img class="fab-img" src="assets/icons/Menu-Contact-options.png" alt="" />
+  </button>
+
+  <div class="fab-menu" *ngIf="fabOpen">
+    <button type="button" class="fab-item" (click)="editContact(); closeFab()">
+      <span>Edit</span>
+    </button>
+
+    <button type="button" class="fab-item" (click)="deleteContact(); closeFab() ">
+      <span>Delete</span>
+    </button>
+  </div>
+</div>
 
 }

@@ -1,8 +1,64 @@
 
+.contacts-top {
+  padding: 24px 24px 8px;
+  background: #fff;
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    margin: 10px 0 0;
+    font-size: 18px;
+    color: #2b2b2b;
+  }
+
+  .blue-underline {
+    display: block;
+    width: 92px;
+    height: 3px;
+    margin-top: 10px;
+    background: #1e88e5;
+    border-radius: 2px;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    display: none;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+  }
+}
 
 
 .contact-detail {
-  padding: 32px;
+  padding: 18px 24px 110px; 
   height: 100%;
   overflow-y: auto;
   animation: slideInFromRight 400ms ease-out;
@@ -12,135 +68,84 @@
   }
 }
 
-.back-button {
-  display: none;
-  padding: 8px 16px;
-  background: #2a3647;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-bottom: 16px;
-  font-size: 14px;
-
-  &:hover {
-    background: #091931;
-  }
-}
-
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutToRight {
-  0% {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-    80% {
-    transform: translateX(80%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-
 .header {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 18px;
+  margin-top: 8px;
+  margin-bottom: 22px;
 
   .avatar {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background: #ff9800;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 28px;
-    border: solid 2px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 22px;
+    border: none;
   }
 
   .info {
     h2 {
-      margin: 0 0 12px;
-      font-size: 32px;
-      font-weight: 500;
-      color: #333;
+      margin: 0;
+      font-size: 34px;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.3px;
     }
   }
 
   .actions {
-    display: flex;
-    gap: 16px;
+    margin-top: 8px;
+    display: none; 
+    gap: 18px;
 
     button {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: transparent;
-      border: unset;
-      color: #333;
+      border: 0;
+      color: #111;
       font-size: 14px;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: background 100ms;
+      padding: 4px 6px;
+      border-radius: 6px;
 
       &:hover {
-        background: #bdaeae;
-        color: #1343f1;
+        background: #f2f2f2;
       }
 
-      &::before {
-        font-size: 16px;
-      }
-
-      &:first-child::before {
-        content: '✏️';
-      }
-
-      &:last-child::before {
-        content: '🗑️';
-      }
+      &:first-child::before { content: '✏️'; }
+      &:last-child::before  { content: '🗑️'; }
     }
   }
 }
 
 .details {
   h3 {
+    margin: 0 0 18px;
     font-size: 16px;
-    font-weight: 500;
-    color: #090909;
-    margin: 0 0 16px;
-    padding-bottom: 18px;
+    font-weight: 700;
+    color: #111;
   }
 
   .field {
-    margin-bottom: 16px;
+    margin-bottom: 22px;
 
     .label {
       display: block;
       font-size: 16px;
-      color: #000000;
-      margin-bottom: 14px;
-      font-weight: 600;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 10px;
     }
 
     a {
-      color: #1421df;
+      color: #1a56db;
       text-decoration: none;
       font-size: 16px;
 
@@ -151,70 +156,113 @@
 
     .value {
       font-size: 16px;
-      color: #111111;
+      color: #111;
     }
   }
 }
 
-.no-contact {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 32px;
-
-  h1 {
-    font-size: 48px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-  }
-
-  .divider {
-    width: 3px;
-    height: 60px;
-    background: #4a90d9;
-    border-radius: 2px;
-  }
-
-  p {
-    font-size: 20px;
-    color: #333;
-    margin: 0;
-  }
+.fab-wrap { 
+  display: none; 
 }
 
 
-@media (max-width: 600px) {
-  .back-button {
+
+@media (max-width: 991px) {
+  .contacts-top .icon-btn {
+    display: flex;       
+  }
+  
+    .fab-wrap{
+    display: block;
+    position: fixed;
+    right: 18px;
+    bottom: 86px; 
+    z-index: 9999;
+  }
+
+
+  .fab{
+    display: flex;
+    position: absolute;
+    bottom: 76px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 0;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    box-shadow: none;
+  }
+
+  .fab-img{
+    width: 56px;
+    height: 56px;
     display: block;
   }
 
-  .contact-detail {
-    padding: 16px;
+
+  .fab-menu{
+    position: absolute;
+    right: 5px;
+    bottom: 76px;
+    width: 170px;
+    background: #fff;
+    border-radius: 16px 16px 0 16px;
+    padding: 8px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.18);
   }
 
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  .fab-item{
+    width: 100%;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 
-    .avatar {
-      width: 60px;
-      height: 60px;
-    }
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 12px;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1f2a37;
+
+    &:hover { background: #f2f4f7; }
   }
 
-  .no-contact {
-    flex-direction: column;
-    padding: 16px;
-
-    h1 {
-      font-size: 32px;
-    }
-
-    .divider {
-      width: 60px;
-      height: 3px;
-    }
+  .fab-ic{
+    width: 22px;
+    display: inline-flex;
+    justify-content: center;
   }
+  .header .actions { display: none !important; }
+}
+
+@media (min-width: 700px) {
+  .header .actions {
+    display: flex;
+  }
+}
+
+@media (max-width: 700px) {
+  .header .actions {
+    display: flex;
+  }
+}
+
+
+
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutToRight {
+  0% { transform: translateX(0%); opacity: 1; }
+  80% { transform: translateX(80%); opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
 }
