@@ -14,7 +14,6 @@ export class ContactsPage {
 
   showForm = signal(false);
   showDetailOnMobile = signal(false);
-  y = signal(false);
 
   disappearSwitch(OnOff: boolean) {
     this.showForm.set(OnOff);
