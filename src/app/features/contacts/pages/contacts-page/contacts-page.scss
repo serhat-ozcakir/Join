@@ -80,3 +80,43 @@
   }
 }
 
+@media (max-width: 900px) {
+  .contacts-page-liste {
+    flex: 0 0 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contacts-page {
+    position: relative;
+  }
+
+  .contacts-content {
+    flex-direction: column;
+  }
+
+  .contacts-page-liste {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    flex: 1;
+  }
+
+  .contacts-page-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 100;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+
+    &.show-mobile {
+      transform: translateX(0);
+    }
+  }
+}
+

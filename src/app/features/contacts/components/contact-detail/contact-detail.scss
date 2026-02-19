@@ -1,9 +1,28 @@
+
+
+
 .contact-detail {
   padding: 32px;
    animation: slideInFromRight 400ms ease-out;
 
   &.closing {
     animation: slideOutToRight 400ms ease-in forwards;
+  }
+}
+
+.back-button {
+  display: none;
+  padding: 8px 16px;
+  background: #2a3647;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 14px;
+
+  &:hover {
+    background: #091931;
   }
 }
 
@@ -159,5 +178,41 @@
     font-size: 20px;
     color: #333;
     margin: 0;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .back-button {
+    display: block;
+  }
+
+  .contact-detail {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .no-contact {
+    flex-direction: column;
+    padding: 16px;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+    }
   }
 }

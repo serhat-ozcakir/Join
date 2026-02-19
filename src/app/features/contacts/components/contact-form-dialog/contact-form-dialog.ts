@@ -105,6 +105,8 @@ phoneError = computed(() => {
   constructor() {
     effect(() => {
       if (this.supabase.showForm()) {
+        document.body.style.overflow = 'hidden';
+
         if (this.supabase.editMode() && this.supabase.selectedContact()) {
           const contact = this.supabase.selectedContact()!;
           this.name.set(contact.name);
@@ -118,6 +120,8 @@ phoneError = computed(() => {
         this.nameTouched.set(false);
         this.emailTouched.set(false);
         this.phoneTouched.set(false);
+      } else {
+        document.body.style.overflow = '';
       }
     });
   }

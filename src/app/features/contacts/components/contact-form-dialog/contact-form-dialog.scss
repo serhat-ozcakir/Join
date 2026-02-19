@@ -9,6 +9,7 @@
   align-items: center;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 .modal {
@@ -143,6 +144,18 @@
     font-weight: 500;
     font-size: 48px;
     flex-shrink: 0;
+  }
+
+  &.mobile-avatar {
+    display: none;
+  }
+
+  &.desktop-avatar {
+    display: block;
+
+    &.avatar-circle {
+      display: flex;
+    }
   }
 }
 

@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { Supabase } from '../../../../supabase';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-detail',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './contact-detail.html',
   styleUrl: './contact-detail.scss',
 })
 export class ContactDetail {
   supabase = inject(Supabase);
+
+  @Output() closeDetail = new EventEmitter<void>();
 
   getInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -32,5 +35,10 @@ export class ContactDetail {
     if (contact?.id ) {
       await this.supabase.deleteContact(contact.id);
     }
+  }
+
+
+  onClose() {
+    this.closeDetail.emit();
   }
 }

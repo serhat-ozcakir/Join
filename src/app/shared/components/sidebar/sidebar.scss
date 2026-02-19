@@ -77,3 +77,84 @@ section {
     color: #29abe2;
   }
 }
+
+
+@media (max-width: 900px) {
+  section {
+    width: 80px;
+    padding: 20px 0;
+  }
+
+  .button{
+    border-radius: 8px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 60px;
+  }
+
+  .sidebar-button-text {
+    display: none;
+  }
+
+  .sidebar-button {
+    padding-left: 25px;
+    justify-content: center;
+  }
+
+  .legal-information {
+    font-size: 12px;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 12px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    z-index: 50;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .button-bar {
+    flex-direction: row;
+    padding-bottom: 0;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .sidebar-button {
+    padding: 8px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sidebar-button-text {
+    display: block;
+    font-size: 11px;
+  }
+
+  .sidebar-button-image {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .legal-information {
+    display: none;
+  }
+}
