@@ -3,7 +3,9 @@
 
 .contact-detail {
   padding: 32px;
-   animation: slideInFromRight 400ms ease-out;
+  height: 100%;
+  overflow-y: auto;
+  animation: slideInFromRight 400ms ease-out;
 
   &.closing {
     animation: slideOutToRight 400ms ease-in forwards;
