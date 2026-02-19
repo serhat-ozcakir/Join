@@ -3,7 +3,9 @@ section {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 80px 0;
+  // padding: clamp(20px, 8vh, 80px);
+  padding-top: clamp(20px, 8vh, 80px);
+  padding-bottom: clamp(20px, 8vh, 80px);
   width: 230px;
   height: 100vh;
   position: sticky;
@@ -26,6 +28,7 @@ section {
   align-items: center;
   justify-content: center;
   color: #cdcdcd;
+  min-height: 48px;
 }
 
 .active {
@@ -36,19 +39,22 @@ section {
 .button-bar {
   display: flex;
   flex-direction: column;
-  padding-bottom: 240px;
+  justify-content: center;
+  align-items: center;
+  // padding-bottom: 240px;
   gap: 15px;
   width: 100%;
 }
 
 .sidebar-button {
   display: flex;
-  align-items: center;
   gap: 8px;
-  padding-left: 60px;
+  padding-left: 40px;
   padding-top: 8px;
   padding-bottom: 8px;
   width: 100%;
+  align-items: center;
+  border-radius: 8px;
 
   &:hover {
     cursor: pointer;
@@ -72,10 +78,12 @@ section {
   color: #cdcdcd;
   font-size: 16px;
   gap: 16px;
+  white-space: nowrap;
 
   & a:hover {
     cursor: pointer;
     color: #29abe2;
+    white-space: nowrap;
   }
 }
 
