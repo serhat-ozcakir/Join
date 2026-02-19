@@ -54,6 +54,10 @@ export class ContactList implements OnInit {
 
   selectContact(contact: Contact) {
     this.supabase.selectedContact.set(contact);
+
+    if (typeof window !== 'undefined' && window.innerWidth <= 600) {
+      window.dispatchEvent(new CustomEvent('contact-selected'));
+    }
   }
 
   getInitials(name: string): string {

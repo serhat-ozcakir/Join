@@ -79,3 +79,39 @@
     color: #666;
   }
 }
+
+@media (max-width: 600px) {
+  .contact-list {
+    padding: 12px;
+  }
+
+  .add-btn {
+    font-size: 18px;
+    height: 48px;
+    gap: 12px;
+  }
+
+  .contact-item {
+    padding: 10px;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
+  }
+
+  .info {
+    .name {
+      font-size: 15px;
+    }
+
+    .email {
+      font-size: 13px;
+    }
+  }
+
+  .letter-separator {
+    font-size: 16px;
+  }
+}

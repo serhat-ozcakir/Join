@@ -2,6 +2,9 @@
   <div class="modal-overlay" (click)="closeForm()">
     <div class="modal" (click)="$event.stopPropagation()" [class.closing]="isClosing()">
       <aside class="description-area">
+        <button class="close-btn" (click)="closeForm()">
+          <img src="/assets/icons/close-button.svg" alt="" />
+        </button>
         <img class="logo" src="/assets/icons/logo.png" alt="Join Logo" />
         <h2 class="description-headline">
           {{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}
@@ -12,20 +15,28 @@
         <div class="blue-line"></div>
       </aside>
 
+      @if (supabase.editMode() && supabase.selectedContact()) {
+        <div
+          class="contact-icon avatar-circle mobile-avatar"
+          [style.background]="getAvatarColor(supabase.selectedContact()!.name)"
+        >
+          {{ getInitials(supabase.selectedContact()!.name) }}
+        </div>
+      } @else {
+        <img class="contact-icon mobile-avatar" src="/assets/images/contact.png" alt="Contact Icon" />
+      }
+
       <article class="form-area">
-        <button class="close-btn" (click)="closeForm()">
-          <img src="/assets/icons/close-button.svg" alt="" />
-        </button>
         <div class="inner-form">
           @if (supabase.editMode() && supabase.selectedContact()) {
             <div
-              class="contact-icon avatar-circle"
+              class="contact-icon avatar-circle desktop-avatar"
               [style.background]="getAvatarColor(supabase.selectedContact()!.name)"
             >
               {{ getInitials(supabase.selectedContact()!.name) }}
             </div>
           } @else {
-            <img class="contact-icon" src="/assets/images/contact.png" alt="Contact Icon" />
+            <img class="contact-icon desktop-avatar" src="/assets/images/contact.png" alt="Contact Icon" />
           }
           <form class="form" (ngSubmit)="saveContact()" novalidate>
             <div class="form-group">
@@ -78,7 +89,7 @@
             </div>
 
             <div class="form-actions">
-              <button type="button" (click)="closeForm()">
+              <button type="button" class="cancel-btn" (click)="closeForm()">
                 {{ supabase.editMode() ? 'Delete' : 'Cancel' }}
                 @if (!supabase.editMode()) {
                   <img

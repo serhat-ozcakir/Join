@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Supabase } from '../../../supabase';
 
 @Component({
   selector: 'app-login-page',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.scss',
 })

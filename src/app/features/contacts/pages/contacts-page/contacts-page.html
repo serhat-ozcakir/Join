@@ -4,8 +4,8 @@
       <div class="contacts-page-liste">
         <app-contact-list></app-contact-list>
       </div>
-      <div class="contacts-page-detail">
-        <app-contact-detail></app-contact-detail>
+      <div class="contacts-page-detail" [class.show-mobile]="showDetailOnMobile()">
+        <app-contact-detail (closeDetail)="closeDetail()"></app-contact-detail>
       </div>
         @if (y()) {
         <div class="Toast-Notification">

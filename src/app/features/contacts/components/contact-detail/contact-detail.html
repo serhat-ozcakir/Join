@@ -6,6 +6,10 @@
 @if (supabase.selectedContact(); as contact) {
 
   <div class="contact-detail">
+    <button class="back-button" (click)="onClose()">
+      ← Back to contacts
+    </button>
+
     <div class="header">
       <div class="avatar">{{ getInitials(contact.name) }}</div>
       <div class="info">

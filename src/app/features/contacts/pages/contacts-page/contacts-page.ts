@@ -13,6 +13,7 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
 export class ContactsPage {
 
   y = signal(false);
+  showDetailOnMobile = signal(false);
 
   disappearSwitch(x: boolean) {
     this.y.set(x);
@@ -22,5 +23,19 @@ export class ContactsPage {
         this.y.set(false);
       }, 3000);
     }
+  }
+
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('contact-selected', () => {
+        if (window.innerWidth <= 600) {
+          this.showDetailOnMobile.set(true);
+        }
+      });
+    }
+  }
+
+  closeDetail() {
+    this.showDetailOnMobile.set(false);
   }
 }

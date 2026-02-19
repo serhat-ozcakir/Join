@@ -9,6 +9,7 @@
   align-items: center;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 .modal {
@@ -143,6 +144,18 @@
     font-weight: 500;
     font-size: 48px;
     flex-shrink: 0;
+  }
+
+  &.mobile-avatar {
+    display: none;
+  }
+
+  &.desktop-avatar {
+    display: block;
+
+    &.avatar-circle {
+      display: flex;
+    }
   }
 }
 
@@ -307,5 +320,262 @@
 
   .form {
     width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .modal {
+    width: 95%;
+    min-height: 550px;
+  }
+
+  .description-area {
+    min-width: 200px;
+    padding: 32px 24px;
+
+    .description-headline {
+      font-size: 42px;
+    }
+
+    .description-text {
+      font-size: 18px;
+    }
+  }
+
+  .form-area {
+    min-width: 300px;
+  }
+
+  .contact-icon {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
+
+  .form-group input {
+    font-size: 18px;
+  }
+
+  .form-actions button {
+    font-size: 18px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    border-radius: 20px;
+    flex-direction: column;
+    animation: slideInFromBottom 400ms ease-out;
+
+    &.closing {
+      animation: slideOutToBottom 400ms ease-in forwards;
+    }
+  }
+
+  @keyframes slideInFromBottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideOutToBottom {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  .description-area {
+    border-radius: 20px 20px 0 0;
+    min-width: 100%;
+    height: 40%;
+    padding: 20px;
+    min-height: auto;
+    position: relative;
+    z-index: 1;
+
+    .logo {
+      display: none;
+    }
+
+    .description-headline {
+      font-size: 32px;
+      white-space: normal;
+    }
+
+    .description-text {
+      font-size: 16px;
+    }
+
+    .blue-line {
+      width: 60px;
+    }
+  }
+
+  .form-area {
+    border-radius: 0 0 20px 20px;
+    min-width: 100%;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 20;
+    width: 32px;
+    height: 32px;
+    margin-right: 0;
+    color: white;
+
+    img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .form-actions {
+    justify-content: center;
+  }
+
+  .inner-form {
+    padding: 0 20px;
+    padding-top: 20px;
+  }
+
+  .desktop-avatar {
+    display: none !important;
+  }
+
+  .mobile-avatar {
+    display: block !important;
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    border-radius: 50%;
+
+    &.avatar-circle {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid white;
+    }
+  }
+
+  .contact-icon,
+  .avatar-circle {
+    &.desktop-avatar {
+      display: none !important;
+    }
+  }
+
+  .form {
+    padding-top: 20px;
+    align-items: center;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+    min-height: 60px;
+    width: 100%;
+
+    input {
+      font-size: 16px;
+      padding: 10px 40px 10px 12px;
+    }
+
+    .form-icon {
+      width: 16px;
+      right: 12px;
+      top: 14px;
+    }
+  }
+
+  .form-actions {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      width: auto;
+      min-width: 140px;
+      justify-content: center;
+      font-size: 16px;
+      padding: 14px 20px;
+
+      &[type='submit'] {
+        width: auto;
+        min-width: 140px;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .modal {
+    border-radius: 16px;
+  }
+
+  .description-area {
+    padding: 16px;
+    border-radius: 16px 16px 0 0;
+
+    .description-headline {
+      font-size: 28px;
+    }
+
+    .description-text {
+      font-size: 14px;
+    }
+  }
+
+  .form-area {
+    border-radius: 0 0 16px 16px;
+  }
+
+  .inner-form {
+    padding: 0 16px;
+    padding-top: 20px;
+  }
+
+  .mobile-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 28px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+  }
+
+  .form-actions button {
+    font-size: 14px;
+    padding: 12px 16px;
+    min-width: 120px;
   }
 }
