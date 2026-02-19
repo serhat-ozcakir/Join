@@ -13,7 +13,6 @@
   min-width: 0;
   height: 100%;
   overflow: hidden;
-  border: red 2px solid;
 }
 
 .contacts-content {
@@ -37,10 +36,6 @@
   overflow-y: auto;
   height: 100%;
 }
-
-/* ============================= */
-/* TOAST NOTIFICATION */
-/* ============================= */
 
 .Toast-Notification {
   position: fixed;   
@@ -88,9 +83,6 @@
   }
 }
 
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
 
 @media (max-width: 991px) {
   .contacts-page {
