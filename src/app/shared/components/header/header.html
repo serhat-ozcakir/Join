@@ -13,7 +13,7 @@
 @if (isMenuOpen) {
   <div class="backdrop" (click)="closeMenu()"></div>
   <div class="header-menu" (click)="$event.stopPropagation()">
-    <a class="header-links d-none" routerLink="">Help</a>
+    <a class="header-links" routerLink="/help" (click)="closeMenu()">Help</a>
     <a class="header-links" routerLink="/legal">Legal Notice</a>
     <a class="header-links" routerLink="/privacy">Privacy Policy</a>
     <a class="header-links" routerLink="">Log out</a>
