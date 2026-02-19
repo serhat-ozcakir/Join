@@ -156,7 +156,6 @@ export class ContactFormDialog {
    * Speichert den Kontakt (neu oder aktualisiert).
    */
   async saveContact() {
-    // Mark all controls as touched
     Object.keys(this.contactForm.controls).forEach(key => {
       this.contactForm.get(key)?.markAsTouched();
     });
