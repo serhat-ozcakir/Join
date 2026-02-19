@@ -119,10 +119,23 @@
 
 @media (max-width: 900px) {
   .content {
-    left: 80px;
-    width: calc(100% - 80px);
+    left: 0;
+    width: 100%;
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .header-logo-mobile {
+    display: block;
+    height: 36px;
+  }
+
+  .header-logo-desktop {
+    display: none;
+  }
+
+  .header-text {
+    display: none;
   }
 }
 

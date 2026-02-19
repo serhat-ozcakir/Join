@@ -80,7 +80,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .contact-list {
     padding: 12px;
     padding-bottom: 80px;
@@ -130,5 +130,15 @@
 
   .letter-separator {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-list {
+    padding-bottom: 70px;
+  }
+
+  .add-btn {
+    bottom: 80px;
   }
 }

@@ -29,7 +29,7 @@ export class ContactsPage {
   ngOnInit() {
     if (typeof window !== 'undefined') {
       window.addEventListener('contact-selected', () => {
-        if (window.innerWidth <= 600) {
+        if (window.innerWidth <= 900) {
           this.showDetailOnMobile.set(true);
         }
       });

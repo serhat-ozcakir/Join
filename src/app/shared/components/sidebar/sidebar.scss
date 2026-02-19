@@ -82,42 +82,11 @@ section {
 
 @media (max-width: 900px) {
   section {
-    width: 80px;
-    padding: 20px 0;
-  }
-
-  .button{
-    border-radius: 8px;
-  }
-
-  .logo {
-    width: 50px;
-    height: 60px;
-  }
-
-  .sidebar-button-text {
-    display: none;
-  }
-
-  .sidebar-button {
-    padding-left: 25px;
-    justify-content: center;
-  }
-
-  .legal-information {
-    font-size: 12px;
-    gap: 8px;
-    text-align: center;
-  }
-}
-
-@media (max-width: 600px) {
-  section {
     width: 100%;
-    height: 80px;
+    height: 70px;
     flex-direction: row;
     justify-content: space-around;
-    padding: 12px 0;
+    padding: 2px 0;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -129,6 +98,14 @@ section {
 
   .logo {
     display: none;
+  }
+
+  .button {
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #091931;
+    }
   }
 
   .button-bar {
@@ -143,16 +120,91 @@ section {
     padding: 8px;
     flex-direction: column;
     gap: 4px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: transparent;
+    }
   }
 
   .sidebar-button-text {
     display: block;
-    font-size: 11px;
+    font-size: 11px !important;
+    line-height: 1;
   }
 
   .sidebar-button-image {
     width: 24px !important;
     height: 24px !important;
+    object-fit: contain;
+    display: block;
+  }
+
+  .legal-information {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  section {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    z-index: 100;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .button {
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #091931;
+    }
+  }
+
+  .button-bar {
+    flex-direction: row;
+    padding-bottom: 0;
+    gap: 4px;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .sidebar-button {
+    padding: 6px 4px;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  .sidebar-button-text {
+    display: block;
+    font-size: 10px !important;
+    line-height: 1;
+  }
+
+  .sidebar-button-image {
+    width: 30px !important;
+    height: 30px !important;
+    object-fit: contain;
+    display: block;
   }
 
   .legal-information {

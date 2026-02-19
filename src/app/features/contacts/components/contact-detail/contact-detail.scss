@@ -58,14 +58,9 @@
 
 
 .contact-detail {
-  padding: 18px 24px 110px; 
+  padding: 18px 24px 110px;
   height: 100%;
   overflow-y: auto;
-  animation: slideInFromRight 400ms ease-out;
-
-  &.closing {
-    animation: slideOutToRight 400ms ease-in forwards;
-  }
 }
 
 .header {
@@ -100,7 +95,7 @@
 
   .actions {
     margin-top: 8px;
-    display: none; 
+    display: none;
     gap: 18px;
 
     button {
@@ -161,22 +156,22 @@
   }
 }
 
-.fab-wrap { 
-  display: none; 
+.fab-wrap {
+  display: none;
 }
 
 
 
 @media (max-width: 991px) {
   .contacts-top .icon-btn {
-    display: flex;       
+    display: flex;
   }
-  
+
     .fab-wrap{
     display: block;
     position: fixed;
     right: 18px;
-    bottom: 86px; 
+    bottom: 86px;
     z-index: 9999;
   }
 
@@ -241,15 +236,17 @@
   .header .actions { display: none !important; }
 }
 
-@media (min-width: 700px) {
-  .header .actions {
-    display: flex;
-  }
-}
 
-@media (max-width: 700px) {
-  .header .actions {
-    display: flex;
+
+
+
+@media (max-width: 900px) {
+  .contact-detail {
+    animation: slideInFromRight 400ms ease-out;
+
+    &.closing {
+      animation: slideOutToRight 400ms ease-in forwards;
+    }
   }
 }
 
