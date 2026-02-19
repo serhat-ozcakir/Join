@@ -13,13 +13,13 @@
   <span class="blue-underline"></span>
 </div>
 
- <!--  Man verwendet as contact, um auf die keys von selectedContact()/ signal zuzugreifen, um 
-   dann kürzer die Ausgaben der entsprechenden keys im HTML 
+ <!--  Man verwendet as contact, um auf die keys von selectedContact()/ signal zuzugreifen, um
+   dann kürzer die Ausgaben der entsprechenden keys im HTML
    widerzuspegeln ({{ getInitials(contact.name) }}). -->
 @if (supabase.selectedContact(); as contact) {
   <div class="contact-detail">
     <div class="header">
-      <div class="avatar">{{ getInitials(contact.name) }}</div>
+      <div class="avatar" [style.background-color]="getAvatarColor(contact.name)">{{ getInitials(contact.name) }}</div>
 
       <div class="info">
         <h2>{{ contact.name }}</h2>

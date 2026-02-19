@@ -2,6 +2,7 @@ import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { Supabase } from '../../../../supabase';
 import { CommonModule } from '@angular/common';
 import { HostListener } from '@angular/core';
+import { avatarColors } from '../contact-list/contact-list';
 
 @Component({
   selector: 'app-contact-detail',
@@ -17,6 +18,19 @@ export class ContactDetail {
 
   getInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  /**
+   * Gibt eine konsistente Farbe basierend auf dem Namen zurück.
+   * Gleicher Name = gleiche Farbe.
+   */
+  getAvatarColor(name: string): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % avatarColors.length;
+    return avatarColors[index];
   }
 
   /**
@@ -42,7 +56,7 @@ export class ContactDetail {
   onClose() {
     this.closeDetail.emit();
   }
-  
+
   toggleFab(e?: Event) {
     e?.stopPropagation();
     this.fabOpen = !this.fabOpen;
