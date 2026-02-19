@@ -3,7 +3,6 @@ section {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  // padding: clamp(20px, 8vh, 80px);
   padding-top: clamp(20px, 8vh, 80px);
   padding-bottom: clamp(20px, 8vh, 80px);
   width: 230px;
@@ -41,7 +40,6 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // padding-bottom: 240px;
   gap: 15px;
   width: 100%;
 }
