@@ -40,7 +40,7 @@
 
       <div class="field">
         <span class="label">Phone</span>
-        <span class="value">{{ contact.phone || '-' }}</span>
+        <span class="value">{{ contact.phone ? formatPhone(contact.phone) : '-' }}</span>
       </div>
     </div>
   </div>

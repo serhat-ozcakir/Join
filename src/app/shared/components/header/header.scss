@@ -107,6 +107,10 @@
   }
 }
 
+.help-link {
+  display: none;
+}
+
 .d-none{
   display: none;
 }
@@ -141,6 +145,10 @@
 
   .help-button {
     display: none;
+  }
+
+  .help-link {
+    display: block;
   }
 }
 

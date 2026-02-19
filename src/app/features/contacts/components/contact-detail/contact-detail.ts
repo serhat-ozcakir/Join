@@ -53,6 +53,17 @@ export class ContactDetail {
     }
   }
 
+  formatPhone(value: string): string {
+    const cleaned = value.replace(/[^\d+]/g, '');
+    if (cleaned.startsWith('+')) {
+      const countryCode = cleaned.substring(0, 3);
+      const rest = cleaned.substring(3);
+      const formatted = rest.match(/.{1,4}/g)?.join(' ') || '';
+      return `${countryCode} ${formatted}`.trim();
+    }
+    return cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
+  }
+
   onClose() {
     this.closeDetail.emit();
   }
