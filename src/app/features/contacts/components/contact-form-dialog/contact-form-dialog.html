@@ -46,20 +46,17 @@
               alt="Contact Icon"
             />
           }
-          <form class="form" (ngSubmit)="saveContact()" novalidate>
+          <form class="form" [formGroup]="contactForm" (ngSubmit)="saveContact()" novalidate>
             <div class="form-group">
               <input
                 type="text"
                 placeholder="Name"
-                [ngModel]="name()"
-                (ngModelChange)="name.set($event)"
-                (blur)="nameTouched.set(true)"
-                name="name"
-                [class.invalid]="nameError() && nameTouched()"
+                formControlName="name"
+                [class.invalid]="nameControl.invalid && nameControl.touched"
               />
               <img class="form-icon" src="/assets/icons/name.svg" alt="Person Icon" />
-              @if (nameError() && nameTouched()) {
-                <span class="error">{{ nameError() }}</span>
+              @if (nameControl.invalid && nameControl.touched) {
+                <span class="error">{{ getErrorMessage('name') }}</span>
               }
             </div>
 
@@ -67,15 +64,12 @@
               <input
                 type="text"
                 placeholder="Email"
-                [ngModel]="email()"
-                (ngModelChange)="email.set($event)"
-                (blur)="emailTouched.set(true)"
-                name="email"
-                [class.invalid]="emailError() && emailTouched()"
+                formControlName="email"
+                [class.invalid]="emailControl.invalid && emailControl.touched"
               />
               <img class="form-icon" src="/assets/icons/mail.svg" alt="Person Icon" />
-              @if (emailError() && emailTouched()) {
-                <span class="error">{{ emailError() }}</span>
+              @if (emailControl.invalid && emailControl.touched) {
+                <span class="error">{{ getErrorMessage('email') }}</span>
               }
             </div>
 
@@ -83,16 +77,14 @@
               <input
                 type="text"
                 placeholder="Phone"
-                [ngModel]="phone()"
-                (ngModelChange)="updatePhone($event)"
+                formControlName="phone"
+                (input)="updatePhone($any($event.target).value)"
                 (keypress)="onPhoneKeyPress($event)"
-                (blur)="phoneTouched.set(true)"
-                name="phone"
-                [class.invalid]="phoneError() && phoneTouched()"
+                [class.invalid]="phoneControl.invalid && phoneControl.touched"
               />
               <img class="form-icon" src="/assets/icons/phone.svg" alt="Person Icon" />
-              @if (phoneError() && phoneTouched()) {
-                <span class="error">{{ phoneError() }}</span>
+              @if (phoneControl.invalid && phoneControl.touched) {
+                <span class="error">{{ getErrorMessage('phone') }}</span>
               }
             </div>
 

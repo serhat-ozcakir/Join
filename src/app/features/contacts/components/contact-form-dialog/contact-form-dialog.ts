@@ -1,75 +1,91 @@
-import { Component, inject, signal, effect, computed } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, signal, effect } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Supabase, Contact } from '../../../../supabase';
 import { ContactsPage } from '../../pages/contacts-page/contacts-page';
 
+/**
+ * Custom validator: Name darf keine Zahlen enthalten.
+ */
+function noNumbersValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value?.trim() || '';
+  if (value && /\d/.test(value)) {
+    return { noNumbers: 'Name must not contain numbers' };
+  }
+  return null;
+}
+
+/**
+ * Custom validator: Name muss mindestens 2 Wörter enthalten (Vor- und Nachname).
+ */
+function twoWordsValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value?.trim() || '';
+  if (value) {
+    const words = value.split(/\s+/).filter((w: string) => w.length > 0);
+    if (words.length < 2) {
+      return { twoWords: 'Please enter first and last name' };
+    }
+  }
+  return null;
+}
+
+/**
+ * Custom validator: Phone muss nur Zahlen und optional + enthalten.
+ */
+function phoneValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value?.trim() || '';
+  if (value) {
+    const cleaned = value.replace(/\s/g, '');
+    const phoneRegex = /^\+?[0-9]+$/;
+    if (!phoneRegex.test(cleaned)) {
+      return { phone: 'Phone must contain only numbers (and optional +)' };
+    }
+  }
+  return null;
+}
+
 @Component({
   selector: 'app-contact-form-dialog',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './contact-form-dialog.html',
   styleUrl: './contact-form-dialog.scss',
 })
+
 export class ContactFormDialog {
   supabase = inject(Supabase);
   contactPage = inject(ContactsPage);
+  fb = inject(FormBuilder);
+
   isClosing = signal(false);
-
-  name = signal('');
-  email = signal('');
-  phone = signal('');
-
-  nameTouched = signal(false);
-  emailTouched = signal(false);
-  phoneTouched = signal(false);
-
   saving = signal(false);
 
   /**
-   * Validiert den Namen.
-   * Muss Vor- und Nachnamen enthalten (min. 2 Wörter).
-   * Darf keine Zahlen enthalten.
+   * Reactive Form mit Validators
    */
-  nameError = computed(() => {
-    const value = this.name().trim();
-    if (!value) return 'Name is required';
-    if (/\d/.test(value)) return 'Name must not contain numbers';
-    const words = value.split(/\s+/).filter((w) => w.length > 0);
-    if (words.length < 2) return 'Please enter first and last name';
-    return null;
+  contactForm = this.fb.group({
+    name: ['', [Validators.required, noNumbersValidator, twoWordsValidator]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, phoneValidator]]
   });
 
-  /**
-   * Validiert die E-Mail-Adresse.
-   * Muss einem gültigen E-Mail-Format entsprechen.
-   */
-  emailError = computed(() => {
-    const value = this.email().trim();
-    if (!value) return 'Email is required';
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(value)) return 'Please enter a valid email address';
-    return null;
-  });
+  get nameControl() { return this.contactForm.get('name')!; }
+  get emailControl() { return this.contactForm.get('email')!; }
+  get phoneControl() { return this.contactForm.get('phone')!; }
 
   /**
-   * Validiert die Telefonnummer.
-   * Darf nur Zahlen und optional "+" am Anfang enthalten.
+   * Gibt die passende Fehlermeldung für ein Control zurück.
    */
-phoneError = computed(() => {
-  const value = this.phone().trim();
-  if (!value) return 'Phone is required';
-  const cleaned = value.replace(/\s/g, '');
+  getErrorMessage(controlName: string): string {
+    const control = this.contactForm.get(controlName);
+    if (!control || !control.errors) return '';
 
-  const phoneRegex = /^\+?[0-9]+$/;
-  if (!phoneRegex.test(cleaned)) return 'Phone must contain only numbers (and optional +)';
-  return null;
-});
-
-  /**
-   * Prüft ob das gesamte Formular gültig ist.
-   */
-  isFormValid = computed(() => {
-    return !this.nameError() && !this.emailError() && !this.phoneError();
-  });
+    const errors = control.errors;
+    if (errors['required']) return `${controlName.charAt(0).toUpperCase() + controlName.slice(1)} is required`;
+    if (errors['email']) return 'Please enter a valid email address';
+    if (errors['noNumbers']) return errors['noNumbers'];
+    if (errors['twoWords']) return errors['twoWords'];
+    if (errors['phone']) return errors['phone'];
+    return '';
+  }
 
   private avatarColors = [
     '#FF7A00',
@@ -109,17 +125,14 @@ phoneError = computed(() => {
 
         if (this.supabase.editMode() && this.supabase.selectedContact()) {
           const contact = this.supabase.selectedContact()!;
-          this.name.set(contact.name);
-          this.email.set(contact.email);
-          this.phone.set(this.formatPhoneInput(contact.phone || ''));
+          this.contactForm.patchValue({
+            name: contact.name,
+            email: contact.email,
+            phone: this.formatPhoneInput(contact.phone || '')
+          });
         } else {
-          this.name.set('');
-          this.email.set('');
-          this.phone.set('');
+          this.contactForm.reset();
         }
-        this.nameTouched.set(false);
-        this.emailTouched.set(false);
-        this.phoneTouched.set(false);
       } else {
         document.body.style.overflow = '';
       }
@@ -135,12 +148,7 @@ phoneError = computed(() => {
       this.supabase.showForm.set(false);
       this.supabase.editMode.set(false);
       this.isClosing.set(false);
-      this.name.set('');
-      this.email.set('');
-      this.phone.set('');
-      this.nameTouched.set(false);
-      this.emailTouched.set(false);
-      this.phoneTouched.set(false);
+      this.contactForm.reset();
     }, 400);
   }
 
@@ -148,18 +156,20 @@ phoneError = computed(() => {
    * Speichert den Kontakt (neu oder aktualisiert).
    */
   async saveContact() {
-    this.nameTouched.set(true);
-    this.emailTouched.set(true);
-    this.phoneTouched.set(true);
+    // Mark all controls as touched
+    Object.keys(this.contactForm.controls).forEach(key => {
+      this.contactForm.get(key)?.markAsTouched();
+    });
 
-    if (!this.isFormValid()) return;
+    if (!this.contactForm.valid) return;
 
     this.saving.set(true);
 
+    const formValue = this.contactForm.value;
     const contact: Contact = {
-      name: this.name().trim(),
-      email: this.email().trim(),
-      phone: this.phone().replace(/\s/g, ''),
+      name: formValue.name?.trim() || '',
+      email: formValue.email?.trim() || '',
+      phone: formValue.phone?.replace(/\s/g, '') || '',
     };
 
     try {
@@ -190,7 +200,7 @@ formatPhoneInput(value: string): string {
 
 updatePhone(value: string) {
   const formatted = this.formatPhoneInput(value);
-  this.phone.set(formatted);
+  this.phoneControl.setValue(formatted, { emitEvent: false });
 }
 
 onPhoneKeyPress(event: KeyboardEvent) {
