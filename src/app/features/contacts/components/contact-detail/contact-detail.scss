@@ -102,6 +102,32 @@
     display: flex;
     gap: 18px;
 
+    #editContent{
+      display: flex;
+      
+      #editImg{
+        background-image: url(../../../../../../public/assets/icons/pen.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 30px;
+        height: auto;
+      }
+    }
+
+    #deleteContent{
+      display: flex;
+
+      #deleteImg{
+        background-image: url(../../../../../../public/assets/icons/trash.svg);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 30px;
+        height: auto;
+      }
+    }
+
     button {
       display: flex;
       align-items: center;
@@ -117,9 +143,6 @@
       &:hover {
         background: #f2f2f2;
       }
-
-      &:first-child::before { content: '✏️'; }
-      &:last-child::before  { content: '🗑️'; }
     }
   }
 }

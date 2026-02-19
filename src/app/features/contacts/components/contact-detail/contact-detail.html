@@ -24,8 +24,14 @@
       <div class="info">
         <h2>{{ contact.name }}</h2>
         <div class="actions">
-          <button (click)="editContact()">Edit</button>
-          <button (click)="deleteContact()">Delete</button>
+          <div id="editContent">
+            <div id="editImg"></div>
+            <button (click)="editContact()">Edit</button>
+          </div>
+          <div id="deleteContent">
+            <div id="deleteImg"></div>
+            <button (click)="deleteContact()">Delete</button>
+          </div>
         </div>
       </div>
     </div>
