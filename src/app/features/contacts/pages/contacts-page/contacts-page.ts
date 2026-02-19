@@ -13,14 +13,13 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
 export class ContactsPage {
 
   y = signal(false);
-  showDetailOnMobile = signal(false);
 
   disappearSwitch(x: boolean) {
-    this.y.set(x);
+    this.showForm.set(x);
 
     if (x) {
       setTimeout(() => {
-        this.y.set(false);
+        this.showForm.set(false);
       }, 3000);
     }
   }

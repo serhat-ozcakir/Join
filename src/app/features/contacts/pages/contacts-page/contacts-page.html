@@ -7,7 +7,7 @@
       <div class="contacts-page-detail" [class.show-mobile]="showDetailOnMobile()">
         <app-contact-detail (closeDetail)="closeDetail()"></app-contact-detail>
       </div>
-        @if (y()) {
+        @if (showForm()) {
         <div class="Toast-Notification">
           Contact successfully created
         </div>
