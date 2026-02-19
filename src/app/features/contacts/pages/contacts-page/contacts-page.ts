@@ -12,12 +12,14 @@ import { ContactFormDialog } from '../../components/contact-form-dialog/contact-
 
 export class ContactsPage {
 
+  showForm = signal(false);
+  showDetailOnMobile = signal(false);
   y = signal(false);
 
-  disappearSwitch(x: boolean) {
-    this.showForm.set(x);
+  disappearSwitch(OnOff: boolean) {
+    this.showForm.set(OnOff);
 
-    if (x) {
+    if (OnOff) {
       setTimeout(() => {
         this.showForm.set(false);
       }, 3000);
