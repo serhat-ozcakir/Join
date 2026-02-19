@@ -95,7 +95,7 @@
 
   .actions {
     margin-top: 8px;
-    display: none;
+    display: flex;
     gap: 18px;
 
     button {
@@ -160,7 +160,33 @@
   display: none;
 }
 
+.edit-delete-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
 
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 100ms;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
 
 @media (max-width: 991px) {
   .contacts-top .icon-btn {
