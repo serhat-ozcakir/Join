@@ -196,4 +196,11 @@ onPhoneKeyPress(event: KeyboardEvent) {
   }
 }
 
+  async deleteContact() {
+    const contact = this.supabase.selectedContact();
+    if (contact?.id ) {
+      await this.supabase.deleteContact(contact.id);
+    }
+  }
+
 }

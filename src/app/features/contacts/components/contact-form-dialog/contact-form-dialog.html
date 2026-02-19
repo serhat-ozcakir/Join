@@ -78,21 +78,19 @@
             </div>
 
             <div class="form-actions">
-              <button type="button" (click)="closeForm()">
-                {{ supabase.editMode() ? 'Delete' : 'Cancel' }}
-                @if (!supabase.editMode()) {
-                  <img
-                    class="icon-default"
-                    src="/assets/icons/close-button.svg"
-                    alt="Close Button"
-                  />
-                  <img
-                    class="icon-hover"
-                    src="/assets/icons/close-button-hover.svg"
-                    alt="Close Button"
-                  />
-                }
-              </button>
+              @if (!supabase.editMode()) {
+                <button type="button" class="cancel-btn" (click)="closeForm()">
+                  Cancel
+                  <img class="icon-default" src="/assets/icons/close-button.svg" />
+                  <img class="icon-hover" src="/assets/icons/close-button-hover.svg" />
+                </button>
+              }
+
+              @if (supabase.editMode()) {
+                <button type="button" class="delete-btn" (click)="deleteContact()">
+                  Delete
+                </button>
+              }
               <button type="submit" [disabled]="saving()">
                 {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create contact' }}
                 <img class="submit-icon" src="/assets/icons/check.svg" alt="Close Button" />
