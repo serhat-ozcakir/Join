@@ -434,3 +434,13 @@
     max-width: 90vw;
   }
 }
+
+@media (max-width: 400px) {
+.description-area {
+    padding: 20px;
+
+  & .description-headline {
+    font-size: 42px;
+  }
+}
+}
