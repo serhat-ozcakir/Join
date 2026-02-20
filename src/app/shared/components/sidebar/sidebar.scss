@@ -108,6 +108,7 @@ section {
 
   .button {
     border-radius: 8px;
+    height: 56px;
 
     &:hover {
       background-color: #091931;
@@ -128,6 +129,7 @@ section {
     gap: 4px;
     align-items: center;
     justify-content: center;
+    height: 100%;
 
     &:hover {
       background-color: transparent;
