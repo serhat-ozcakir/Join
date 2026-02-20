@@ -55,7 +55,7 @@ export class ContactList implements OnInit {
   selectContact(contact: Contact) {
     this.supabase.selectedContact.set(contact);
 
-    if (typeof window !== 'undefined' && window.innerWidth <= 900) {
+    if (typeof window !== 'undefined' && window.innerWidth <= 991) {
       window.dispatchEvent(new CustomEvent('contact-selected'));
     }
   }

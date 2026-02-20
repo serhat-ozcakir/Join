@@ -30,7 +30,7 @@
 
 @keyframes slideInFromRight {
   from {
-    transform: translateX(100%);
+    transform: translateX(200%);
   }
   to {
     transform: translateX(0);
@@ -43,11 +43,11 @@
     opacity: 1;
   }
   80% {
-    transform: translateX(80%);
+    transform: translateX(180%);
     opacity: 1;
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(200%);
     opacity: 0;
   }
 }

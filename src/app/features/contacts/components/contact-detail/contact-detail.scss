@@ -104,7 +104,7 @@
 
     #editContent{
       display: flex;
-      
+
       #editImg{
         background-image: url(../../../../../../public/assets/icons/pen.svg);
         background-position: center;
@@ -216,7 +216,7 @@
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
     .contacts-top .icon-btn {
     display: flex;
   }
