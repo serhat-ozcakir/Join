@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   padding: 24px 24px 8px;
-  background: #fff;
+  background: #F6F7F8;
   gap: 15px;
   top:50px;
 
@@ -290,6 +290,7 @@
   }
   .contact-detail {
     animation: slideInFromRight 400ms ease-out;
+    background-color: #F6F7F8;
 
     &.closing {
       animation: slideOutToRight 400ms ease-in forwards;

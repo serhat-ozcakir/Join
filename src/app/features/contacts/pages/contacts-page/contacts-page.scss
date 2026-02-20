@@ -35,6 +35,7 @@
   flex: 1;
   overflow-y: auto;
   height: 100%;
+  background-color: #F6F7F8;
 }
 
 .Toast-Notification {
@@ -115,6 +116,7 @@
 
     &.show-mobile {
       transform: translateX(0);
+      background-color: #F6F7F8;
     }
   }
 }
