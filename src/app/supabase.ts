@@ -207,6 +207,7 @@ export class Supabase {
 
   /**
    * Updates an existing contact in the database and refreshes the contact list.
+   * Also updates the selectedContact signal if it matches the updated contact.
    * @param id - The ID of the contact to update.
    * @param contact - The fields to update.
    */
@@ -219,6 +220,14 @@ export class Supabase {
     if (error) throw error;
 
     await this.getContacts();
+
+    // Update selectedContact if it's the one being edited
+    if (this.selectedContact()?.id === id) {
+      const updatedContact = this.contacts().find(c => c.id === id);
+      if (updatedContact) {
+        this.selectedContact.set(updatedContact);
+      }
+    }
   }
 
   /**
