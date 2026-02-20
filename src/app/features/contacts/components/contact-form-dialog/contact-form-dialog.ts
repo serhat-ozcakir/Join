@@ -45,6 +45,10 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
     if (!phoneRegex.test(cleaned)) {
       return { phone: 'Phone must contain only numbers (and optional +)' };
     }
+    const digits = cleaned.replace(/\D/g, '');
+    if (digits.length < 7) {
+      return { phoneMin: 'Phone number must have at least 7 digits' };
+    }
   }
   return null;
 }
@@ -115,6 +119,7 @@ export class ContactFormDialog {
     if (errors['noNumbers']) return errors['noNumbers'];
     if (errors['twoWords']) return errors['twoWords'];
     if (errors['phone']) return errors['phone'];
+    if (errors['phoneMin']) return errors['phoneMin'];
     return '';
   }
 
