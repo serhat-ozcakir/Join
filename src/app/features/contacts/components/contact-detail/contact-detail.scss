@@ -1,3 +1,5 @@
+@use "../../../../../styles.scss" as *;
+
 :host {
   display: block;
   overflow: hidden;
@@ -108,31 +110,67 @@
     display: flex;
     gap: 18px;
 
-    #editContent{
-      display: flex;
+#editContent {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 
-      #editImg{
-        background-image: url(../../../../../../public/assets/icons/pen.svg);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 30px;
-        height: auto;
-      }
+  #editImg {
+    background-image: url(../../../../../../public/assets/icons/pen.svg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    transition: background-image 0.2s ease;
+  }
+
+  button {
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+
+    button {
+      color: $turquoise;
     }
 
-    #deleteContent{
-      display: flex;
-
-      #deleteImg{
-        background-image: url(../../../../../../public/assets/icons/trash.svg);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 30px;
-        height: auto;
-      }
+    #editImg {
+      background-image: url(../../../../../../public/assets/icons/pen_teal.svg);
     }
+  }
+}
+
+#deleteContent {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  #deleteImg {
+    background-image: url(../../../../../../public/assets/icons/trash.svg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    transition: background-image 0.2s ease;
+  }
+
+  button {
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+
+    button {
+      color: $turquoise;
+    }
+
+    #deleteImg {
+      background-image: url(../../../../../../public/assets/icons/trashHover.png);
+    }
+  }
+}
 
     button {
       display: flex;
@@ -145,10 +183,6 @@
       cursor: pointer;
       padding: 4px 6px;
       border-radius: 6px;
-
-      &:hover {
-        background: #f2f2f2;
-      }
     }
   }
 }
