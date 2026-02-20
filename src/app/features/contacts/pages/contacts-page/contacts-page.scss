@@ -41,6 +41,10 @@
   background-color: #F6F7F8;
 }
 
+/* =========================
+   Toast Notification
+========================= */
+
 .Toast-Notification {
   position: fixed;   
   bottom: 20px;
@@ -61,9 +65,11 @@
 
   z-index: 9999;
 
+  /* Desktop Animation */
   animation: slideAcross 3s ease forwards;
 }
 
+/* Desktop: rechts rein → rechts raus */
 @keyframes slideAcross {
 
   0% {
@@ -87,8 +93,32 @@
   }
 }
 
+/* Mobile Animation: unten rein → unten raus */
+@keyframes slideUpMobile {
+
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  10% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  90% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
 
 @media (max-width: 991px) {
+
   .contacts-page {
     position: relative;
   }
@@ -122,6 +152,11 @@
       background-color: #F6F7F8;
     }
   }
+
+  .Toast-Notification {
+    bottom: 80px;
+    animation: slideUpMobile 3s ease forwards;
+  }
 }
 
 @media (max-width: 768px) {
@@ -131,6 +166,7 @@
 }
 
 @media (max-width: 600px) {
+
   .contacts-page-detail {
     top: 72px;
     bottom: 100px;
