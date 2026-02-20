@@ -277,14 +277,19 @@
       max-width: 180px;
       border: none;
 
-      &:hover:not(:disabled) {
+      &:hover:not(:disabled):not(.form-invalid) {
         background: #29abe2;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
       }
 
-      &:disabled {
+      &.form-invalid {
         opacity: 0.6;
-        cursor: not-allowed;
+        cursor: auto;
+      }
+
+      &:disabled {
+        background-color: #2A3647;
+        cursor: auto;
       }
 
       & .submit-icon {

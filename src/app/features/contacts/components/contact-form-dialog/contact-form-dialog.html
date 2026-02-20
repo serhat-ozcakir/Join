@@ -100,7 +100,7 @@
               @if (supabase.editMode()) {
                 <button type="button" class="delete-btn" (click)="deleteContact()">Delete</button>
               }
-              <button type="submit" [disabled]="saving()">
+              <button type="submit" [disabled]="saving()" [class.form-invalid]="contactForm.invalid">
                 {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create contact' }}
                 <img class="submit-icon" src="/assets/icons/check.svg" alt="Close Button" />
               </button>
