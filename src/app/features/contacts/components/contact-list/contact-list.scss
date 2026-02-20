@@ -38,7 +38,7 @@
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 25px;
   padding: 15px 24px;
   border-radius: 8px;
   cursor: pointer;
@@ -60,8 +60,8 @@
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: 50%;
   border: 2px solid white;
   color: #fff;
