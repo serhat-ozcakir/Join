@@ -85,7 +85,6 @@ export class Supabase {
     if (session?.user) {
       this.isGuest.set(false);
     }
-
     this.supabase.auth.onAuthStateChange((event, session) => {
       this.currentUser.set(session?.user ?? null);
       if (session?.user) {
@@ -103,19 +102,15 @@ export class Supabase {
   async signIn(email: string, password: string): Promise<boolean> {
     this.authLoading.set(true);
     this.authError.set(null);
-
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,
       password
     });
-
     this.authLoading.set(false);
-
     if (error) {
       this.authError.set(error.message);
       return false;
     }
-
     this.currentUser.set(data.user);
     this.isGuest.set(false);
     return true;
@@ -131,7 +126,6 @@ export class Supabase {
   async signUp(email: string, password: string, displayName?: string): Promise<boolean> {
     this.authLoading.set(true);
     this.authError.set(null);
-
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,
@@ -139,14 +133,11 @@ export class Supabase {
         data: { display_name: displayName }
       }
     });
-
     this.authLoading.set(false);
-
     if (error) {
       this.authError.set(error.message);
       return false;
     }
-
     return true;
   }
 
@@ -187,19 +178,16 @@ export class Supabase {
    */
   async getContacts() {
     this.loading.set(true);
-
     const { data, error } = await this.supabase
       .from('contacts')
       .select('*')
       .order('name');
-
     this.loading.set(false);
 
     if (error) {
       this.error.set(error.message);
       return;
     }
-
     this.contacts.set(data || []);
   }
 
