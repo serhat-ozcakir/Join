@@ -59,6 +59,10 @@ export class ContactDetail {
     const contact = this.supabase.selectedContact();
     if (contact?.id) {
       await this.supabase.deleteContact(contact.id);
+      this.supabase.selectedContact.set(null);
+      if (window.innerWidth <= 991) {
+        this.closeDetail.emit();
+      }
     }
   }
 
