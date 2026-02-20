@@ -90,4 +90,10 @@ export class ContactList implements OnInit {
     const index = Math.abs(hash) % avatarColors.length;
     return avatarColors[index];
   }
+
+limitName(name: string): string {
+  return name.length > 20
+    ? name.slice(0, 18) + "..."
+    : name;
+}
 }
