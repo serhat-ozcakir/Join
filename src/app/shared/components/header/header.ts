@@ -3,6 +3,11 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Supabase } from '../../../supabase';
 
+/**
+ * Application header component displayed at the top of the main layout.
+ * Contains the logo, help button, user initials, and a dropdown menu
+ * with navigation links and logout.
+ */
 @Component({
   selector: 'app-header',
   imports: [RouterLink, CommonModule],
@@ -12,6 +17,11 @@ import { Supabase } from '../../../supabase';
 export class Header {
   supabase = inject(Supabase);
 
+  /**
+   * Returns the initials of the currently logged-in user.
+   * Falls back to '?' if no user is available.
+   * @returns Up to two uppercase initials derived from the display name or email.
+   */
   getInitials(): string {
     const user = this.supabase.currentUser();
     if (!user) return '?';
@@ -21,10 +31,12 @@ export class Header {
 
   isMenuOpen = false;
 
+  /** Toggles the header dropdown menu visibility. */
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  /** Closes the header dropdown menu. */
   closeMenu() {
     this.isMenuOpen = false;
   }

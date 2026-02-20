@@ -1,9 +1,7 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { Supabase, Contact } from '../../../../supabase';
 
-    /**
-   * Array von Farben für Avatare.
-   */
+/** Predefined color palette used for contact avatar backgrounds. */
 export const avatarColors = [
   '#FF7A00',
   '#9327FF',
@@ -17,19 +15,22 @@ export const avatarColors = [
   '#FF745E',
 ];
 
+/**
+ * Renders the scrollable list of contacts grouped by their first letter.
+ * Provides contact selection and triggers the mobile detail view.
+ */
 @Component({
   selector: 'app-contact-list',
   imports: [],
   templateUrl: './contact-list.html',
   styleUrl: './contact-list.scss',
 })
-
 export class ContactList implements OnInit {
   supabase = inject(Supabase);
 
   /**
-   * Gruppiert Kontakte nach Anfangsbuchstaben.
-   * Gibt ein Array von { letter, contacts } zurück.
+   * Groups contacts alphabetically by their first letter.
+   * @returns An array of objects containing a letter and its associated contacts.
    */
   groupedContacts = computed(() => {
     const contacts = this.supabase.contacts();
@@ -48,10 +49,16 @@ export class ContactList implements OnInit {
     return groups;
   });
 
+  /** Fetches all contacts from the database on component initialization. */
   ngOnInit() {
     this.supabase.getContacts();
   }
 
+  /**
+   * Sets the selected contact and dispatches a custom event on mobile
+   * to trigger the detail view slide-in.
+   * @param contact - The contact that was clicked.
+   */
   selectContact(contact: Contact) {
     this.supabase.selectedContact.set(contact);
 
@@ -60,14 +67,20 @@ export class ContactList implements OnInit {
     }
   }
 
+  /**
+   * Extracts the first two initials from a full name.
+   * @param name - The full name of the contact.
+   * @returns Up to two uppercase initials (e.g. "JD" for "John Doe").
+   */
   getInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
 
-
   /**
-   * Gibt eine konsistente Farbe basierend auf dem Namen zurück.
-   * Gleicher Name = gleiche Farbe.
+   * Returns a consistent avatar color based on the contact's name.
+   * Same name always produces the same color.
+   * @param name - The full name of the contact.
+   * @returns A hex color string from the predefined avatar color palette.
    */
   getAvatarColor(name: string): string {
     let hash = 0;
@@ -78,4 +91,3 @@ export class ContactList implements OnInit {
     return avatarColors[index];
   }
 }
-

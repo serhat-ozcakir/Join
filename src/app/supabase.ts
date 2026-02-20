@@ -3,13 +3,13 @@ import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 
 /**
- * Datenmodell eines Kontakts.
+ * Data model for a contact entry.
  *
- * id      → wird von der Datenbank vergeben
- * user_id → ID des Benutzers, dem der Kontakt gehört
- * name    → Name des Kontakts (Pflichtfeld)
- * email   → E-Mail-Adresse (Pflichtfeld)
- * phone   → optionale Telefonnummer
+ * id      - Assigned by the database.
+ * user_id - ID of the user who owns the contact.
+ * name    - Full name of the contact (required).
+ * email   - Email address (required).
+ * phone   - Optional phone number.
  */
 export interface Contact {
   id?: string;
@@ -20,39 +20,28 @@ export interface Contact {
 }
 
 /**
- * Supabase-Service.
+ * Central Supabase service that manages:
+ * - Database connection and authentication
+ * - Contact CRUD operations
+ * - UI state via Angular Signals
  *
- * Dieser Service kapselt:
- * - die Verbindung zur Supabase-Datenbank
- * - das Laden und Verwalten von Kontakten
- * - UI-Zustände mittels Angular Signals
- *
- * Durch providedIn: 'root' steht der Service
- * global in der gesamten App zur Verfügung.
+ * Provided in root so it is available as a singleton across the entire app.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class Supabase {
 
-  /**
-   * URL des Supabase-Projekts.
-   */
+  /** Supabase project URL. */
   private supabaseUrl = 'https://rtunkmriznurqroovzij.supabase.co';
 
-  /**
-   * Aktuell eingeloggter Benutzer.
-   */
+  /** Currently authenticated user. */
   currentUser = signal<User | null>(null);
 
-  /**
-   * Gibt an, ob der Benutzer als Gast eingeloggt ist.
-   */
+  /** Whether the user is logged in as a guest. */
   isGuest = signal<boolean>(false);
 
-  /**
-   * Aktuelles Benutzerprofil (aus user_metadata).
-   */
+  /** Computed user profile derived from user metadata. */
   currentProfile = computed(() => {
     const user = this.currentUser();
     if (!user) return null;
@@ -63,54 +52,42 @@ export class Supabase {
     };
   });
 
-  /**
-   * Gibt an, ob der Benutzer eingeloggt ist.
-   */
+  /** Whether any user (authenticated or guest) is logged in. */
   isLoggedIn = computed(() => !!this.currentUser() || this.isGuest());
 
-  /**
-   * Auth Fehlermeldung.
-   */
+  /** Authentication error message, if any. */
   authError = signal<string | null>(null);
 
-  /**
-   * Auth Loading Status.
-   */
+  /** Whether an authentication request is in progress. */
   authLoading = signal<boolean>(false);
 
-  /**
-   * Öffentlicher API-Key (anon key) für den Zugriff.
-   */
+  /** Public anon key for Supabase API access. */
   private supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0dW5rbXJpem51cnFyb292emlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyMTI4MjAsImV4cCI6MjA4Njc4ODgyMH0.J4bDrpH72a81aHGBdHvT5Vrl30NgoZTOB8wvAHwmIoE';
 
-  /**
-   * Initialisierung des Supabase Clients.
-   */
+  /** Initialized Supabase client instance. */
   supabase: SupabaseClient = createClient(
     this.supabaseUrl,
     this.supabaseKey
   );
 
   constructor(private router: Router) {
-    // Session beim Start prüfen
     this.initAuth();
   }
 
   /**
-   * Initialisiert Auth und überwacht Session-Änderungen.
+   * Initializes authentication by checking the current session
+   * and subscribing to auth state changes.
    */
   private async initAuth() {
     const { data: { session } } = await this.supabase.auth.getSession();
     this.currentUser.set(session?.user ?? null);
 
-    // Wenn User eingeloggt ist, ist er kein Gast
     if (session?.user) {
       this.isGuest.set(false);
     }
 
     this.supabase.auth.onAuthStateChange((event, session) => {
       this.currentUser.set(session?.user ?? null);
-      // Wenn User eingeloggt ist, ist er kein Gast
       if (session?.user) {
         this.isGuest.set(false);
       }
@@ -118,7 +95,10 @@ export class Supabase {
   }
 
   /**
-   * Benutzer einloggen.
+   * Signs in a user with email and password.
+   * @param email - The user's email address.
+   * @param password - The user's password.
+   * @returns True if sign-in was successful, false otherwise.
    */
   async signIn(email: string, password: string): Promise<boolean> {
     this.authLoading.set(true);
@@ -142,7 +122,11 @@ export class Supabase {
   }
 
   /**
-   * Neuen Benutzer registrieren.
+   * Registers a new user with email, password, and optional display name.
+   * @param email - The user's email address.
+   * @param password - The user's chosen password.
+   * @param displayName - Optional display name stored in user metadata.
+   * @returns True if registration was successful, false otherwise.
    */
   async signUp(email: string, password: string, displayName?: string): Promise<boolean> {
     this.authLoading.set(true);
@@ -166,9 +150,7 @@ export class Supabase {
     return true;
   }
 
-  /**
-   * Benutzer ausloggen.
-   */
+  /** Signs out the current user and navigates to the login page. */
   async signOut() {
     await this.supabase.auth.signOut({ scope: 'local' });
     this.currentUser.set(null);
@@ -176,82 +158,54 @@ export class Supabase {
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Als Gast einloggen.
-   */
+  /** Enables guest mode without requiring authentication. */
   guestLogin() {
     this.isGuest.set(true);
   }
 
-  /**
-   * Liste aller geladenen Kontakte.
-   */
+  /** List of all loaded contacts. */
   contacts = signal<Contact[]>([]);
 
-  /**
-   * Aktuell ausgewählter Kontakt im UI.
-   */
+  /** Currently selected contact in the UI. */
   selectedContact = signal<Contact | null>(null);
 
-  /**
-   * Zeigt an, ob gerade Daten geladen werden.
-   */
+  /** Whether contact data is currently being loaded. */
   loading = signal<boolean>(false);
 
-  /**
-   * Enthält eine Fehlermeldung, falls ein Fehler auftritt.
-   */
+  /** Error message from the last failed operation. */
   error = signal<string | null>(null);
 
-  /**
-   * Steuert die Anzeige des Kontaktformulars.
-   */
+  /** Controls the visibility of the contact form dialog. */
   showForm = signal<boolean>(false);
 
-  /**
-   * Gibt an, ob ein Kontakt bearbeitet wird.
-   */
+  /** Whether the form is in edit mode (vs. create mode). */
   editMode = signal<boolean>(false);
 
   /**
-   * Lädt alle Kontakte aus der Datenbank.
-   * Sortiert nach Namen.
+   * Fetches all contacts from the database, sorted by name,
+   * and stores them in the contacts signal.
    */
-/**
- * Lädt alle Kontakte aus der Supabase-Datenbank und speichert sie im State.
- *
- * Ablauf:
- * 1. Aktiviert den Ladezustand.
- * 2. Ruft alle Einträge aus der Tabelle `contacts` ab und sortiert sie nach Name.
- * 3. Deaktiviert den Ladezustand nach Abschluss der Anfrage.
- * 4. Bei einem Fehler wird die Fehlermeldung gespeichert.
- * 5. Bei Erfolg werden die geladenen Kontakte im State gespeichert.
- *
- * async Funktion ohne Rückgabewert.
- * Rückgabe: Promise<void>
- */
-async getContacts() {
-  this.loading.set(true);
+  async getContacts() {
+    this.loading.set(true);
 
-  const { data, error } = await this.supabase
-    .from('contacts')
-    .select('*')
-    .order('name');
+    const { data, error } = await this.supabase
+      .from('contacts')
+      .select('*')
+      .order('name');
 
-  this.loading.set(false);
+    this.loading.set(false);
 
-  if (error) {
-    this.error.set(error.message);
-    return;
+    if (error) {
+      this.error.set(error.message);
+      return;
+    }
+
+    this.contacts.set(data || []);
   }
 
-  /* Daten werden im Signal gespeichert */
-  this.contacts.set(data || []);
-}
-
   /**
-   * Fügt einen neuen Kontakt hinzu.
-   * Danach werden alle Kontakte neu geladen.
+   * Inserts a new contact into the database and refreshes the contact list.
+   * @param contact - The contact data to insert.
    */
   async addContact(contact: Contact) {
     const { error } = await this.supabase
@@ -264,18 +218,12 @@ async getContacts() {
   }
 
   /**
-   * Aktualisiert einen bestehenden Kontakt.
-   *
-   * @param id      ID des Kontakts
-   * @param contact zu aktualisierende Felder
+   * Updates an existing contact in the database and refreshes the contact list.
+   * @param id - The ID of the contact to update.
+   * @param contact - The fields to update.
    */
   async updateContact(id: string, contact: Partial<Contact>) {
     const { error } = await this.supabase
-    /**
-      * Aktualisiert den Datensatz in der Tabelle `contacts`
-      * mit den neuen Werten aus `contact`,
-      * dessen `id` dem übergebenen Wert entspricht.
-      */
       .from('contacts')
       .update(contact)
       .eq('id', id);
@@ -286,16 +234,11 @@ async getContacts() {
   }
 
   /**
-   * Löscht einen Kontakt anhand der ID.
-   * Setzt anschließend die Auswahl zurück
-   * und lädt die Kontaktliste neu.
+   * Deletes a contact by ID, clears the selection, and refreshes the contact list.
+   * @param id - The ID of the contact to delete.
    */
   async deleteContact(id: string) {
     const { error } = await this.supabase
-    /**
-     * Löscht den Datensatz aus der Tabelle `contacts`,
-     * dessen `id` dem übergebenen Wert entspricht.
-     */
       .from('contacts')
       .delete()
       .eq('id', id);

@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { HostListener } from '@angular/core';
 import { avatarColors } from '../contact-list/contact-list';
 
+/**
+ * Displays the details of a selected contact including name, email, phone,
+ * and provides edit/delete actions. On mobile, a FAB menu replaces inline buttons.
+ */
 @Component({
   selector: 'app-contact-detail',
   imports: [CommonModule],
@@ -16,13 +20,20 @@ export class ContactDetail {
 
   @Output() closeDetail = new EventEmitter<void>();
 
+  /**
+   * Extracts the first two initials from a full name.
+   * @param name - The full name of the contact.
+   * @returns Up to two uppercase initials (e.g. "JD" for "John Doe").
+   */
   getInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
 
   /**
-   * Gibt eine konsistente Farbe basierend auf dem Namen zurück.
-   * Gleicher Name = gleiche Farbe.
+   * Returns a consistent avatar color based on the contact's name.
+   * Same name always produces the same color.
+   * @param name - The full name of the contact.
+   * @returns A hex color string from the predefined avatar color palette.
    */
   getAvatarColor(name: string): string {
     let hash = 0;
@@ -34,8 +45,7 @@ export class ContactDetail {
   }
 
   /**
-   * steuern nur die Oberfläche (UI) — sie ändern keine Datenbankdaten.
-   * „Zeige jetzt das Formular und setze es in den Bearbeitungsmodus.“
+   * Opens the contact form dialog in edit mode for the currently selected contact.
    */
   editContact() {
     this.supabase.editMode.set(true);
@@ -43,9 +53,8 @@ export class ContactDetail {
   }
 
   /**
-  * Holt den aktuell ausgewählten Kontakt und löscht ihn nach
-  * Bestätigung durch den Benutzer aus der Datenbank.
-  */
+   * Deletes the currently selected contact from the database.
+   */
   async deleteContact() {
     const contact = this.supabase.selectedContact();
     if (contact?.id) {
@@ -53,6 +62,12 @@ export class ContactDetail {
     }
   }
 
+  /**
+   * Formats a raw phone number string for display with spaces.
+   * Handles optional country code prefix (e.g. "+49 1234 5678").
+   * @param value - The raw phone number string.
+   * @returns The formatted phone number with grouped digits.
+   */
   formatPhone(value: string): string {
     const cleaned = value.replace(/[^\d+]/g, '');
     if (cleaned.startsWith('+')) {
@@ -64,19 +79,32 @@ export class ContactDetail {
     return cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
   }
 
+  /**
+   * Emits the closeDetail event to hide the detail view on mobile.
+   */
   onClose() {
     this.closeDetail.emit();
   }
 
+  /**
+   * Toggles the floating action button menu visibility.
+   * @param e - Optional event to stop propagation.
+   */
   toggleFab(e?: Event) {
     e?.stopPropagation();
     this.fabOpen = !this.fabOpen;
   }
 
+  /**
+   * Closes the floating action button menu.
+   */
   closeFab() {
     this.fabOpen = false;
   }
 
+  /**
+   * Closes the FAB menu when clicking anywhere outside of it.
+   */
   @HostListener('document:click')
   onDocClick() {
     this.fabOpen = false;

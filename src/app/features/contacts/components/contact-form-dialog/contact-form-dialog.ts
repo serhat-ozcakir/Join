@@ -4,7 +4,9 @@ import { Supabase, Contact } from '../../../../supabase';
 import { ContactsPage } from '../../pages/contacts-page/contacts-page';
 
 /**
- * Custom validator: Name darf keine Zahlen enthalten.
+ * Validates that the name field does not contain any digits.
+ * @param control - The form control to validate.
+ * @returns A validation error object or null if valid.
  */
 function noNumbersValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value?.trim() || '';
@@ -15,7 +17,9 @@ function noNumbersValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 /**
- * Custom validator: Name muss mindestens 2 Wörter enthalten (Vor- und Nachname).
+ * Validates that the name contains at least two words (first and last name).
+ * @param control - The form control to validate.
+ * @returns A validation error object or null if valid.
  */
 function twoWordsValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value?.trim() || '';
@@ -29,7 +33,9 @@ function twoWordsValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 /**
- * Custom validator: Phone muss nur Zahlen und optional + enthalten.
+ * Validates that the phone field contains only digits and an optional leading '+'.
+ * @param control - The form control to validate.
+ * @returns A validation error object or null if valid.
  */
 function phoneValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value?.trim() || '';
@@ -43,13 +49,16 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
   return null;
 }
 
+/**
+ * Modal dialog for creating and editing contacts.
+ * Contains a reactive form with validation for name, email, and phone fields.
+ */
 @Component({
   selector: 'app-contact-form-dialog',
   imports: [ReactiveFormsModule],
   templateUrl: './contact-form-dialog.html',
   styleUrl: './contact-form-dialog.scss',
 })
-
 export class ContactFormDialog {
   supabase = inject(Supabase);
   contactPage = inject(ContactsPage);
@@ -58,9 +67,7 @@ export class ContactFormDialog {
   isClosing = signal(false);
   saving = signal(false);
 
-  /**
-   * Reactive Form mit Validators
-   */
+  /** Reactive form group with validated name, email, and phone controls. */
   contactForm = this.fb.group({
     name: ['', [Validators.required, noNumbersValidator, twoWordsValidator]],
     email: ['', [Validators.required, Validators.email]],
@@ -72,7 +79,9 @@ export class ContactFormDialog {
   get phoneControl() { return this.contactForm.get('phone')!; }
 
   /**
-   * Gibt die passende Fehlermeldung für ein Control zurück.
+   * Returns the appropriate validation error message for a given form control.
+   * @param controlName - The name of the form control (e.g. 'name', 'email', 'phone').
+   * @returns The error message string, or an empty string if no error exists.
    */
   getErrorMessage(controlName: string): string {
     const control = this.contactForm.get(controlName);
@@ -100,6 +109,11 @@ export class ContactFormDialog {
     '#FF745E',
   ];
 
+  /**
+   * Extracts the first two initials from a full name.
+   * @param name - The full name of the contact.
+   * @returns Up to two uppercase initials (e.g. "JD" for "John Doe").
+   */
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -109,6 +123,11 @@ export class ContactFormDialog {
       .slice(0, 2);
   }
 
+  /**
+   * Returns a consistent avatar color based on the contact's name.
+   * @param name - The full name of the contact.
+   * @returns A hex color string from the predefined avatar color palette.
+   */
   getAvatarColor(name: string): string {
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
@@ -118,6 +137,10 @@ export class ContactFormDialog {
     return this.avatarColors[index];
   }
 
+  /**
+   * Initializes the form effect: populates fields in edit mode
+   * or resets them when creating a new contact.
+   */
   constructor() {
     effect(() => {
       if (this.supabase.showForm()) {
@@ -140,7 +163,7 @@ export class ContactFormDialog {
   }
 
   /**
-   * Schließt das Formular und setzt alle Felder zurück.
+   * Closes the form dialog with a closing animation and resets all fields.
    */
   closeForm() {
     this.isClosing.set(true);
@@ -152,6 +175,10 @@ export class ContactFormDialog {
     }, 400);
   }
 
+  /**
+   * Validates the form, then creates or updates the contact.
+   * Shows a saving indicator and closes the form on success.
+   */
   async saveContact() {
     this.markAllFieldsAsTouched();
     if (!this.contactForm.valid) return;
@@ -166,12 +193,17 @@ export class ContactFormDialog {
     }
   }
 
+  /** Marks all form controls as touched to trigger validation messages. */
   private markAllFieldsAsTouched() {
     Object.keys(this.contactForm.controls).forEach(key => {
       this.contactForm.get(key)?.markAsTouched();
     });
   }
 
+  /**
+   * Extracts and sanitizes the form values into a Contact object.
+   * @returns A Contact object ready for database storage.
+   */
   private buildContactFromForm(): Contact {
     const formValue = this.contactForm.value;
     return {
@@ -181,6 +213,9 @@ export class ContactFormDialog {
     };
   }
 
+  /**
+   * Creates a new contact or updates an existing one based on the current edit mode.
+   */
   private async createOrUpdateContact() {
     const contact = this.buildContactFromForm();
     const selectedId = this.supabase.selectedContact()?.id;
@@ -192,36 +227,52 @@ export class ContactFormDialog {
     }
   }
 
-formatPhoneInput(value: string): string {
-  const hasPlus = value.startsWith('+');
-  const digits = value.replace(/[^\d]/g, '');
-  const cleaned = hasPlus ? '+' + digits : digits;
-  if (cleaned.startsWith('+')) {
-    const countryCode = cleaned.substring(0, 3);
-    const rest = cleaned.substring(3);
-    const formatted = rest.match(/.{1,4}/g)?.join(' ') || '';
-    return `${countryCode} ${formatted}`.trim();
+  /**
+   * Formats a phone number string for display with grouped digits.
+   * Allows only a single '+' at the beginning for country codes.
+   * @param value - The raw phone input string.
+   * @returns The formatted phone number (e.g. "+49 1234 5678").
+   */
+  formatPhoneInput(value: string): string {
+    const hasPlus = value.startsWith('+');
+    const digits = value.replace(/[^\d]/g, '');
+    const cleaned = hasPlus ? '+' + digits : digits;
+    if (cleaned.startsWith('+')) {
+      const countryCode = cleaned.substring(0, 3);
+      const rest = cleaned.substring(3);
+      const formatted = rest.match(/.{1,4}/g)?.join(' ') || '';
+      return `${countryCode} ${formatted}`.trim();
+    }
+    return cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
   }
-  return cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
-}
 
-updatePhone(value: string) {
-  const formatted = this.formatPhoneInput(value);
-  this.phoneControl.setValue(formatted, { emitEvent: false });
-}
-
-onPhoneKeyPress(event: KeyboardEvent) {
-  const char = event.key;
-  if (!/[\d+]/.test(char) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(char)) {
-    event.preventDefault();
+  /**
+   * Updates the phone form control with the formatted value.
+   * @param value - The raw input value from the phone field.
+   */
+  updatePhone(value: string) {
+    const formatted = this.formatPhoneInput(value);
+    this.phoneControl.setValue(formatted, { emitEvent: false });
   }
-}
 
+  /**
+   * Prevents non-numeric characters (except '+') from being typed in the phone field.
+   * @param event - The keyboard event from the phone input.
+   */
+  onPhoneKeyPress(event: KeyboardEvent) {
+    const char = event.key;
+    if (!/[\d+]/.test(char) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(char)) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * Deletes the currently selected contact from the database.
+   */
   async deleteContact() {
     const contact = this.supabase.selectedContact();
     if (contact?.id ) {
       await this.supabase.deleteContact(contact.id);
     }
   }
-
 }

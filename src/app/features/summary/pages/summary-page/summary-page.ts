@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+/** Dashboard summary page showing an overview of tasks and project status. */
 @Component({
   selector: 'app-summary-page',
   imports: [],

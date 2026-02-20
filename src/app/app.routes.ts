@@ -12,87 +12,37 @@ import { PrivacyPolicyPage } from './features/privacy/privacy-policy-page/privac
 import { LegalNoticePage } from './features/legal/legal-notice-page/legal-notice-page';
 import { HelpPage } from './features/help/help-page/help-page';
 
-
 /**
- * Routing-Konfiguration der gesamten Anwendung.
+ * Application routing configuration split into two main areas:
  *
- * Die Routen sind in zwei Hauptbereiche aufgeteilt:
+ * 1. AuthLayout - Public routes for authentication (login, signup).
+ * 2. AppLayout  - Protected routes for the main application, guarded by authGuard.
  *
- * 1. AuthLayout
- *    - Layout für Authentifizierungsseiten.
- *    - Enthält aktuell die Login-Seite.
- *
- * 2. AppLayout
- *    - Layout für den Hauptbereich der Anwendung nach dem Login.
- *    - Enthält Seiten wie Kontakte, Board, Aufgaben usw.
- *
- * Routing-Verhalten:
- * - Der Aufruf von "/" wird automatisch zu "/login" umgeleitet.
- * - Unbekannte URLs werden ebenfalls zu "/login" umgeleitet.
+ * The root path redirects to /login, and unknown URLs fall back to /login.
  */
 export const routes: Routes = [
-  /**
-   * Routen für den Authentifizierungsbereich.
-   * Verwendet AuthLayout als übergeordnetes Layout.
-   */
   {
     path: '',
     component: AuthLayout,
     children: [
-      /**
-       * Login-Seite → erreichbar unter /login
-       */
       { path: 'login', component: LoginPage },
- 
-     // { path: 'privacy', component: PrivacyPolicyPage },
-     // { path: 'legal', component: LegalNoticePage },
-
-      /**
-       * Signup-Seite → erreichbar unter /signup
-       */
       { path: 'signup', component: SignupPage },
-
-      /**
-       * Standardroute:
-       * Leerer Pfad wird zu /login umgeleitet.
-       * Beispiel: "/" → "/login"
-       */
       { path: '', pathMatch: 'full', redirectTo: 'login' },
     ],
   },
-
-  /**
-   * Routen des Hauptanwendungsbereichs.
-   * Verwendet AppLayout als übergeordnetes Layout.
-   * canActivate: authGuard schützt diese Routen.
-   */
   {
     path: '',
     component: AppLayout,
     canActivate: [authGuard],
     children: [
-      /** Kontaktübersicht → /contacts */
       { path: 'contacts', component: ContactsPage },
-
-      /** Dashboard-/Zusammenfassungsseite → /summary */
       { path: 'summary', component: SummaryPage },
-
-      /** Seite zum Erstellen einer Aufgabe → /add-task */
       { path: 'add-task', component: AddTaskPage },
-
-      /** Board-/Kanban-Ansicht → /board */
       { path: 'board', component: BoardPage },
-        {path: 'privacy', component: PrivacyPolicyPage },
-  {path: 'legal', component: LegalNoticePage },
-  {path: 'help', component: HelpPage },
+      { path: 'privacy', component: PrivacyPolicyPage },
+      { path: 'legal', component: LegalNoticePage },
+      { path: 'help', component: HelpPage },
     ],
   },
-
-  /**
-   * Wildcard-Route:
-   * Fängt alle unbekannten URLs ab und leitet zum Login um.
-   */
-
   { path: '**', redirectTo: 'login' },
-
 ];
