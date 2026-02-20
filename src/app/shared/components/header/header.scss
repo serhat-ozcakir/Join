@@ -11,7 +11,7 @@
   padding-left: 40px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #fff;
+  // background-color: #fff;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.10);
   z-index: 100;
 
@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
 }
 
 .header-left {
@@ -76,11 +76,13 @@
     border: 3px solid #2A3647;
     border-radius: 50%;
     color: #29abe2;
+    font-size: 16px;
+    font-weight: 700;
     width: 48px;
     height: 48px;
 
     &:hover {
-      background-color: #e2e6ec;
+      background-color: #0C2E621F;
       cursor: pointer;
     }
   }
@@ -190,7 +192,7 @@
     .nav-button {
       width: 40px;
       height: 40px;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .help-button img {
