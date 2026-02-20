@@ -52,6 +52,7 @@
                 type="text"
                 placeholder="Name"
                 formControlName="name"
+                maxlength="30"
                 [class.invalid]="nameControl.invalid && nameControl.touched"
               />
               <img class="form-icon" src="/assets/icons/name.svg" alt="Person Icon" />
@@ -62,9 +63,10 @@
 
             <div class="form-group">
               <input
-                type="text"
+                type="email"
                 placeholder="Email"
                 formControlName="email"
+                maxlength="30"
                 [class.invalid]="emailControl.invalid && emailControl.touched"
               />
               <img class="form-icon" src="/assets/icons/mail.svg" alt="Person Icon" />
@@ -75,9 +77,10 @@
 
             <div class="form-group">
               <input
-                type="text"
+                type="tel"
                 placeholder="Phone"
                 formControlName="phone"
+                maxlength="15"
                 (input)="updatePhone($any($event.target).value)"
                 (keypress)="onPhoneKeyPress($event)"
                 [class.invalid]="phoneControl.invalid && phoneControl.touched"

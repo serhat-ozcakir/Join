@@ -50,6 +50,23 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 /**
+ * Validates email format more strictly than the default Angular email validator.
+ * Domain extension must be between 2-4 characters (e.g., .com, .ro, .net, .info).
+ * @param control - The form control to validate.
+ * @returns A validation error object or null if valid.
+ */
+function strictEmailValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value?.trim() || '';
+  if (value) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+    if (!emailRegex.test(value)) {
+      return { strictEmail: 'Please enter a valid email address' };
+    }
+  }
+  return null;
+}
+
+/**
  * Modal dialog for creating and editing contacts.
  * Contains a reactive form with validation for name, email, and phone fields.
  */
@@ -69,9 +86,9 @@ export class ContactFormDialog {
 
   /** Reactive form group with validated name, email, and phone controls. */
   contactForm = this.fb.group({
-    name: ['', [Validators.required, noNumbersValidator, twoWordsValidator]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, phoneValidator]]
+    name: ['', [Validators.required, Validators.maxLength(20), noNumbersValidator, twoWordsValidator]],
+    email: ['', [Validators.required, Validators.maxLength(30), Validators.email, strictEmailValidator]],
+    phone: ['', [Validators.required, Validators.maxLength(20), phoneValidator]]
   });
 
   get nameControl() { return this.contactForm.get('name')!; }
@@ -89,7 +106,12 @@ export class ContactFormDialog {
 
     const errors = control.errors;
     if (errors['required']) return `${controlName.charAt(0).toUpperCase() + controlName.slice(1)} is required`;
+    if (errors['maxlength']) {
+      const maxLength = errors['maxlength'].requiredLength;
+      return `Maximum ${maxLength} characters allowed`;
+    }
     if (errors['email']) return 'Please enter a valid email address';
+    if (errors['strictEmail']) return errors['strictEmail'];
     if (errors['noNumbers']) return errors['noNumbers'];
     if (errors['twoWords']) return errors['twoWords'];
     if (errors['phone']) return errors['phone'];
