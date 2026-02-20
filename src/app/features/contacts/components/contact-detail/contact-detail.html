@@ -1,16 +1,17 @@
 <div class="contacts-top">
   <div class="top-row">
-    <h1>Contacts</h1>
-
+    <h1 class="title">Contacts</h1>
     @if (supabase.selectedContact()) {
       <button class="icon-btn" (click)="onClose()" aria-label="Back">
         <img src="assets/icons/arrow-left-line.png" alt="Back">
       </button>
     }
-  </div>
 
-  <p>Better with a team</p>
+  </div>
   <span class="blue-underline"></span>
+
+  <p class="message">Better with a team</p>
+
 </div>
 
  <!--  Man verwendet as contact, um auf die keys von selectedContact()/ signal zuzugreifen, um

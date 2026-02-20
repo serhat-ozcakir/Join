@@ -5,10 +5,15 @@
 }
 
 .contacts-top {
+  display: flex;
+  align-items: center;
   padding: 24px 24px 8px;
   background: #fff;
+  gap: 30px;
+  top:50px;
 
   .top-row {
+    order: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -23,19 +28,20 @@
     letter-spacing: -0.5px;
   }
 
-  p {
-    margin: 10px 0 0;
-    font-size: 18px;
-    color: #2b2b2b;
+  .blue-underline {
+    order: 2;
+    display: block;
+    width: 3px;
+    height: 59px;
+    background: #29ABE2;
+    flex-shrink: 0;
   }
 
-  .blue-underline {
-    display: block;
-    width: 92px;
-    height: 3px;
-    margin-top: 10px;
-    background: #1e88e5;
-    border-radius: 2px;
+  p {
+    order: 3;
+    margin: 0;
+    font-size: 18px;
+    color: #2b2b2b;
   }
 
   .icon-btn {
@@ -65,7 +71,8 @@
 .contact-detail {
   padding: 18px 24px 110px;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  top: 50px;
 }
 
 .header {
@@ -82,8 +89,7 @@
     color: #fff;
     display: grid;
     place-items: center;
-    font-weight: 800;
-    font-size: 22px;
+    font-size:30px;
     border: none;
   }
 
@@ -104,7 +110,7 @@
 
     #editContent{
       display: flex;
-      
+
       #editImg{
         background-image: url(../../../../../../public/assets/icons/pen.svg);
         background-position: center;
@@ -217,7 +223,35 @@
 
 
 @media (max-width: 900px) {
-    .contacts-top .icon-btn {
+  .contacts-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .top-row {
+      order: 1;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      order: 2;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .blue-underline {
+      order: 3;
+      width: 92px;
+      height: 3px;
+      margin-top: 10px;
+    }
+  }
+
+  .contacts-top .icon-btn {
     display: flex;
   }
   .contact-detail {
