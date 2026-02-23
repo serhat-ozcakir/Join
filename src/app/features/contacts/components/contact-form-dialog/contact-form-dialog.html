@@ -2,10 +2,10 @@
   <div class="modal-overlay" (click)="closeForm()">
     <div class="modal" (click)="$event.stopPropagation()" [class.closing]="isClosing()">
       <button class="close-btn" (click)="closeForm()">
-        <img src="/assets/icons/close-button.svg" alt="" />
+        <img src="assets/icons/close-button.svg" alt="" />
       </button>
       <aside class="description-area">
-        <img class="logo" src="/assets/icons/logo.png" alt="Join Logo" />
+        <img class="logo" src="assets/icons/logo.png" alt="Join Logo" />
         <h2 class="description-headline">
           {{ supabase.editMode() ? 'Edit Contact' : 'Add Contact' }}
         </h2>
@@ -25,7 +25,7 @@
       } @else {
         <img
           class="contact-icon mobile-avatar"
-          src="/assets/images/contact.png"
+          src="assets/images/contact.png"
           alt="Contact Icon"
         />
       }
@@ -42,7 +42,7 @@
           } @else {
             <img
               class="contact-icon desktop-avatar"
-              src="/assets/images/contact.png"
+              src="assets/images/contact.png"
               alt="Contact Icon"
             />
           }
@@ -55,7 +55,7 @@
                 maxlength="30"
                 [class.invalid]="nameControl.invalid && nameControl.touched"
               />
-              <img class="form-icon" src="/assets/icons/name.svg" alt="Person Icon" />
+              <img class="form-icon" src="assets/icons/name.svg" alt="Person Icon" />
               @if (nameControl.invalid && nameControl.touched) {
                 <span class="error">{{ getErrorMessage('name') }}</span>
               }
@@ -69,7 +69,7 @@
                 maxlength="30"
                 [class.invalid]="emailControl.invalid && emailControl.touched"
               />
-              <img class="form-icon" src="/assets/icons/mail.svg" alt="Person Icon" />
+              <img class="form-icon" src="assets/icons/mail.svg" alt="Person Icon" />
               @if (emailControl.invalid && emailControl.touched) {
                 <span class="error">{{ getErrorMessage('email') }}</span>
               }
@@ -85,7 +85,7 @@
                 (keypress)="onPhoneKeyPress($event)"
                 [class.invalid]="phoneControl.invalid && phoneControl.touched"
               />
-              <img class="form-icon" src="/assets/icons/phone.svg" alt="Person Icon" />
+              <img class="form-icon" src="assets/icons/phone.svg" alt="Person Icon" />
               @if (phoneControl.invalid && phoneControl.touched) {
                 <span class="error">{{ getErrorMessage('phone') }}</span>
               }
@@ -95,8 +95,8 @@
               @if (!supabase.editMode()) {
                 <button type="button" class="cancel-btn" (click)="closeForm()">
                   Cancel
-                  <img class="icon-default" src="/assets/icons/close-button.svg" />
-                  <img class="icon-hover" src="/assets/icons/close-button-hover.svg" />
+                  <img class="icon-default" src="assets/icons/close-button.svg" />
+                  <img class="icon-hover" src="assets/icons/close-button-hover.svg" />
                 </button>
               }
 
@@ -105,7 +105,7 @@
               }
               <button type="submit" [disabled]="saving()" [class.form-invalid]="contactForm.invalid">
                 {{ saving() ? 'Saving...' : supabase.editMode() ? 'Save' : 'Create contact' }}
-                <img class="submit-icon" src="/assets/icons/check.svg" alt="Close Button" />
+                <img class="submit-icon" src="assets/icons/check.svg" alt="Close Button" />
               </button>
             </div>
           </form>
