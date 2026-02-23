@@ -1,0 +1,23 @@
+<article class="task-card">
+  <div class="badge">{{ task.type }}</div>
+
+  <h4 class="title">{{ task.title }}</h4>
+
+  <p class="desc" *ngIf="task.description">
+    {{ task.description }}
+  </p>
+
+  <div class="meta">
+    <span class="prio">{{ task.priority }}</span>
+
+    <span class="subtasks" *ngIf="task.subtasks?.length">
+      {{ doneSubtasksCount }}/{{ totalSubtasksCount }} Subtasks
+    </span>
+  </div>
+
+  <div class="assignees" *ngIf="task.assignees?.length">
+    <span class="avatar" *ngFor="let a of task.assignees">
+      {{ a.initials }}
+    </span>
+  </div>
+</article>
