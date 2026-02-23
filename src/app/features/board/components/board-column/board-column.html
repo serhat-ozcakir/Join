@@ -1,0 +1,12 @@
+<header class="col-header">
+  <h3>{{ title }}</h3>
+  <button type="button" (click)="onAddTask()">+</button>
+</header>
+
+<div class="col-body">
+  <app-task-card
+    *ngFor="let t of tasks"
+    [task]="t"
+    (click)="onTaskSelected(t)"
+  ></app-task-card>
+</div>
