@@ -1,0 +1,55 @@
+.board {
+    display: flex;
+    justify-content: space-around;
+
+   
+}
+
+.board-page {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 30px;
+    }
+    &__toolbar {
+        display: flex;
+       
+    }
+    &__title {
+        font-size: 46px;
+       
+    }
+}
+
+.add-task-btn{
+    background: #2a3647;
+    color: #fff;
+    font-weight: 700;
+    white-space: nowrap;
+    max-width: 180px;
+    border: none;
+    border-radius: 10px;
+    padding: 0px 25px;
+    border-top-right-radius:10px !important;
+    border-bottom-right-radius:10px ;
+    height: 45px;
+    cursor: pointer;
+    > span {
+        font-size: 20px;
+    }
+}
+
+.search{
+    display: flex;
+    margin-right: 20px;
+    height: 45px;
+    border: 1px  #A8A8A8;
+    > input {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    > button{
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
