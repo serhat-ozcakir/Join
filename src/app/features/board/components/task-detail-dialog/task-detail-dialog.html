@@ -14,7 +14,7 @@
         }
         <div class="view-row">
           <span class="view-label">Due date:</span>
-          <span>{{ task?.dueDate || '-' }}</span>
+          <span>{{ task?.dueDate ? (task?.dueDate | date:'dd.MM.yyyy') : '-' }}</span>
         </div>
         <div class="view-row">
           <span class="view-label">Priority:</span>
