@@ -1,7 +1,8 @@
+
 // task.model.ts
 export type Status = 'todo' | 'inProgress' | 'awaitFeedback' | 'done';
 export type TaskType = 'User Story' | 'Technical Task';
-export type TaskPriority = 'urgent' | 'medium' | 'low';
+export type TaskPriority = 'high' | 'medium' | 'low';
 
 export interface Assignee {
   id: string;
@@ -24,6 +25,6 @@ export interface Task {
   priority: TaskPriority;
   assignees?: Assignee[];
   subtasks?: Subtask[];
-  createdAt: string; 
-  dueDate?: string; 
+  createdAt: string;
+  dueDate?: string;
 }

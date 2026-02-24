@@ -29,8 +29,8 @@ export class BoardPage {
     this.loadTasks();
   }
  // Method to load tasks from the store and categorize them by status
-  loadTasks(): void {
-    const tasks = this.taskStore.getTasks();
+  async loadTasks(): Promise<void> {
+    const tasks = await this.taskStore.getTasks();
     this.todoTasks = tasks.filter(task => task.status === 'todo');
     this.inProgressTasks = tasks.filter(task => task.status === 'inProgress');
     this.awaitFeedbackTasks = tasks.filter(task => task.status === 'awaitFeedback');
@@ -53,9 +53,11 @@ export class BoardPage {
     console.log('ADD');
   }
 
+  
+
   // Close the add task dialog and refresh the task lists
-  closeAddTaskDialog(): void {
+  async closeAddTaskDialog(): Promise<void> {
     this.showAddTaskDialog = false;
-    this.loadTasks();
+    await this.loadTasks();
   }
 }

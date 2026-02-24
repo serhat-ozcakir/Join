@@ -1,0 +1,324 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.dialog-content {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e0e0e0;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+.task-form {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+
+    .required {
+      color: #d32f2f;
+    }
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #2196f3;
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.contacts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+
+  &:hover {
+    border-color: #2196f3;
+  }
+
+  &.selected {
+    background: #e3f2fd;
+    border-color: #2196f3;
+
+    .contact-avatar {
+      background: #2196f3;
+      color: white;
+    }
+  }
+}
+
+.contact-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.contact-name {
+  font-size: 14px;
+  color: #333;
+}
+
+.no-contacts {
+  color: #999;
+  font-size: 14px;
+  padding: 12px;
+}
+
+.priority-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.priority-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-transform: capitalize;
+
+  &[data-priority="high"] {
+    &.active {
+      background: #ff5252;
+      border-color: #ff5252;
+      color: white;
+    }
+    &:hover:not(.active) {
+      border-color: #ff5252;
+      color: #ff5252;
+    }
+  }
+
+  &[data-priority="medium"] {
+    &.active {
+      background: #ffa726;
+      border-color: #ffa726;
+      color: white;
+    }
+    &:hover:not(.active) {
+      border-color: #ffa726;
+      color: #ffa726;
+    }
+  }
+
+  &[data-priority="low"] {
+    &.active {
+      background: #66bb6a;
+      border-color: #66bb6a;
+      color: white;
+    }
+    &:hover:not(.active) {
+      border-color: #66bb6a;
+      color: #66bb6a;
+    }
+  }
+}
+
+.subtasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.subtask-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #f5f5f5;
+  border-radius: 6px;
+
+  span {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+    line-height: 1;
+
+    &:hover {
+      color: #d32f2f;
+    }
+  }
+}
+
+.add-subtask {
+  display: flex;
+  gap: 8px;
+
+  input {
+    flex: 1;
+  }
+
+  .add-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #2196f3;
+    color: white;
+    border-radius: 6px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #1976d2;
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #666;
+
+  &:hover:not(:disabled) {
+    background: #e0e0e0;
+  }
+}
+
+.btn-primary {
+  background: #2196f3;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: #1976d2;
+  }
+}

@@ -1,1 +1,130 @@
-<p>add-task-dialog works!</p>
+<div class="dialog-overlay" (click)="onBackdropClick($event)">
+  <div class="dialog-content">
+    <div class="dialog-header">
+      <h2>Add Task</h2>
+      <button type="button" class="close-btn" (click)="close()" aria-label="Close">
+        ✕
+      </button>
+    </div>
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title">Title <span class="required">*</span></label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="Enter a title"
+          class="form-control"
+        />
+        <div class="error" *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          Title is required (min 3 characters)
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Enter a description"
+          class="form-control"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- Assigned to -->
+      <div class="form-group">
+        <label>Assigned to</label>
+        <div class="contacts-list">
+          <div
+            *ngFor="let contact of contacts"
+            class="contact-item"
+            [class.selected]="isContactSelected(contact.id!)"
+            (click)="toggleContact(contact.id!)"
+          >
+            <div class="contact-avatar">{{ getContactInitials(contact) }}</div>
+            <span class="contact-name">{{ contact.name }}</span>
+          </div>
+          <div *ngIf="contacts.length === 0" class="no-contacts">
+            No contacts available
+          </div>
+        </div>
+      </div>
+
+      <!-- Due Date -->
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input
+          id="dueDate"
+          type="date"
+          formControlName="dueDate"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Priority -->
+      <div class="form-group">
+        <label>Priority <span class="required">*</span></label>
+        <div class="priority-buttons">
+          <button
+            *ngFor="let priority of priorities"
+            type="button"
+            class="priority-btn"
+            [class.active]="taskForm.value.priority === priority"
+            [attr.data-priority]="priority"
+            (click)="taskForm.patchValue({ priority })"
+          >
+            {{ priority | titlecase }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Category/Type -->
+      <div class="form-group">
+        <label>Category <span class="required">*</span></label>
+        <select formControlName="type" class="form-control">
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Subtasks -->
+      <div class="form-group">
+        <label>Subtasks</label>
+        <div class="subtasks-container">
+          <div *ngFor="let subtask of subtasks.controls; let i = index" class="subtask-item">
+            <span>{{ subtask.value.title }}</span>
+            <button type="button" class="remove-btn" (click)="removeSubtask(i)" aria-label="Remove subtask">
+              ✕
+            </button>
+          </div>
+        </div>
+        <div class="add-subtask">
+          <input
+            type="text"
+            [(ngModel)]="newSubtaskTitle"
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Add new subtask"
+            class="form-control"
+            (keyup.enter)="addSubtask()"
+          />
+          <button type="button" class="add-btn" (click)="addSubtask()" [disabled]="!newSubtaskTitle.trim()">
+            +
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="clearForm()">
+          Clear
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Creating...' : 'Create Task' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
