@@ -69,6 +69,7 @@
         <div class="dialog-fields">
           <label class="input-label" for="title">Title</label>
           <input
+            #titleInput
             class="input-title input"
             type="text"
             id="title"
@@ -78,7 +79,7 @@
         </div>
         <div class="dialog-fields">
           <label class="input-label" for="description">Description</label>
-          <textarea class="input-description input" id="description" name="description">{{
+          <textarea #descInput class="input-description input" id="description" name="description">{{
             task?.description
           }}</textarea>
         </div>
@@ -86,6 +87,7 @@
           <label class="input-label" for="date">Due date</label>
           <div class="input-date-wrapper">
             <input
+              #dateInput
               class="input-date input"
               type="date"
               id="date"
@@ -196,7 +198,8 @@
           />
         </div>
         <div class="edit-actions">
-          <button class="button-save">
+          <button class="button-save" type="button" [disabled]="saving()"
+            (click)="saveEdit(titleInput.value, descInput.value, dateInput.value)">
             <span>Ok</span><img src="assets/icons/check.svg" alt="Confirm Button" />
           </button>
         </div>

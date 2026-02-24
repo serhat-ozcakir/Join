@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Task, TaskPriority } from '../../models/task.model';
 import { Supabase, Contact } from '../../../../supabase';
 import { avatarColors } from '../../../contacts/components/contact-list/contact-list';
+import { TaskStore } from '../../services/task-store';
 
 @Component({
   selector: 'app-task-detail-dialog',
@@ -14,12 +15,15 @@ import { avatarColors } from '../../../contacts/components/contact-list/contact-
 export class TaskDetailDialog implements OnInit {
   @Input() task: Task | null = null;
   @Output() closed = new EventEmitter<void>();
+  @Output() taskUpdated = new EventEmitter<void>();
 
   supabase = inject(Supabase);
+  taskStore = inject(TaskStore);
 
   isClosing = signal(false);
   isEditMode = signal(false);
   dropdownOpen = signal(false);
+  saving = signal(false);
   selectedContacts = signal<Contact[]>([]);
   selectedPriority = signal<TaskPriority | null>(null);
   searchText = signal('');
@@ -33,10 +37,34 @@ export class TaskDetailDialog implements OnInit {
   enterEditMode() {
     this.isEditMode.set(true);
     this.selectedPriority.set(this.task?.priority ?? null);
+    const preSelected = this.supabase.contacts().filter(c =>
+      this.task?.assignees?.some(a => a.id === c.id)
+    );
+    this.selectedContacts.set(preSelected);
   }
 
   cancelEdit() {
     this.isEditMode.set(false);
+  }
+
+  async saveEdit(title: string, description: string, dueDate: string) {
+    if (!this.task?.id) return;
+    this.saving.set(true);
+    const assignees = this.selectedContacts().map(c => ({
+      id: c.id!,
+      initials: this.getInitials(c.name),
+      name: c.name,
+    }));
+    await this.taskStore.updateTask(this.task.id, {
+      title,
+      description,
+      dueDate,
+      priority: this.selectedPriority() ?? this.task.priority,
+      assignees,
+    });
+    this.saving.set(false);
+    this.isEditMode.set(false);
+    this.taskUpdated.emit();
   }
 
   ngOnInit() {
