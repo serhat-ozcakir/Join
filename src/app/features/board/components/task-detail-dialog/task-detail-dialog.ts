@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, computed, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskPriority } from '../../models/task.model';
 import { Supabase, Contact } from '../../../../supabase';
@@ -84,9 +84,9 @@ export class TaskDetailDialog implements OnInit {
     return avatarColors[Math.abs(hash) % avatarColors.length];
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocClick(e: Event) {
-    const target = e.target as HTMLElement;
+  onCardClick(event: MouseEvent) {
+    event.stopPropagation();
+    const target = event.target as HTMLElement;
     if (!target.closest('.assigned-dropdown')) {
       this.dropdownOpen.set(false);
     }

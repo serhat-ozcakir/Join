@@ -1,5 +1,5 @@
 <div class="dialog-backdrop" (click)="close()">
-  <div class="dialog-card" [class.closing]="isClosing()" (click)="$event.stopPropagation()">
+  <div class="dialog-card" [class.closing]="isClosing()" (click)="onCardClick($event)">
     <button class="close-btn" (click)="close()">
       <img src="assets/icons/close-button.svg" alt="Close" />
     </button>
@@ -165,7 +165,6 @@
                     <input
                       type="checkbox"
                       [checked]="isSelected(contact)"
-                      (click)="$event.stopPropagation()"
                     />
                   </li>
                 }
