@@ -25,6 +25,8 @@
         {{ a.initials }}
       </span>
     </div>
-    <span class="prio">{{ task.priority }}</span>
+    <img class="prio-icon"
+     [src]="priorityIcon[task.priority]"
+     alt="'priority ' + task.priority">
   </div>
 </article>

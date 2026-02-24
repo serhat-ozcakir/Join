@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../models/task.model';
+import { Task, TaskPriority } from '../../models/task.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,5 +20,11 @@ export class TaskCard {
 
   get totalSubtasksCount(): number {
     return this.task.subtasks ? this.task.subtasks.length : 0;
+  }
+
+  priorityIcon:Record<TaskPriority, string> = {
+    high: 'assets/icons/prio-high.png',
+    medium: 'assets/icons/prio-medium.png',
+    low: 'assets/icons/prio-low.png'
   }
 }

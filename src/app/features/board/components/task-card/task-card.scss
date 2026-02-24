@@ -31,7 +31,7 @@ $avatar-colors: (
   border-radius: 16px;
   padding: 16px;
   margin: 16px 0 16px 0;
-  
+  cursor: pointer;
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
 
@@ -126,4 +126,10 @@ $avatar-colors: (
   color: #2A3647;
   font-weight: 600;
   text-transform: lowercase;
+}
+
+.prio-icon{
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
