@@ -4,6 +4,7 @@
 </header>
 
 <div class="col-body">
+  <p>{{ getemptyMessage() }}</p>
   <app-task-card
     *ngFor="let t of tasks"
     [task]="t"

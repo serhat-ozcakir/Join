@@ -25,4 +25,11 @@ export class BoardColumn {
     this.addClicked.emit();
     console.log('working');
   }
+
+  getemptyMessage(): string {
+    if (this.tasks.length === 0) {
+      return `No tasks  ${this.title}`;
+    }
+    return '';
+  }
 }
