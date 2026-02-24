@@ -153,9 +153,25 @@ textarea.input {
   text-align: left;
   color: #a0a0a0;
 
+  .assigned-search {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 20px;
+    font-family: inherit;
+    color: black;
+    cursor: pointer;
+
+    &::placeholder {
+      color: #a0a0a0;
+    }
+  }
+
   .dropdown-arrow {
     width: 12px;
     height: auto;
+    cursor: pointer;
     transition: transform 200ms;
 
     &.open {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, inject, signal } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskPriority } from '../../models/task.model';
 import { Supabase, Contact } from '../../../../supabase';
@@ -22,6 +22,13 @@ export class TaskDetailDialog implements OnInit {
   dropdownOpen = signal(false);
   selectedContacts = signal<Contact[]>([]);
   selectedPriority = signal<TaskPriority | null>(null);
+  searchText = signal('');
+
+  filteredContacts = computed(() => {
+    const search = this.searchText().toLowerCase();
+    if (!search) return this.supabase.contacts();
+    return this.supabase.contacts().filter(c => c.name.toLowerCase().includes(search));
+  });
 
   enterEditMode() {
     this.isEditMode.set(true);
@@ -46,6 +53,11 @@ export class TaskDetailDialog implements OnInit {
 
   toggleDropdown() {
     this.dropdownOpen.set(!this.dropdownOpen());
+  }
+
+  onSearchInput(event: Event) {
+    this.searchText.set((event.target as HTMLInputElement).value);
+    this.dropdownOpen.set(true);
   }
 
   isSelected(contact: Contact): boolean {

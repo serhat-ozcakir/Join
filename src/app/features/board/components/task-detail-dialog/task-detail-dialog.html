@@ -130,22 +130,26 @@
         <div class="dialog-fields">
           <label class="input-label">Assigned to</label>
           <div class="assigned-dropdown">
-            <button
-              type="button"
-              class="assigned-trigger input"
-              (click)="toggleDropdown(); $event.stopPropagation()"
-            >
-              <span>Select contacts to assign</span>
+            <div class="assigned-trigger input" (click)="$event.stopPropagation()">
+              <input
+                type="text"
+                class="assigned-search"
+                placeholder="Select contacts to assign"
+                [value]="searchText()"
+                (input)="onSearchInput($event)"
+                (focus)="dropdownOpen.set(true)"
+              />
               <img
                 src="assets/icons/arrow-drop-down.svg"
                 alt="Dropdown"
                 class="dropdown-arrow"
                 [class.open]="dropdownOpen()"
+                (click)="toggleDropdown(); $event.stopPropagation()"
               />
-            </button>
+            </div>
             @if (dropdownOpen()) {
               <ul class="assigned-list">
-                @for (contact of supabase.contacts(); track contact.id) {
+                @for (contact of filteredContacts(); track contact.id) {
                   <li
                     class="assigned-item"
                     (click)="toggleContact(contact); $event.stopPropagation()"
