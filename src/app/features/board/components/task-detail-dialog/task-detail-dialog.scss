@@ -107,6 +107,33 @@
   }
 }
 
+.input-date-wrapper {
+  position: relative;
+
+  .input-date {
+    padding-right: 44px;
+
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      width: 44px;
+      height: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .date-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+}
+
 textarea.input {
   resize: vertical;
   min-height: 80px;

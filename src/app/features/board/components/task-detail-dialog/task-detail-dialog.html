@@ -73,7 +73,10 @@
         </div>
         <div class="dialog-fields">
           <label class="input-label" for="date">Due date</label>
-          <input class="input-date input" type="date" id="date" name="date" [value]="task?.dueDate" />
+          <div class="input-date-wrapper">
+            <input class="input-date input" type="date" id="date" name="date" [value]="task?.dueDate" />
+            <img class="date-icon" src="assets/icons/calender.svg" alt="Calendar" />
+          </div>
         </div>
         <div class="dialog-fields">
           <label class="input-label">Priority</label>
@@ -119,8 +122,7 @@
           <input class="input" type="text" id="subtasks" name="subtasks" />
         </div>
         <div class="edit-actions">
-          <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
-          <button class="btn-save"><span>Ok</span><img src="" alt=""></button>
+          <button class="btn-save"><span>Ok</span><img src="assets/icons/check.svg" alt="Confirm Button"></button>
         </div>
       </section>
     }
