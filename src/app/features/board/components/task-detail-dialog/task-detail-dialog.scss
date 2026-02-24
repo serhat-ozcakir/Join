@@ -381,7 +381,9 @@ textarea.input {
   }
 }
 
-.btn-save {
+.button-save {
+  display: flex;
+  align-items: center;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -390,6 +392,12 @@ textarea.input {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
+  gap: 12px;
+
+  & img{
+    width: 16px;
+    height: 12px;
+  }
 
   &:hover {
     background: #29abe2;
