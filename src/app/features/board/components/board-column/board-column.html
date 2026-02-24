@@ -1,6 +1,6 @@
 <header class="col-header">
   <h3>{{ title }}</h3>
-  <button type="button" (click)="onAddTask()">+</button>
+  <button *ngIf="title !== 'Done'" type="button" (click)="onAddTask()">+</button>
 </header>
 
 <div class="col-body">
