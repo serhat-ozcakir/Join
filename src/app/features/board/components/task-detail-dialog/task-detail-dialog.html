@@ -3,41 +3,126 @@
     <button class="close-btn" (click)="close()">
       <img src="assets/icons/close-button.svg" alt="Close" />
     </button>
-    <section class="content">
 
-    <div class="dialog-fields">
-      <label class="input-label" for="title">Title</label>
-      <input class="input-title input-text" type="text" id="title" name="title" />
-    </div>
+    <!-- VIEW MODE -->
+    @if (!isEditMode()) {
+      <section class="content">
+        <span class="view-badge">{{ task?.type }}</span>
+        <h2 class="view-title">{{ task?.title }}</h2>
+        @if (task?.description) {
+          <p class="view-description">{{ task?.description }}</p>
+        }
+        <div class="view-row">
+          <span class="view-label">Due date:</span>
+          <span>{{ task?.dueDate || '-' }}</span>
+        </div>
+        <div class="view-row">
+          <span class="view-label">Priority:</span>
+          <span class="view-priority">{{ task?.priority }}</span>
+        </div>
+        @if (task?.assignees?.length) {
+          <div class="view-section">
+            <span class="view-label">Assigned To:</span>
+            @for (a of task!.assignees; track a.id) {
+              <div class="view-assignee">
+                <div class="assigned-avatar" [style.background-color]="getAvatarColor(a.name || a.initials)">
+                  {{ a.initials }}
+                </div>
+                <span>{{ a.name }}</span>
+              </div>
+            }
+          </div>
+        }
+        @if (task?.subtasks?.length) {
+          <div class="view-section">
+            <span class="view-label">Subtasks</span>
+            @for (sub of task!.subtasks; track sub.id) {
+              <div class="view-subtask">
+                <input type="checkbox" [checked]="sub.done" />
+                <span>{{ sub.title }}</span>
+              </div>
+            }
+          </div>
+        }
+        <div class="view-actions">
+          <button class="view-action-btn" (click)="close()">
+            <img class="icon-default" src="assets/icons/trash.svg" alt="Delete" />
+            <img class="icon-hover" src="assets/icons/trashHover.png" alt="Delete" />
+            Delete
+          </button>
+          <div class="view-divider"></div>
+          <button class="view-action-btn" (click)="enterEditMode()">
+            <img class="icon-default" src="assets/icons/pen.svg" alt="Edit" />
+            <img class="icon-hover" src="assets/icons/pen_teal.svg" alt="Edit" />
+            Edit
+          </button>
+        </div>
+      </section>
+    }
 
-    <div class="dialog-fields">
-      <label class="input-label" for="description">Description</label>
-      <input class="input-description input-text" type="text" id="description" name="description" />
-    </div>
-
-    <div class="dialog-fields">
-      <label class="input-label" for="date">Due date</label>
-      <input class="input-date input-text" type="text" id="date" name="date" />
-    </div>
-
-    <div class="dialog-fields">
-      <label class="input-label" for="title">Priority</label>
-      <div class="priority-button-area">
-      <button class="priority-button"><span>Urgent</span> <img class="priority-button-image" src="" alt=""></button>
-      <button class="priority-button"><span>Medium</span> <img class="priority-button-image" src="" alt=""></button>
-      <button class="priority-button"><span>Low</span> <img class="priority-button-image" src="" alt=""></button>
-      </div>
-    </div>
-
-    <div class="dialog-fields">
-      <label class="input-label" for="assigned">Assigned to</label>
-      <input class="input-title input-text" type="text" id="assigned" name="assigned" />
-    </div>
-
-    <div class="dialog-fields">
-      <label class="input-label" for="title">Subtasks</label>
-      <input class="input-title" type="text" id="subtasks" name="subtasks" />
-    </div>
-    </section>
+    <!-- EDIT MODE -->
+    @if (isEditMode()) {
+      <section class="content">
+        <div class="dialog-fields">
+          <label class="input-label" for="title">Title</label>
+          <input class="input-title input" type="text" id="title" name="title" [value]="task?.title" />
+        </div>
+        <div class="dialog-fields">
+          <label class="input-label" for="description">Description</label>
+          <textarea class="input-description input" id="description" name="description">{{ task?.description }}</textarea>
+        </div>
+        <div class="dialog-fields">
+          <label class="input-label" for="date">Due date</label>
+          <input class="input-date input" type="date" id="date" name="date" [value]="task?.dueDate" />
+        </div>
+        <div class="dialog-fields">
+          <label class="input-label">Priority</label>
+          <div class="priority-button-area">
+            <button type="button" class="priority-button urgent" [class.active]="selectedPriority() === 'high'" (click)="selectedPriority.set('high')"><span>Urgent</span> <img class="priority-button-image" src="assets/icons/urgent.svg" alt="Urgent"></button>
+            <button type="button" class="priority-button medium" [class.active]="selectedPriority() === 'medium'" (click)="selectedPriority.set('medium')"><span>Medium</span> <img class="priority-button-image" src="assets/icons/medium.svg" alt="Medium"></button>
+            <button type="button" class="priority-button low" [class.active]="selectedPriority() === 'low'" (click)="selectedPriority.set('low')"><span>Low</span> <img class="priority-button-image" src="assets/icons/low.svg" alt="Low"></button>
+          </div>
+        </div>
+        <div class="dialog-fields">
+          <label class="input-label">Assigned to</label>
+          <div class="assigned-dropdown">
+            <button type="button" class="assigned-trigger input" (click)="toggleDropdown(); $event.stopPropagation()">
+              <span>Select contacts to assign</span>
+              <img src="assets/icons/arrow-drop-down.svg" alt="Dropdown" class="dropdown-arrow" [class.open]="dropdownOpen()" />
+            </button>
+            @if (dropdownOpen()) {
+              <ul class="assigned-list">
+                @for (contact of supabase.contacts(); track contact.id) {
+                  <li class="assigned-item" (click)="toggleContact(contact); $event.stopPropagation()" [class.selected]="isSelected(contact)">
+                    <div class="assigned-avatar" [style.background-color]="getAvatarColor(contact.name)">
+                      {{ getInitials(contact.name) }}
+                    </div>
+                    <span class="assigned-name">{{ contact.name }}</span>
+                    <input type="checkbox" [checked]="isSelected(contact)" (click)="$event.stopPropagation()" />
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+          @if (selectedContacts().length > 0) {
+            <div class="assigned-avatars">
+              @for (contact of selectedContacts(); track contact.id) {
+                <div class="assigned-avatar" [style.background-color]="getAvatarColor(contact.name)" [title]="contact.name">
+                  {{ getInitials(contact.name) }}
+                </div>
+              }
+            </div>
+          }
+        </div>
+        <div class="dialog-fields">
+          <label class="input-label" for="subtasks">Subtasks</label>
+          <input class="input" type="text" id="subtasks" name="subtasks" />
+        </div>
+        <div class="edit-actions">
+          <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+          <button class="btn-save"><span>Ok</span><img src="" alt=""></button>
+        </div>
+      </section>
+    }
   </div>
 </div>
