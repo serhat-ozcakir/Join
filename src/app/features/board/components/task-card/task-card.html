@@ -1,5 +1,5 @@
 <article class="task-card">
-  <div class="badge">{{ task.type }}</div>
+  <div [ngStyle]="{'background-color': task.type === 'Technical Task' ? '#1FD7C1' : '#0038FF'}" class="badge">{{ task.type }}</div>
 
   <h4 class="title">{{ task.title }}</h4>
 
@@ -8,7 +8,10 @@
   </p>
 
   <div class="meta">
-    <span class="prio">{{ task.priority }}</span>
+    <div class="progress" *ngIf="task.subtasks?.length">
+      <div class="bar" [style.width.%]="(doneSubtasksCount / totalSubtasksCount) * 100">
+      </div>
+    </div>
 
     <span class="subtasks" *ngIf="task.subtasks?.length">
       {{ doneSubtasksCount }}/{{ totalSubtasksCount }} Subtasks
@@ -16,8 +19,12 @@
   </div>
 
   <div class="assignees" *ngIf="task.assignees?.length">
-    <span class="avatar" *ngFor="let a of task.assignees">
-      {{ a.initials }}
-    </span>
+    <div class="assignees__initials">
+
+      <span class="avatar" *ngFor="let a of task.assignees;">
+        {{ a.initials }}
+      </span>
+    </div>
+    <span class="prio">{{ task.priority }}</span>
   </div>
 </article>

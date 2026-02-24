@@ -1,0 +1,129 @@
+$orange: rgb(255, 122, 0);
+$violet: rgb(147, 39, 255);
+$indigo: rgb(110, 82, 255);
+$pink: rgb(252, 113, 255);
+$yellow: rgb(255, 187, 43);
+$turquoise: rgb(31, 215, 193);
+$dark-purple: rgb(70, 47, 138);
+$red: rgb(255, 70, 70);
+$cyan: rgb(0, 190, 232);
+$coral: rgb(255, 116, 94);
+
+$avatar-colors: (
+  $orange,
+  $violet,
+  $indigo,
+  $pink,
+  $yellow,
+  $turquoise,
+  $dark-purple,
+  $red,
+  $cyan,
+  $coral
+);
+
+
+.task-card{
+  max-width: 300px;              
+  width: 100%;
+  background: #fff;
+  border: 1px solid #E6E9F0; 
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0 16px 0;
+  
+  box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+
+.badge{
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.title{
+  color:#2A3647;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.desc{
+  color:#A8A8A8;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 0 12px 0;
+}
+
+.meta{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.progress {
+  flex: 1;               
+  height: 6px;
+  background: #F4F4F4;
+  border-radius: 6px;
+  overflow: hidden;        
+}
+
+.bar {
+  height: 100%;
+  background: #4589FF;
+  border-radius: 6px;
+}
+
+.subtasks{
+  font-size: 13px;
+  color: #2A3647;
+  white-space: nowrap;
+}
+
+.assignees{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.assignees__initials{
+  display: flex;
+  align-items: center;
+}
+
+.avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: #2A3647;
+  border: 2px solid #fff;   
+  margin-left: -8px;        
+}
+
+.assignees__initials .avatar:first-child{
+  margin-left: 0;
+}
+
+
+
+.prio{
+  font-size: 13px;
+  color: #2A3647;
+  font-weight: 600;
+  text-transform: lowercase;
+}
