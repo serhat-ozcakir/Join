@@ -4,7 +4,7 @@
       <img src="assets/icons/close-button.svg" alt="Close" />
     </button>
 
-    <!-- VIEW MODE -->
+    <!-- Task Dialog Main Area-->
     @if (!isEditMode()) {
       <section class="content">
         <span class="view-badge">{{ task?.type }}</span>
@@ -60,7 +60,7 @@
       </section>
     }
 
-    <!-- EDIT MODE -->
+    <!-- Task Dialog Edit Area -->
     @if (isEditMode()) {
       <section class="content">
         <div class="dialog-fields">
