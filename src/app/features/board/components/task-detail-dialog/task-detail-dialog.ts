@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 
@@ -10,10 +10,16 @@ import { Task } from '../../models/task.model';
   styleUrl: './task-detail-dialog.scss',
 })
 export class TaskDetailDialog {
-   @Input() task: Task | null = null;     // ✅ [task] binding bununla çalışır
-  @Output() closed = new EventEmitter<void>(); // ✅ (closed) bununla çalışır
+  @Input() task: Task | null = null;
+  @Output() closed = new EventEmitter<void>();
+
+  isClosing = signal(false);
 
   close() {
-    this.closed.emit();
+    this.isClosing.set(true);
+    setTimeout(() => {
+      this.isClosing.set(false);
+      this.closed.emit();
+    }, 400);
   }
 }

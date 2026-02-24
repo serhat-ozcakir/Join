@@ -1,0 +1,96 @@
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 30px;
+  padding: 32px;
+  width: 90%;
+  max-width: 500px;
+  height: 900px;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideInFromRight 400ms ease-out;
+
+  &.closing {
+    animation: slideOutToRight 400ms ease-in forwards;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(180%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: unset;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  color: #2a3647;
+  transition: background-color 100ms;
+  width: 28px;
+  height: 28px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 48px;
+}
+
+.dialog-fields{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label{
+  font-size: 20px;
+}
+
+.input-text{
+  font-size: 20px;
+}

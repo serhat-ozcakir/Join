@@ -4,7 +4,8 @@
 </header>
 
 <div class="col-body">
-  <p>{{ getemptyMessage() }}</p>
+  <p (click)="tasks.length === 0 && onTestOpenDialog()" [style.cursor]="tasks.length === 0 ? 'pointer' : 'default'">{{ getemptyMessage() }}</p>
+  <!-- <p>{{ getemptyMessage() }}</p> -->
   <app-task-card
     *ngFor="let t of tasks"
     [task]="t"

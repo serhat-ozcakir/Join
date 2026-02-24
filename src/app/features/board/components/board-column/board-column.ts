@@ -32,4 +32,17 @@ export class BoardColumn {
     }
     return '';
   }
+
+  // Methode nur zum erstellen des Dialogs, wird später entfernt
+  onTestOpenDialog(): void {
+    const dummyTask: Task = {
+      id: 'test',
+      title: 'Test Task',
+      status: 'todo',
+      type: 'User Story',
+      priority: 'medium',
+      createdAt: new Date().toISOString(),
+    };
+    this.taskSelected.emit(dummyTask);
+  }
 }

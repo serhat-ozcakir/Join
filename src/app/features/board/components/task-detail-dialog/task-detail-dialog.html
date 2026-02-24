@@ -1,1 +1,43 @@
-<p>task-detail-dialog works!</p>
+<div class="dialog-backdrop" (click)="close()">
+  <div class="dialog-card" [class.closing]="isClosing()" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close()">
+      <img src="assets/icons/close-button.svg" alt="Close" />
+    </button>
+    <section class="content">
+
+    <div class="dialog-fields">
+      <label class="input-label" for="title">Title</label>
+      <input class="input-title input-text" type="text" id="title" name="title" />
+    </div>
+
+    <div class="dialog-fields">
+      <label class="input-label" for="description">Description</label>
+      <input class="input-description input-text" type="text" id="description" name="description" />
+    </div>
+
+    <div class="dialog-fields">
+      <label class="input-label" for="date">Due date</label>
+      <input class="input-date input-text" type="text" id="date" name="date" />
+    </div>
+
+    <div class="dialog-fields">
+      <label class="input-label" for="title">Priority</label>
+      <div class="priority-button-area">
+      <button class="priority-button"><span>Urgent</span> <img class="priority-button-image" src="" alt=""></button>
+      <button class="priority-button"><span>Medium</span> <img class="priority-button-image" src="" alt=""></button>
+      <button class="priority-button"><span>Low</span> <img class="priority-button-image" src="" alt=""></button>
+      </div>
+    </div>
+
+    <div class="dialog-fields">
+      <label class="input-label" for="assigned">Assigned to</label>
+      <input class="input-title input-text" type="text" id="assigned" name="assigned" />
+    </div>
+
+    <div class="dialog-fields">
+      <label class="input-label" for="title">Subtasks</label>
+      <input class="input-title" type="text" id="subtasks" name="subtasks" />
+    </div>
+    </section>
+  </div>
+</div>
