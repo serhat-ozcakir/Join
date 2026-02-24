@@ -25,7 +25,10 @@
             <span class="view-label">Assigned To:</span>
             @for (a of task!.assignees; track a.id) {
               <div class="view-assignee">
-                <div class="assigned-avatar" [style.background-color]="getAvatarColor(a.name || a.initials)">
+                <div
+                  class="assigned-avatar"
+                  [style.background-color]="getAvatarColor(a.name || a.initials)"
+                >
                   {{ a.initials }}
                 </div>
                 <span>{{ a.name }}</span>
@@ -65,43 +68,101 @@
       <section class="content">
         <div class="dialog-fields">
           <label class="input-label" for="title">Title</label>
-          <input class="input-title input" type="text" id="title" name="title" [value]="task?.title" />
+          <input
+            class="input-title input"
+            type="text"
+            id="title"
+            name="title"
+            [value]="task?.title"
+          />
         </div>
         <div class="dialog-fields">
           <label class="input-label" for="description">Description</label>
-          <textarea class="input-description input" id="description" name="description">{{ task?.description }}</textarea>
+          <textarea class="input-description input" id="description" name="description">{{
+            task?.description
+          }}</textarea>
         </div>
         <div class="dialog-fields">
           <label class="input-label" for="date">Due date</label>
           <div class="input-date-wrapper">
-            <input class="input-date input" type="date" id="date" name="date" [value]="task?.dueDate" />
+            <input
+              class="input-date input"
+              type="date"
+              id="date"
+              name="date"
+              [value]="task?.dueDate"
+            />
             <img class="date-icon" src="assets/icons/calender.svg" alt="Calendar" />
           </div>
         </div>
         <div class="dialog-fields">
           <label class="input-label">Priority</label>
           <div class="priority-button-area">
-            <button type="button" class="priority-button urgent" [class.active]="selectedPriority() === 'high'" (click)="selectedPriority.set('high')"><span>Urgent</span> <img class="priority-button-image" src="assets/icons/urgent.svg" alt="Urgent"></button>
-            <button type="button" class="priority-button medium" [class.active]="selectedPriority() === 'medium'" (click)="selectedPriority.set('medium')"><span>Medium</span> <img class="priority-button-image" src="assets/icons/medium.svg" alt="Medium"></button>
-            <button type="button" class="priority-button low" [class.active]="selectedPriority() === 'low'" (click)="selectedPriority.set('low')"><span>Low</span> <img class="priority-button-image" src="assets/icons/low.svg" alt="Low"></button>
+            <button
+              type="button"
+              class="priority-button urgent"
+              [class.active]="selectedPriority() === 'high'"
+              (click)="selectedPriority.set('high')"
+            >
+              <span>Urgent</span>
+              <img class="priority-button-image" src="assets/icons/urgent.svg" alt="Urgent" />
+            </button>
+            <button
+              type="button"
+              class="priority-button medium"
+              [class.active]="selectedPriority() === 'medium'"
+              (click)="selectedPriority.set('medium')"
+            >
+              <span>Medium</span>
+              <img class="priority-button-image" src="assets/icons/medium.svg" alt="Medium" />
+            </button>
+            <button
+              type="button"
+              class="priority-button low"
+              [class.active]="selectedPriority() === 'low'"
+              (click)="selectedPriority.set('low')"
+            >
+              <span>Low</span>
+              <img class="priority-button-image" src="assets/icons/low.svg" alt="Low" />
+            </button>
           </div>
         </div>
         <div class="dialog-fields">
           <label class="input-label">Assigned to</label>
           <div class="assigned-dropdown">
-            <button type="button" class="assigned-trigger input" (click)="toggleDropdown(); $event.stopPropagation()">
+            <button
+              type="button"
+              class="assigned-trigger input"
+              (click)="toggleDropdown(); $event.stopPropagation()"
+            >
               <span>Select contacts to assign</span>
-              <img src="assets/icons/arrow-drop-down.svg" alt="Dropdown" class="dropdown-arrow" [class.open]="dropdownOpen()" />
+              <img
+                src="assets/icons/arrow-drop-down.svg"
+                alt="Dropdown"
+                class="dropdown-arrow"
+                [class.open]="dropdownOpen()"
+              />
             </button>
             @if (dropdownOpen()) {
               <ul class="assigned-list">
                 @for (contact of supabase.contacts(); track contact.id) {
-                  <li class="assigned-item" (click)="toggleContact(contact); $event.stopPropagation()" [class.selected]="isSelected(contact)">
-                    <div class="assigned-avatar" [style.background-color]="getAvatarColor(contact.name)">
+                  <li
+                    class="assigned-item"
+                    (click)="toggleContact(contact); $event.stopPropagation()"
+                    [class.selected]="isSelected(contact)"
+                  >
+                    <div
+                      class="assigned-avatar"
+                      [style.background-color]="getAvatarColor(contact.name)"
+                    >
                       {{ getInitials(contact.name) }}
                     </div>
                     <span class="assigned-name">{{ contact.name }}</span>
-                    <input type="checkbox" [checked]="isSelected(contact)" (click)="$event.stopPropagation()" />
+                    <input
+                      type="checkbox"
+                      [checked]="isSelected(contact)"
+                      (click)="$event.stopPropagation()"
+                    />
                   </li>
                 }
               </ul>
@@ -110,7 +171,11 @@
           @if (selectedContacts().length > 0) {
             <div class="assigned-avatars">
               @for (contact of selectedContacts(); track contact.id) {
-                <div class="assigned-avatar" [style.background-color]="getAvatarColor(contact.name)" [title]="contact.name">
+                <div
+                  class="assigned-avatar"
+                  [style.background-color]="getAvatarColor(contact.name)"
+                  [title]="contact.name"
+                >
                   {{ getInitials(contact.name) }}
                 </div>
               }
@@ -119,10 +184,18 @@
         </div>
         <div class="dialog-fields">
           <label class="input-label" for="subtasks">Subtasks</label>
-          <input class="input" type="text" id="subtasks" name="subtasks" />
+          <input
+            class="input"
+            type="text"
+            id="subtasks"
+            name="subtasks"
+            placeholder="Add new subtask"
+          />
         </div>
         <div class="edit-actions">
-          <button class="btn-save"><span>Ok</span><img src="assets/icons/check.svg" alt="Confirm Button"></button>
+          <button class="btn-save">
+            <span>Ok</span><img src="assets/icons/check.svg" alt="Confirm Button" />
+          </button>
         </div>
       </section>
     }
