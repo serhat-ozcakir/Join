@@ -9,6 +9,7 @@
     label{
         font-size: 20px;
         font-weight: 400;
+        color: #2A3647;
     }
     h2{
         font-size: 61px;
@@ -66,4 +67,9 @@
             border: blue 2px solid;
         }
     }
+}
+
+input[type="date"] {
+  font-size: 20px;
+  color: #D1D1D1;
 }
