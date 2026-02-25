@@ -227,8 +227,9 @@ textarea.input {
   left: 0;
   right: 0;
   background: white;
-  border: 1px solid #d1d1d1;
-  border-top: none;
+  border-left: 1px solid #d1d1d1;
+  border-right: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
   border-radius: 0 0 10px 10px;
   list-style: none;
   padding: 4px 0;
@@ -249,18 +250,43 @@ textarea.input {
   &.selected {
     background-color: #2a3647;
     color: white;
+    border-radius: 10px;
   }
 
   &:hover {
     background-color: #EBEBEB;
   }
 
+  &.selected:hover {
+    background-color: #091931;
+
+    input[type='checkbox']:checked {
+      background-color: #091931;
+      border-color: transparent;
+    }
+  }
+
   input[type='checkbox'] {
     margin-left: auto;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    accent-color: #29abe2;
+    appearance: none;
+    box-sizing: border-box;
+    border: 2px solid #2A3647;
+    border-radius: 3px;
+
+    &:checked {
+      background-color: #2a3647;
+      background-image: url(../../../../../../public/assets/icons/checked-input.svg);
+      background-repeat: no-repeat;
+      background-size: 130%;
+      background-position: center;
+    }
+
+    &:checked:hover {
+      background-color: #091931;
+    }
   }
 }
 
@@ -273,7 +299,6 @@ textarea.input {
   justify-content: center;
   color: white;
   font-size: 16px;
-  font-weight: 700;
   flex-shrink: 0;
 }
 

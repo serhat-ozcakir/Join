@@ -149,7 +149,7 @@
         </div>
         <div class="dialog-fields">
           <label class="input-label">Assigned to</label>
-          <div class="assigned-dropdown">
+          <div class="assigned-dropdown" [class.open]="dropdownOpen()">
             <div class="assigned-trigger input" [class.open]="dropdownOpen()" (click)="$event.stopPropagation()">
               <input
                 #searchInput
