@@ -30,6 +30,10 @@
         height: 120px;
         padding: 12px 21px;
     }
+    input[type="date"] {
+        font-size: 20px;
+        color: #D1D1D1;
+    }
     .mainContent{
         display: flex;
         justify-content: space-between;
@@ -65,11 +69,24 @@
             align-items: flex-start;
             min-height: 100%;
             border: blue 2px solid;
+            .priorityContent{
+                border: red 2px solid;
+                display: flex;
+                justify-content:space-between;
+                flex-direction: column;
+                gap: 8px;
+                .priorityContentElements{
+                    display: flex;
+                    gap: 16px;
+                    .priorityBasic{
+                        width: 136px;
+                        border: rgb(0, 200, 37) 2px solid;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
         }
     }
-}
-
-input[type="date"] {
-  font-size: 20px;
-  color: #D1D1D1;
 }

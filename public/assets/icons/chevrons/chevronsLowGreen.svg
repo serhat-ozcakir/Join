@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="106" height="90" viewBox="0 0 106 90">
+  <!-- upper chevron -->
+  <path d="M20 22 L53 47 L86 22"
+        fill="none" stroke="#7AE229" stroke-width="12"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- lower chevron -->
+  <path d="M20 44 L53 69 L86 44"
+        fill="none" stroke="#7AE229" stroke-width="12"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
