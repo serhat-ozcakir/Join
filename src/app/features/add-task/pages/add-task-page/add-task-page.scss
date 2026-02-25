@@ -36,13 +36,19 @@
     ::placeholder {
         font-size: 20px;
         color: #D1D1D1;
+        font-weight: 400;
+        font-style: 400;
     }
 
     textarea {
+        font-size: 20px;
         width: 440px;
         height: 120px;
         padding: 12px 21px;
         border-radius: 10px;
+        border-color: #D1D1D1;
+        font-weight: 400;
+        font-style: 400;
 
         &:hover {
             cursor: pointer;
@@ -51,7 +57,7 @@
 
     input[type="date"] {
         font-size: 20px;
-        color: #2A3647;
+        color: #D1D1D1;
     }
 
     .mainContent {
@@ -77,6 +83,13 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+        }
+
+        .lineContent{
+            height: 424px;
+            width: 1px;
+            background-color: #D1D1D1;
+            border-radius: 1px;
         }
 
         .priorityContent {
