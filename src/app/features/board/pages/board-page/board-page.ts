@@ -15,6 +15,7 @@ import { AddTaskDialog } from '../../../add-task/components/add-task-dialog/add-
   styleUrl: './board-page.scss',
 })
 export class BoardPage implements OnInit {
+   // Colon lists for each task status
   todoTasks = signal<Task[]>([]);
   inProgressTasks = signal<Task[]>([]);
   awaitFeedbackTasks = signal<Task[]>([]);
@@ -30,6 +31,7 @@ export class BoardPage implements OnInit {
     this.loadTasks();
   }
 
+ // Method to load tasks from the store and categorize them by status
   async loadTasks(): Promise<void> {
     const tasks = await this.taskStore.getTasks();
     this.todoTasks.set(tasks.filter(task => task.status === 'todo'));
@@ -38,19 +40,23 @@ export class BoardPage implements OnInit {
     this.doneTasks.set(tasks.filter(task => task.status === 'done'));
   }
 
+    // when a task is clicked, open the detail dialog
   openTaskDetail(task: Task): void {
     this.selectedTask = task;
   }
 
+   // Close the task detail dialog
   async closeDetailDialog(): Promise<void> {
     this.selectedTask = null;
     await this.loadTasks();
   }
 
+    // Add Task modal
   openAddTaskDialog(): void {
     this.showAddTaskDialog = true;
   }
 
+   // Close the add task dialog and refresh the task lists
   async closeAddTaskDialog(): Promise<void> {
     this.showAddTaskDialog = false;
     await this.loadTasks();
