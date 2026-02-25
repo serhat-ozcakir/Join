@@ -1,7 +1,9 @@
+
 .col-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 0 8px 0;
     > h3 {
         color: #42526E;
     }
@@ -12,4 +14,26 @@
         font-weight: 700;
         cursor: pointer;
     }
+}
+
+.col-body{
+--card-w: 240px;     /* tek kaynak */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  padding-top: 16px; 
+}
+
+.empty-placeholder{
+  width: var(--card-w);
+  max-width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #E7E7E7;
+  border: 1px dashed #C7C7C7;
+  color: #B8B8B8;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 0;
 }
