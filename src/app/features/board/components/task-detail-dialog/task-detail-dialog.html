@@ -7,7 +7,7 @@
     <!-- Task Dialog Main Area-->
     @if (!isEditMode()) {
       <section class="content">
-        <span class="view-badge">{{ task?.type }}</span>
+        <span class="view-badge" [style.background-color]="task?.type === 'Technical Task' ? '#1FD7C1' : '#0038FF'">{{ task?.type }}</span>
         <h2 class="view-title">{{ task?.title }}</h2>
         @if (task?.description) {
           <p class="view-description">{{ task?.description }}</p>

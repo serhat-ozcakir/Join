@@ -26,28 +26,28 @@
   <div class="board">
     <app-board-column
       title="To do"
-      [tasks]="todoTasks"
+      [tasks]="todoTasks()"
       (taskSelected)="openTaskDetail($event)"
       (addClicked)="openAddTaskDialog()"
     ></app-board-column>
 
     <app-board-column
       title="In progress"
-      [tasks]="inProgressTasks"
+      [tasks]="inProgressTasks()"
       (taskSelected)="openTaskDetail($event)"
       (addClicked)="openAddTaskDialog()"
     ></app-board-column>
 
     <app-board-column
       title="Await feedback"
-      [tasks]="awaitFeedbackTasks"
+      [tasks]="awaitFeedbackTasks()"
       (taskSelected)="openTaskDetail($event)"
       (addClicked)="openAddTaskDialog()"
     ></app-board-column>
 
     <app-board-column
       title="Done"
-      [tasks]="doneTasks"
+      [tasks]="doneTasks()"
       (taskSelected)="openTaskDetail($event)"
       (addClicked)="openAddTaskDialog()"
     ></app-board-column>

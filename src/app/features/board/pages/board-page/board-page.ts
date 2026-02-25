@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskStore } from '../../services/task-store';
 import { Task } from '../../models/task.model';
@@ -14,48 +14,43 @@ import { AddTaskDialog } from '../../../add-task/components/add-task-dialog/add-
   templateUrl: './board-page.html',
   styleUrl: './board-page.scss',
 })
-export class BoardPage {
-  // Colon lists for each task status
-  todoTasks: Task[] = [];
-  inProgressTasks: Task[] = [];
-  awaitFeedbackTasks: Task[] = [];
-  doneTasks: Task[] = [];
+export class BoardPage implements OnInit {
+  todoTasks = signal<Task[]>([]);
+  inProgressTasks = signal<Task[]>([]);
+  awaitFeedbackTasks = signal<Task[]>([]);
+  doneTasks = signal<Task[]>([]);
 
   // Dialog state
   selectedTask: Task | null = null;
   showAddTaskDialog = false;
 
-  constructor(private taskStore: TaskStore) {
+  constructor(private taskStore: TaskStore) {}
+
+  ngOnInit() {
     this.loadTasks();
   }
- // Method to load tasks from the store and categorize them by status
+
   async loadTasks(): Promise<void> {
     const tasks = await this.taskStore.getTasks();
-    this.todoTasks = tasks.filter(task => task.status === 'todo');
-    this.inProgressTasks = tasks.filter(task => task.status === 'inProgress');
-    this.awaitFeedbackTasks = tasks.filter(task => task.status === 'awaitFeedback');
-    this.doneTasks = tasks.filter(task => task.status === 'done');
+    this.todoTasks.set(tasks.filter(task => task.status === 'todo'));
+    this.inProgressTasks.set(tasks.filter(task => task.status === 'inProgress'));
+    this.awaitFeedbackTasks.set(tasks.filter(task => task.status === 'awaitFeedback'));
+    this.doneTasks.set(tasks.filter(task => task.status === 'done'));
   }
 
-  // when a task is clicked, open the detail dialog
   openTaskDetail(task: Task): void {
     this.selectedTask = task;
-      console.log('DETAIL', task);
-  }
- // Close the task detail dialog
-  closeDetailDialog(): void {
-    this.selectedTask = null;
   }
 
-  // Add Task modal
+  async closeDetailDialog(): Promise<void> {
+    this.selectedTask = null;
+    await this.loadTasks();
+  }
+
   openAddTaskDialog(): void {
     this.showAddTaskDialog = true;
-    console.log('ADD');
   }
 
-  
-
-  // Close the add task dialog and refresh the task lists
   async closeAddTaskDialog(): Promise<void> {
     this.showAddTaskDialog = false;
     await this.loadTasks();
