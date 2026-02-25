@@ -37,6 +37,7 @@ export class TaskDetailDialog implements OnInit {
   selectedContacts = signal<Contact[]>([]);
   selectedPriority = signal<TaskPriority | null>(null);
   searchText = signal('');
+  editDueDate = signal('');
 
   filteredContacts = computed(() => {
     const search = this.searchText().toLowerCase();
@@ -47,6 +48,7 @@ export class TaskDetailDialog implements OnInit {
   enterEditMode() {
     this.isEditMode.set(true);
     this.selectedPriority.set(this.task?.priority ?? null);
+    this.editDueDate.set(this.task?.dueDate ?? '');
     const preSelected = this.supabase.contacts().filter(c =>
       this.task?.assignees?.some(a => a.id === c.id)
     );
@@ -130,6 +132,7 @@ export class TaskDetailDialog implements OnInit {
     if (input.value && input.value < this.today) {
       input.value = this.today;
     }
+    this.editDueDate.set(input.value);
   }
 
   onCardClick(event: MouseEvent) {

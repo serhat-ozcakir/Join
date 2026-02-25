@@ -109,7 +109,7 @@
               id="date"
               name="date"
               [min]="today"
-              [value]="task?.dueDate"
+              [value]="editDueDate()"
               (change)="onDateChange(dateInput)"
             />
             <img class="date-icon" src="assets/icons/calender.svg" alt="Calendar" />
@@ -219,7 +219,7 @@
         </div>
         <div class="edit-actions">
           <button class="button-save" type="button" [disabled]="saving()"
-            (click)="saveEdit(titleInput.value, descInput.value, dateInput.value)">
+            (click)="saveEdit(titleInput.value, descInput.value, editDueDate())">
             <span>Ok</span><img src="assets/icons/check.svg" alt="Confirm Button" />
           </button>
         </div>
