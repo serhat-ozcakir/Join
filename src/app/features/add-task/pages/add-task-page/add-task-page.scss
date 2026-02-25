@@ -1,109 +1,163 @@
-.content{
+.content {
     padding: 80px;
     display: flex;
     flex-direction: column;
     gap: 50px;
-    span{
+    background-color: #F6F7F8;
+    height: 100%;
+    width: 100%;
+
+    span {
         color: red;
     }
-    label{
+
+    label {
         font-size: 20px;
         font-weight: 400;
         color: #2A3647;
     }
-    h2{
+
+    h2 {
         font-size: 61px;
     }
-    input{
+
+    input {
         border-radius: 10px;
         padding: 12px 21px;
         width: 440px;
         height: 48px;
         border: 1px solid #D1D1D1;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
+
     ::placeholder {
         font-size: 20px;
         color: #D1D1D1;
     }
-    textarea{
+
+    textarea {
         width: 440px;
         height: 120px;
         padding: 12px 21px;
+        border-radius: 10px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
+
     input[type="date"] {
         font-size: 20px;
-        color: #D1D1D1;
+        color: #2A3647;
     }
-    .mainContent{
+
+    .mainContent {
         display: flex;
         justify-content: space-between;
-        border: red 2px solid;
         height: 376px;
-        .leftContent{
+
+        .leftContent,
+        .rightContent {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
             min-height: 100%;
-            border: blue 2px solid;
-            .titleInContent{
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .descriptionInContent{
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .dueDateContent{
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
         }
-        .rightContent{
+
+        .titleInContent,
+        .descriptionInContent,
+        .dueDateContent,
+        .assignedToContent,
+        .categoryContent,
+        .subtaskContent {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
-            min-height: 100%;
-            border: blue 2px solid;
-            .priorityContent{
-                border: red 2px solid;
+            gap: 8px;
+        }
+
+        .priorityContent {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .priorityContentElements {
                 display: flex;
-                justify-content:space-between;
-                flex-direction: column;
-                gap: 8px;
-                .priorityContentElements{
+                gap: 16px;
+
+                .prioRadio {
+                    display: none;
+                }
+
+                .priorityBasic {
+                    border-radius: 10px;
+                    padding: 10px 16px;
+                    width: 136px;
+                    background-color: white;
                     display: flex;
-                    gap: 16px;
-                    .priorityBasic{
-                        width: 136px;
-                        border: rgb(0, 200, 37) 2px solid;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        gap: 8px;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 8px;
+                    cursor: pointer;
+                    transition: 0.2s ease;
+
+                    &:hover {
+                        box-shadow: 0px 9px 4px rgba(0,0,0,0.1);
                     }
-                    .priorityBasicIMG{
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: contain;
-                        width: 25px;
-                        height: 25px;
+                }
+
+                #prioUrgent:checked + .priorityUrgent {
+                    background-color: #FF3D00;
+                    color: white;
+
+                    .priorityUrgentIMG {
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsUrgentWhite.svg);
                     }
-                    .priorityUrgentIMG{
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronUrgentRealRed.svg);
+                }
+
+                #prioMedium:checked + .priorityMedium {
+                    background-color: #FFA800;
+                    color: white;
+
+                    .priorityMediumIMG {
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumWhite.svg);
                     }
-                    .priorityMediumIMG{
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumOrange.svg);
-                    }
-                    .priorityLowIMG{
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowGreen.svg);
+                }
+
+                #prioLow:checked + .priorityLow {
+                    background-color: #7AE229;
+                    color: white;
+
+                    .priorityLowIMG {
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowWhite.svg);
                         width: 20px;
                         height: 20px;
                     }
+                }
+
+                .priorityBasicIMG {
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 25px;
+                    height: 25px;
+                }
+
+                .priorityUrgentIMG {
+                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronUrgentRealRed.svg);
+                }
+
+                .priorityMediumIMG {
+                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumOrange.svg);
+                }
+
+                .priorityLowIMG {
+                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowGreen.svg);
+                    width: 20px;
+                    height: 20px;
                 }
             }
         }

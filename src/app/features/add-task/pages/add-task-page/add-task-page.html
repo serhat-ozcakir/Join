@@ -12,12 +12,12 @@
 
             <div class="descriptionInContent">
                 <label for="description">Description</label>
-                <textarea id="description" type="text" placeholder="Enter a description"></textarea>
+                <textarea id="description" placeholder="Enter a description"></textarea>
             </div>
 
             <div class="dueDateContent">
                 <label for="dueDate">Due date<span>*</span></label>
-                <input id="dueDate" type="date" placeholder="dd/mm/yyyy" required>
+                <input id="dueDate" type="date" required>
             </div>
 
         </div>
@@ -25,10 +25,27 @@
         <div class="rightContent">
             <div class="priorityContent">
                 <label>Priority</label>
+
                 <div class="priorityContentElements">
-                <div class="priorityUrgent priorityBasic">Urgent<div class="priorityUrgentIMG priorityBasicIMG"></div></div>
-                <div class="priorityMedium  priorityBasic">Medium <div class="priorityMediumIMG priorityBasicIMG"></div></div>
-                <div class="priorityLow  priorityBasic">Low<div class="priorityLowIMG priorityBasicIMG"></div></div>
+
+                    <input class="prioRadio" type="radio" name="priority" id="prioUrgent" value="urgent">
+                    <label for="prioUrgent" class="priorityBasic priorityUrgent">
+                        Urgent
+                        <div class="priorityUrgentIMG priorityBasicIMG"></div>
+                    </label>
+
+                    <input class="prioRadio" type="radio" name="priority" id="prioMedium" value="medium" checked>
+                    <label for="prioMedium" class="priorityBasic priorityMedium">
+                        Medium
+                        <div class="priorityMediumIMG priorityBasicIMG"></div>
+                    </label>
+
+                    <input class="prioRadio" type="radio" name="priority" id="prioLow" value="low">
+                    <label for="prioLow" class="priorityBasic priorityLow">
+                        Low
+                        <div class="priorityLowIMG priorityBasicIMG"></div>
+                    </label>
+
                 </div>
             </div>
 
