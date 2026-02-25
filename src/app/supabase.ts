@@ -245,4 +245,13 @@ export class Supabase {
     this.selectedContact.set(null);
     await this.getContacts();
   }
+
+  async updateTaskStatus(taskId: string, status: string) {
+  const { error } = await this.supabase
+    .from('tasks')
+    .update({ status })
+    .eq('id', taskId);
+
+  if (error) throw error;
+}
 }
