@@ -122,6 +122,16 @@ export class TaskDetailDialog implements OnInit {
     return avatarColors[Math.abs(hash) % avatarColors.length];
   }
 
+  get today(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  onDateChange(input: HTMLInputElement) {
+    if (input.value && input.value < this.today) {
+      input.value = this.today;
+    }
+  }
+
   onCardClick(event: MouseEvent) {
     event.stopPropagation();
     const target = event.target as HTMLElement;

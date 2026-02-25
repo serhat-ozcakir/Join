@@ -145,6 +145,18 @@ export class AddTaskDialog implements OnInit {
     this.closed.emit();
   }
 
+  get today(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  onDateChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.value && input.value < this.today) {
+      input.value = this.today;
+      this.taskForm.patchValue({ dueDate: this.today });
+    }
+  }
+
   onBackdropClick(event: MouseEvent) {
     if ((event.target as HTMLElement).classList.contains('dialog-overlay')) {
       this.close();
