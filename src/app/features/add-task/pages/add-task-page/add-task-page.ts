@@ -12,19 +12,23 @@ import { RouterOutlet } from '@angular/router';
 export class AddTaskPage {
   taskForm = new FormGroup({
     titel: new FormControl('', {
-      validators: [Validators.maxLength(20)]
+      validators: [Validators.maxLength(10)]
     }),
     description: new FormControl('', {
-      validators: [Validators.maxLength(40)]
+      validators: [Validators.maxLength(10)]
     }),
     date: new FormControl('', {
-      validators: [Validators.minLength(5)]
+      validators: [Validators.minLength(1)]
     }),
     category: new FormControl('', {
-      validators: [Validators.minLength(10)]
+      validators: [Validators.minLength(1)]
     }),
     subtasks: new FormControl('', {
       validators: [Validators.minLength(1)]
     }),
   })
+
+    formSubmit(){
+    console.log('Erfolgreich');
+  }
 }

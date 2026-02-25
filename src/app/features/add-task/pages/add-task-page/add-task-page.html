@@ -1,78 +1,141 @@
 <section class="content">
     <h2 class="mainTitle">Add Task</h2>
 
-    <form [formGroup]="taskForm" class="mainContent">
-        
-        <div class="leftContent">
-            
-            <div class="titleInContent">
-                <label for="title">Title<span>*</span></label>
-                <input formControlName="titel" id="title" type="text" required placeholder="Enter a title">
-            </div>
+    <form [formGroup]="taskForm" 
+          class="mainContent" 
+          (ngSubmit)="formSubmit()">
 
-            <div class="descriptionInContent">
-                <label for="description">Description</label>
-                <textarea formControlName="description" id="description" placeholder="Enter a description"></textarea>
-            </div>
+        <div class="divContent">
 
-            <div class="dueDateContent">
-                <label for="dueDate">Due date<span>*</span></label>
-                <input formControlName="date" id="dueDate" type="date" required>
-            </div>
-        </div>
+            <div class="leftContent">
 
-        <span class="lineContent"></span>
-
-        <div class="rightContent">
-            <div class="priorityContent">
-                <label>Priority</label>
-
-                <div class="priorityContentElements">
-
-                    <input class="prioRadio" type="radio" name="priority" id="prioUrgent" value="urgent">
-                    <label for="prioUrgent" class="priorityBasic priorityUrgent">
-                        Urgent
-                        <div class="priorityUrgentIMG priorityBasicIMG"></div>
+                <div class="titleInContent">
+                    <label for="title">
+                        Title<span>*</span>
                     </label>
-
-                    <input class="prioRadio" type="radio" name="priority" id="prioMedium" value="medium" checked>
-                    <label for="prioMedium" class="priorityBasic priorityMedium">
-                        Medium
-                        <div class="priorityMediumIMG priorityBasicIMG"></div>
-                    </label>
-
-                    <input class="prioRadio" type="radio" name="priority" id="prioLow" value="low">
-                    <label for="prioLow" class="priorityBasic priorityLow">
-                        Low
-                        <div class="priorityLowIMG priorityBasicIMG"></div>
-                    </label>
-
+                    <input formControlName="titel"
+                           id="title"
+                           type="text"
+                           required
+                           placeholder="Enter a title">
                 </div>
+
+                <div class="descriptionInContent">
+                    <label for="description">Description</label>
+                    <textarea formControlName="description"
+                              id="description"
+                              placeholder="Enter a description">
+                    </textarea>
+                </div>
+
+                <div class="dueDateContent">
+                    <label for="dueDate">
+                        Due date<span>*</span>
+                    </label>
+                    <input formControlName="date"
+                           id="dueDate"
+                           type="date"
+                           required>
+                </div>
+
             </div>
 
-            <div class="assignedToContent">
-                <label for="assignedTo">Assigned to</label>
-                <input id="assignedTo" type="text" placeholder="Select contacts to assign">
-            </div>
+            <span class="lineContent"></span>
 
-            <div class="categoryContent">
-                <label for="category">Category<span>*</span></label>
-                <input formControlName="category" id="category" type="text" required placeholder="Select task category">
-            </div>
+            <div class="rightContent">
 
-            <div class="subtaskContent">
-                <label for="subtasks">Subtasks</label>
-                <input formControlName="subtasks" id="subtasks" type="text" placeholder="Add new subtask">
-            </div>
+                <div class="priorityContent">
+                    <label>Priority</label>
 
+                    <div class="priorityContentElements">
+
+                        <input class="prioRadio"
+                               type="radio"
+                               name="priority"
+                               id="prioUrgent"
+                               value="urgent">
+
+                        <label for="prioUrgent"
+                               class="priorityBasic priorityUrgent">
+                            Urgent
+                            <div class="priorityUrgentIMG priorityBasicIMG"></div>
+                        </label>
+
+                        <input class="prioRadio"
+                               type="radio"
+                               name="priority"
+                               id="prioMedium"
+                               value="medium"
+                               checked>
+
+                        <label for="prioMedium"
+                               class="priorityBasic priorityMedium">
+                            Medium
+                            <div class="priorityMediumIMG priorityBasicIMG"></div>
+                        </label>
+
+                        <input class="prioRadio"
+                               type="radio"
+                               name="priority"
+                               id="prioLow"
+                               value="low">
+
+                        <label for="prioLow"
+                               class="priorityBasic priorityLow">
+                            Low
+                            <div class="priorityLowIMG priorityBasicIMG"></div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="assignedToContent">
+                    <label for="assignedTo">Assigned to</label>
+                    <input id="assignedTo"
+                           type="text"
+                           placeholder="Select contacts to assign">
+                </div>
+
+                <div class="categoryContent">
+                    <label for="category">
+                        Category<span>*</span>
+                    </label>
+                    <input formControlName="category"
+                           id="category"
+                           type="text"
+                           required
+                           placeholder="Select task category">
+                </div>
+
+                <div class="subtaskContent">
+                    <label for="subtasks">Subtasks</label>
+                    <input formControlName="subtasks"
+                           id="subtasks"
+                           type="text"
+                           placeholder="Add new subtask">
+                </div>
+
+            </div>
         </div>
+
+        <footer>
+            <p>
+                <span>*</span>This field is rehhquired
+            </p>
+
+            <div class="btnDiv">
+                <button class="btnClear btnBasic">
+                    Clear
+                    <div class="btnClearIcon btnBasicIcon"></div>
+                </button>
+
+                <button class="btnCreateTask btnBasic"
+                        type="submit">
+                    Create Task
+                    <div class="btnCreateTaskIcon btnBasicIcon"></div>
+                </button>
+            </div>
+        </footer>
 
     </form>
-    <footer>
-    <p><span>*</span>This field is rehhquired</p>
-    <div class="btnDiv">
-    <button class="btnClear btnBasic">Clear<div class="btnClearIcon btnBasicIcon"></div></button>
-    <button class="btnCreateTask btnBasic">Create Task<div class="btnCreateTaskIcon btnBasicIcon"></div></button>
-    </div>
-    </footer>
 </section>
