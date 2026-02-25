@@ -16,6 +16,7 @@ export interface Subtask {
   done: boolean;
 }
 
+// Individuelle Namen vergeben(Wenn export)
 export interface Task {
   id: string;
   title: string;

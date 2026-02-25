@@ -58,6 +58,7 @@
     *ngIf="selectedTask"
     [task]="selectedTask"
     (closed)="closeDetailDialog()"
+    (taskUpdated)="loadTasks()"
   ></app-task-detail-dialog>
 
   <!-- Add Task Dialog  -->

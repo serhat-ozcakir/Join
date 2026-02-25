@@ -13,11 +13,12 @@
   flex-direction: column;
   background: #fff;
   border-radius: 30px;
-  padding: 32px;
+  padding: 48px 40px;
   width: 90%;
   max-width: 500px;
   height: 900px;
-  overflow-y: auto;
+  max-height: 90vh;
+  overflow: hidden;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   animation: slideInFromRight 400ms ease-out;
@@ -53,8 +54,8 @@
 
 .close-btn {
   position: absolute;
-  top: 28px;
-  right: 30px;
+  top: 46px;
+  right: 36px;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -74,10 +75,42 @@
 }
 
 .content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-top: 48px;
+  overflow-y: auto;
+}
+
+.content-edit {
+  padding-top: 42px;
+  margin-right: -24px;
+}
+
+.edit-fields {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  // margin-right: -24px;
+  padding-right: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 3px;
+  }
 }
 
 .dialog-fields {
@@ -164,7 +197,11 @@ textarea.input {
     cursor: pointer;
 
     &::placeholder {
-      color: #a0a0a0;
+      color: black;
+    }
+
+    &:focus::placeholder {
+      color: transparent;
     }
   }
 
@@ -178,23 +215,28 @@ textarea.input {
       transform: rotate(180deg);
     }
   }
+
+  &:focus-within {
+    border-color: #29abe2;
+  }
 }
 
 .assigned-list {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   right: 0;
   background: white;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
+  border-left: 1px solid #d1d1d1;
+  border-right: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  border-radius: 0 0 10px 10px;
   list-style: none;
   padding: 4px 0;
   margin: 0;
   z-index: 10;
-  max-height: 200px;
+  max-height: 190px;
   overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .assigned-item {
@@ -205,36 +247,63 @@ textarea.input {
   cursor: pointer;
   transition: background-color 150ms;
 
-  &:hover,
   &.selected {
     background-color: #2a3647;
     color: white;
+    border-radius: 10px;
+  }
+
+  &:hover {
+    background-color: #EBEBEB;
+  }
+
+  &.selected:hover {
+    background-color: #091931;
+
+    input[type='checkbox']:checked {
+      background-color: #091931;
+      border-color: transparent;
+    }
   }
 
   input[type='checkbox'] {
     margin-left: auto;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    accent-color: #29abe2;
+    appearance: none;
+    box-sizing: border-box;
+    border: 2px solid #2A3647;
+    border-radius: 3px;
+
+    &:checked {
+      background-color: #2a3647;
+      background-image: url(../../../../../../public/assets/icons/checked-input.svg);
+      background-repeat: no-repeat;
+      background-size: 130%;
+      background-position: center;
+    }
+
+    &:checked:hover {
+      background-color: #091931;
+    }
   }
 }
 
 .assigned-avatar {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
   flex-shrink: 0;
 }
 
 .assigned-name {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 .assigned-avatars {
@@ -254,25 +323,24 @@ textarea.input {
 // Main Task Dialog
 .view-badge {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 4px;
-  background: #29abe2;
+  padding: 4px 24px;
+  border-radius: 8px;
+  background: #0038ff;
   color: white;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 23px;
   align-self: flex-start;
 }
 
 .view-title {
-  font-size: 32px;
+  font-size: 61px;
   font-weight: 700;
-  color: #111;
+  color: black;
   line-height: 1.2;
 }
 
 .view-description {
-  font-size: 16px;
-  color: #444;
+  font-size: 20px;
+  color: black;
 }
 
 .view-row {
@@ -283,19 +351,26 @@ textarea.input {
 }
 
 .view-label {
-  font-weight: 700;
-  color: #111;
-  font-size: 16px;
+  color: #2a3647;
+  font-size: 20px;
 }
 
 .view-priority {
-  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+
+  img {
+    width: 21px;
+  }
 }
 
 .view-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 8px 16px;
 }
 
 .view-assignee {
@@ -322,10 +397,13 @@ textarea.input {
 .view-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  position: sticky;
+  bottom: 0;
+  background: white;
 }
 
 .view-divider {
@@ -347,14 +425,26 @@ textarea.input {
   border-radius: 8px;
   transition: color 0.2s ease;
 
-  .icon-default { display: block; width: 18px; height: 18px; }
-  .icon-hover { display: none; width: 18px; height: 18px; }
+  .icon-default {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+  .icon-hover {
+    display: none;
+    width: 18px;
+    height: 18px;
+  }
 
   &:hover {
     color: #29abe2;
 
-    .icon-default { display: none; }
-    .icon-hover { display: block; }
+    .icon-default {
+      display: none;
+    }
+    .icon-hover {
+      display: block;
+    }
   }
 }
 
@@ -363,7 +453,9 @@ textarea.input {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 8px;
+  flex-shrink: 0;
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 
 .btn-cancel {
@@ -394,7 +486,7 @@ textarea.input {
   font-weight: 700;
   gap: 12px;
 
-  & img{
+  & img {
     width: 16px;
     height: 12px;
   }

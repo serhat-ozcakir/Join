@@ -97,7 +97,7 @@ export class TaskStore {
         priority: updates.priority,
         assignees: updates.assignees,
         subtasks: updates.subtasks,
-        due_at: updates.dueDate,
+        due_at: updates.dueDate || null,
       })
       .eq('id', id)
       .select()

@@ -1,1 +1,53 @@
-<p>add-task-page works!</p>
+<section class="content">
+    <h2 class="mainTitle">Add Task</h2>
+
+    <form class="mainContent">
+        
+        <div class="leftContent">
+            
+            <div class="titleInContent">
+                <label for="title">Title<span>*</span></label>
+                <input id="title" type="text" required placeholder="Enter a title">
+            </div>
+
+            <div class="descriptionInContent">
+                <label for="description">Description</label>
+                <textarea id="description" type="text" placeholder="Enter a description"></textarea>
+            </div>
+
+            <div class="dueDateContent">
+                <label for="dueDate">Due date<span>*</span></label>
+                <input id="dueDate" type="date" placeholder="dd/mm/yyyy" required>
+            </div>
+
+        </div>
+
+        <div class="rightContent">
+            <div class="priorityContent">
+                <label>Priority</label>
+                <div class="priorityContentElements">
+                <div class="priorityUrgent priorityBasic">Urgent<div class="priorityUrgentIMG priorityBasicIMG"></div></div>
+                <div class="priorityMedium  priorityBasic">Medium <div class="priorityMediumIMG priorityBasicIMG"></div></div>
+                <div class="priorityLow  priorityBasic">Low<div class="priorityLowIMG priorityBasicIMG"></div></div>
+                </div>
+            </div>
+
+            <div class="assignedToContent">
+                <label for="assignedTo">Assigned to</label>
+                <input id="assignedTo" type="text" placeholder="Select contacts to assign">
+            </div>
+
+            <div class="categoryContent">
+                <label for="category">Category<span>*</span></label>
+                <input id="category" type="text" required placeholder="Select task category">
+            </div>
+
+            <div class="subtaskContent">
+                <label for="subtasks">Subtasks</label>
+                <input id="subtasks" type="text" placeholder="Add new subtask">
+            </div>
+
+        </div>
+
+    </form>
+</section>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 160" width="165" height="160">
+    
+    <!-- Top orange rounded bar -->
+    <rect x="35" y="55" width="95" height="14" rx="7" fill="#FFA800"/>
+    
+    <!-- Bottom orange rounded bar -->
+    <rect x="35" y="85" width="95" height="14" rx="7" fill="#FFA800"/>
+
+</svg>

@@ -61,6 +61,8 @@
           id="dueDate"
           type="date"
           formControlName="dueDate"
+          [min]="today"
+          (change)="onDateChange($event)"
           class="form-control"
         />
       </div>
