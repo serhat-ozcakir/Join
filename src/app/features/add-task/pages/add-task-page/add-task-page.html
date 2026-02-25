@@ -3,37 +3,37 @@
     <div class="mainContent">
         <div class="leftContent">
             <div class="titleInContent">
-                <h6>Title</h6>
-                <input type="text" placeholder="Enter a title">
+                <label for="title">Title<span>*</span></label>
+                <input id="title" type="text" placeholder="Enter a title">
             </div>
             <div class="descriptionInContent">
-                <h6>Description</h6>
-                <input type="text" placeholder="Enter a Description">
+                <label for="description">Description</label>
+                <input type="description" placeholder="Enter a Description">
             </div>
-            <div class="dueDate">
-                <h6>Due date</h6>
-                <input type="text" placeholder="dd/mm/yyyy">
+            <div class="dueDateContent">
+                <label for="dueDate" for="title">Due date<span>*</span></label>
+                <input type="dueDate" placeholder="dd/mm/yyyy">
             </div>
         </div>
         <span></span>
         <div class="rightContent">
             <div class="priorityContent">
-                <h6>Priority</h6>
+                <label>Priority</label>
                 <div class="priorityUrgent">Urgent</div>
                 <div class="priorityMedium">Medium</div>
                 <div class="priorityLow">Low</div>
             </div>
-            <div class="assignedToConetent">
-                <h6>Assigend to</h6>
-                <input type="text" placeholder="Select contacts to assign">
+            <div class="assignedToContent">
+                <label for="assignedTo">Assigned to</label>
+                <input id="assignedTo" type="text" placeholder="Select contacts to assign">
             </div>
             <div class="Category">
-                <h6>Category</h6>
-                <input type="text" placeholder="Select task category">
+                <label for="category">Category<span>*</span></label>
+                <input id="category" type="text" placeholder="Select task category">
             </div>
             <div class="subtaskContent">
-                <h6>Subtasks</h6>
-                <input type="text" placeholder="Add new subtask">
+                <label for="subtasks">Subtasks</label>
+                <input id="subtasks" type="text" placeholder="Add new subtask">
             </div>
         </div>
     </div>
