@@ -64,6 +64,7 @@
         display: flex;
         justify-content: space-between;
         height: 376px;
+        max-width: 1440px - 80px;
 
         .leftContent,
         .rightContent {
@@ -127,7 +128,7 @@
                     color: white;
 
                     .priorityUrgentIMG {
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsUrgentWhite.svg);
+                        background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronsUrgentWhite.svg);
                     }
                 }
 
@@ -136,7 +137,7 @@
                     color: white;
 
                     .priorityMediumIMG {
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumWhite.svg);
+                        background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronsMediumWhite.svg);
                     }
                 }
 
@@ -145,7 +146,7 @@
                     color: white;
 
                     .priorityLowIMG {
-                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowWhite.svg);
+                        background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronsLowWhite.svg);
                         width: 20px;
                         height: 20px;
                     }
@@ -160,19 +161,88 @@
                 }
 
                 .priorityUrgentIMG {
-                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronUrgentRealRed.svg);
+                    background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronUrgentRealRed.svg);
                 }
 
                 .priorityMediumIMG {
-                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumOrange.svg);
+                    background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronsMediumOrange.svg);
                 }
 
                 .priorityLowIMG {
-                    background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowGreen.svg);
+                    background-image: url(../../../../../../public/assets/icons/AddTask/chevrons/chevronsLowGreen.svg);
                     width: 20px;
                     height: 20px;
                 }
             }
         }
     }
+    footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        max-width: 1440px - 80px;
+        margin-top: 100px;
+        p{
+        display: flex;
+        justify-content: flex-start;
+        font-size: 20px;
+        font-weight: 400;
+        font-style: 400;
+        color: black;
+        }
+    .btnDiv{
+        display: flex;
+        gap: 16px;
+        .btnBasicIcon{
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                width: 25px;
+                height: 25px;
+        }
+
+        .btnBasic{
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px #2A3647 solid;
+        }
+
+        .btnClear{
+            background-color: #F6F7F8;
+            font-size: 20px;
+            font-weight: 400;
+            .btnClearIcon{
+                background-image: url(../../../../../../public/assets/icons/AddTask/clearIconDarkColor.svg);
+            }
+            &:hover{
+                border: 1px solid #29ABE2;
+                color: #29ABE2;
+                box-shadow: 0px 9px 4px rgba(0,0,0,0.1);
+                .btnClearIcon{
+                      background-image: url(../../../../../../public/assets/icons/AddTask/clearIconLightColor.svg);
+                }
+            }
+        }
+
+        .btnCreateTask{
+            background-color: #2A3647;
+            color: white;
+            font-style: Bold;
+            font-size: 21px;
+            font-weight: 700;
+               .btnCreateTaskIcon{
+               background-image: url(../../../../../../public/assets/icons/AddTask/createIconLightColor.svg);
+           }
+           &:hover{
+            background-color: #29ABE2;
+            border: 1px solid #29ABE2;
+            box-shadow: 0px 9px 4px rgba(0,0,0,0.1);
+           } 
+        }
+    }
+  }
 }
