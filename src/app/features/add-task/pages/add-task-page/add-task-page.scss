@@ -84,6 +84,25 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        gap: 8px;
+                    }
+                    .priorityBasicIMG{
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        width: 25px;
+                        height: 25px;
+                    }
+                    .priorityUrgentIMG{
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronUrgentRealRed.svg);
+                    }
+                    .priorityMediumIMG{
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsMediumOrange.svg);
+                    }
+                    .priorityLowIMG{
+                        background-image: url(../../../../../../public/assets/icons/chevrons/chevronsLowGreen.svg);
+                        width: 20px;
+                        height: 20px;
                     }
                 }
             }
