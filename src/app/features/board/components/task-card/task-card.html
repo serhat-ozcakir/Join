@@ -1,5 +1,6 @@
 <article class="task-card">
-  <div [ngStyle]="{'background-color': task.type === 'Technical Task' ? '#1FD7C1' : '#0038FF'}" class="badge">{{ task.type }}</div>
+  <div [ngStyle]="{'background-color': task.type === 'Technical Task' ? '#1FD7C1' : '#0038FF'}" class="badge">{{
+    task.type }}</div>
 
   <h4 class="title">{{ task.title }}</h4>
 
@@ -20,13 +21,11 @@
 
   <div class="assignees" *ngIf="task.assignees?.length">
     <div class="assignees__initials">
-
-      <span class="avatar" *ngFor="let a of task.assignees;">
-        {{ a.initials }}
+      <span class="avatar" *ngFor="let a of task.assignees"
+        [style.background-color]="getAvatarColor(a.name || a.initials)">
+        {{ a.initials || getInitials(a.name) }}
       </span>
     </div>
-    <img class="prio-icon"
-     [src]="priorityIcon[task.priority]"
-     alt="'priority ' + task.priority">
+    <img class="prio-icon" [src]="priorityIcon[task.priority]" alt="'priority ' + task.priority">
   </div>
 </article>

@@ -1,36 +1,10 @@
-$orange: rgb(255, 122, 0);
-$violet: rgb(147, 39, 255);
-$indigo: rgb(110, 82, 255);
-$pink: rgb(252, 113, 255);
-$yellow: rgb(255, 187, 43);
-$turquoise: rgb(31, 215, 193);
-$dark-purple: rgb(70, 47, 138);
-$red: rgb(255, 70, 70);
-$cyan: rgb(0, 190, 232);
-$coral: rgb(255, 116, 94);
-
-$avatar-colors: (
-  $orange,
-  $violet,
-  $indigo,
-  $pink,
-  $yellow,
-  $turquoise,
-  $dark-purple,
-  $red,
-  $cyan,
-  $coral
-);
-
-
 .task-card{
-  max-width: 300px;              
-  width: 100%;
+  width: var(--card-w);            
+  max-width: 100%;
   background: #fff;
   border: 1px solid #E6E9F0; 
   border-radius: 16px;
   padding: 16px;
-  margin: 16px 0 16px 0;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
