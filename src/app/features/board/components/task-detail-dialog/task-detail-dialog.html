@@ -18,7 +18,22 @@
         </div>
         <div class="view-row">
           <span class="view-label">Priority:</span>
-          <span class="view-priority">{{ task?.priority }}</span>
+          <span class="view-priority">
+            @switch (task?.priority) {
+              @case ('high') {
+                Urgent
+                <img src="assets/icons/urgent.svg" alt="Urgent" />
+              }
+              @case ('medium') {
+                Medium
+                <img src="assets/icons/medium.svg" alt="Medium" />
+              }
+              @case ('low') {
+                Low
+                <img src="assets/icons/low.svg" alt="Low" />
+              }
+            }
+          </span>
         </div>
         @if (task?.assignees?.length) {
           <div class="view-section">
