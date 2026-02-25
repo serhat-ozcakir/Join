@@ -80,7 +80,8 @@
 
     <!-- Task Dialog Edit Area -->
     @if (isEditMode()) {
-      <section class="content">
+      <section class="content content-edit">
+        <div class="edit-fields">
         <div class="dialog-fields">
           <label class="input-label" for="title">Title</label>
           <input
@@ -212,6 +213,7 @@
             name="subtasks"
             placeholder="Add new subtask"
           />
+        </div>
         </div>
         <div class="edit-actions">
           <button class="button-save" type="button" [disabled]="saving()"

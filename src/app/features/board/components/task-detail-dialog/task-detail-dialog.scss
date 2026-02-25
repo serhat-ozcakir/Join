@@ -16,8 +16,9 @@
   padding: 48px 40px;
   width: 90%;
   max-width: 500px;
-  max-height: 900px;
-  overflow-y: auto;
+  height: 900px;
+  max-height: 90vh;
+  overflow: hidden;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   animation: slideInFromRight 400ms ease-out;
@@ -74,9 +75,42 @@
 }
 
 .content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  overflow-y: auto;
+}
+
+.content-edit {
+  padding-top: 42px;
+  margin-right: -24px;
+}
+
+.edit-fields {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  // margin-right: -24px;
+  padding-right: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 3px;
+  }
 }
 
 .dialog-fields {
@@ -340,8 +374,11 @@ textarea.input {
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: auto;
   padding-top: 16px;
+  position: sticky;
+  bottom: 0;
+  background: white;
 }
 
 .view-divider {
@@ -391,7 +428,9 @@ textarea.input {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 8px;
+  flex-shrink: 0;
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 
 .btn-cancel {
