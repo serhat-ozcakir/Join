@@ -1,3 +1,69 @@
-h2{
-    font-size: 62px;
+.content{
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    span{
+        color: red;
+    }
+    label{
+        font-size: 20px;
+        font-weight: 400;
+    }
+    h2{
+        font-size: 61px;
+    }
+    input{
+        border-radius: 10px;
+        padding: 12px 21px;
+        width: 440px;
+        height: 48px;
+        border: 1px solid #D1D1D1;
+    }
+    ::placeholder {
+        font-size: 20px;
+        color: #D1D1D1;
+    }
+    textarea{
+        width: 440px;
+        height: 120px;
+        padding: 12px 21px;
+    }
+    .mainContent{
+        display: flex;
+        justify-content: space-between;
+        border: red 2px solid;
+        height: 376px;
+        .leftContent{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            min-height: 100%;
+            border: blue 2px solid;
+            .titleInContent{
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .descriptionInContent{
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .dueDateContent{
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        .rightContent{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            min-height: 100%;
+            border: blue 2px solid;
+        }
+    }
 }
