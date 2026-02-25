@@ -14,7 +14,7 @@
         }
         <div class="view-row">
           <span class="view-label">Due date:</span>
-          <span>{{ task?.dueDate ? (task?.dueDate | date:'dd.MM.yyyy') : '-' }}</span>
+          <span>{{ task?.dueDate ? (task?.dueDate | date:'dd/MM/yyyy') : '-' }}</span>
         </div>
         <div class="view-row">
           <span class="view-label">Priority:</span>
@@ -147,8 +147,9 @@
         <div class="dialog-fields">
           <label class="input-label">Assigned to</label>
           <div class="assigned-dropdown">
-            <div class="assigned-trigger input" (click)="$event.stopPropagation()">
+            <div class="assigned-trigger input" [class.open]="dropdownOpen()" (click)="$event.stopPropagation()">
               <input
+                #searchInput
                 type="text"
                 class="assigned-search"
                 placeholder="Select contacts to assign"

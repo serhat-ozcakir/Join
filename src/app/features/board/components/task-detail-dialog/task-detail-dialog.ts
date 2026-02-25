@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, computed, inject, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskPriority } from '../../models/task.model';
 import { Supabase, Contact } from '../../../../supabase';
@@ -17,8 +17,18 @@ export class TaskDetailDialog implements OnInit {
   @Output() closed = new EventEmitter<void>();
   @Output() taskUpdated = new EventEmitter<void>();
 
+  @ViewChild('searchInput') searchInputRef!: ElementRef<HTMLInputElement>;
+
   supabase = inject(Supabase);
   taskStore = inject(TaskStore);
+
+  constructor() {
+    effect(() => {
+      if (this.dropdownOpen()) {
+        setTimeout(() => this.searchInputRef?.nativeElement?.focus(), 0);
+      }
+    });
+  }
 
   isClosing = signal(false);
   isEditMode = signal(false);
