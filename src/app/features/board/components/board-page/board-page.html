@@ -1,0 +1,49 @@
+<section class="board-page">
+  <div class="board-page-div">
+    <header class="board-page__header">
+      <h1 class="board-page__title">Board</h1>
+      <div class="search">
+        <input type="text" placeholder="Find Task" class="search-input" [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearchChange()" />
+        <button type="button" class="search__icon" aria-label="Search">
+          <img src="assets/icons/search.png" alt="" />
+        </button>
+        <div class="board-page__toolbar">
+          <button type="button" class="add-task-btn" (click)="openAddTaskDialog()">
+            <span class="btn-text">Add task</span><span>+</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div *ngIf="isLoading" class="loading">
+      <p>Loading tasks...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button (click)="loadTasks()">Retry</button>
+    </div>
+
+
+    <div class="board" *ngIf="!isLoading">
+      <app-board-column *ngFor="let column of columns" [title]="column.title" [tasks]="column.tasks"
+        [columnId]="column.status" [connectedDropLists]="dropListIds" (taskSelected)="selectTask($event)"
+        (addClicked)="addTask(column.status)" (taskDropped)="onTaskDropped($event)"></app-board-column>
+    </div>
+
+    <!-- Task Detail Dialog -->
+    <div *ngIf="showTaskDetail && selectedTask" class="dialog-overlay" (click)="closeTaskDetail()">
+      <div class="dialog-container" (click)="$event.stopPropagation()">
+        <app-task-detail-dialog [task]="selectedTask" (closed)="closeTaskDetail()"
+          (taskUpdated)="onTaskUpdated()"></app-task-detail-dialog>
+      </div>
+    </div>
+
+    <!-- Add Task Dialog -->
+    <div *ngIf="showAddTask" class="dialog-overlay" (click)="closeAddTask()">
+      <div class="dialog-container" (click)="$event.stopPropagation()">
+        <app-add-task-dialog (closed)="closeAddTask()"></app-add-task-dialog>
+      </div>
+    </div>
+  </div>

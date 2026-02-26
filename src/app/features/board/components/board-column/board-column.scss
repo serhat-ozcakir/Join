@@ -1,52 +1,132 @@
-
-.col-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0 8px 0;
-    > h3 {
-        color: #42526E;
-    }
-    > button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 28px;
-      height: 28px;
-      line-height: 1;
-      background-color: #F6F7F8;
-      border: 2px solid #2a3647;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 20px;
-      cursor: pointer;
-      transition: color 100ms;
-
-      &:hover {
-        border: 2px solid #29ABE2;
-        color: #29ABE2;
-      }
-    }
-}
-
-.col-body{
---card-w: 240px;     /* tek kaynak */
+.column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  padding-top: 16px;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: white;
+
+  &.drag-over {
+    background: #f0fffe;
+    border: 2px dashed #20c997;
+    box-shadow: inset 0 0 0 2px #20c997;
+  }
 }
 
-.empty-placeholder{
-  width: var(--card-w);
-  max-width: 100%;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: #E7E7E7;
-  border: 1px dashed #C7C7C7;
-  color: #B8B8B8;
-  text-align: center;
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.column-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.add-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background: white;
   cursor: pointer;
-  margin-top: 0;
+  font-size: 18px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #999;
+    background: #f9f9f9;
+  }
+}
+
+.task-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  min-height: 200px;
+  position: relative;
+
+  // &.drag-over::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   border: 2px dashed #20c997;
+  //   border-radius: 4px;
+  //   pointer-events: none;
+  //   animation: dashAnimation 0.6s linear infinite;
+  // }
+}
+
+.draggable-task {
+  cursor: grab;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &.dragging {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+}
+
+.task-list.drag-over .draggable-task:not(.cdk-drag-preview) {
+  opacity: 0.6;
+  transform: scale(0.98);
+}
+
+.empty-message {
+  padding: 32px 16px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes dashAnimation {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 10px;
+  }
+}
+
+@keyframes dragPreviewScale {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+::ng-deep .cdk-drop-list-dragging .cdk-drag:hover:not(.cdk-drag-placeholder) {
+  transform: translateY(-4px);
+}
+
+::ng-deep .cdk-drag-placeholder {
+  opacity: 0.4;
+  background: #20c997;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+    transform: rotate(15deg);
+
 }

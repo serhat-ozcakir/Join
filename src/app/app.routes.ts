@@ -5,7 +5,7 @@ import { SignupPage } from './features/auth/signup-page/signup-page';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
 import { AppLayout } from './layouts/app-layout/app-layout';
 import { AddTaskPage } from './features/add-task/pages/add-task-page/add-task-page';
-import { BoardPage } from './features/board/pages/board-page/board-page';
+import { BoardPage } from './features/board/components/board-page/board-page';
 import { SummaryPage } from './features/summary/pages/summary-page/summary-page';
 import { authGuard } from './auth.guard';
 import { PrivacyPolicyPage } from './features/privacy/privacy-policy-page/privacy-policy-page';

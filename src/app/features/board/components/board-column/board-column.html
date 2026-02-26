@@ -1,19 +1,42 @@
-<header class="col-header">
-  <h3>{{ title }}</h3>
+<div class="column">
+  <div class="column-header">
+    <h2 class="column-title">{{ title }}</h2>
   <button *ngIf="title !== 'Done'" type="button" (click)="onAddTask()">+</button>
-</header>
-
-<div class="col-body">
-  <div
-    class="empty-placeholder"
-    [style.cursor]="tasks.length === 0 ? 'default' : 'pointer'"
-    *ngIf="tasks.length === 0"
-  >
-    {{ getemptyMessage() }}
   </div>
-  <app-task-card
-    *ngFor="let t of tasks"
-    [task]="t"
-    (click)="onTaskSelected(t)"
-  ></app-task-card>
+
+  <div
+    #dropListRef
+    [cdkDropListData]="tasks"
+    [cdkDropListDisabled]="false"
+    cdkDropList
+    [id]="columnId"
+    [cdkDropListConnectedTo]="connectedDropLists"
+    (cdkDropListDropped)="onDrop($event)"
+    (cdkDropListEntered)="onDropListEntered()"
+    (cdkDropListExited)="onDropListExited()"
+    [ngClass]="{ 'drag-over': isDragOver }"
+    class="task-list"
+  >
+    <div
+      *ngFor="let task of tasks; let i = index"
+      cdkDrag
+      [cdkDragData]="task"
+      (cdkDragStarted)="onDragStarted($event)"
+      (cdkDragEnded)="onDragEnded($event)"
+      (click)="onTaskSelected(task)"
+      [ngClass]="{ 'dragging': draggedTaskIndex === i }"
+      class="draggable-task"
+      #taskElement
+    >
+      <app-task-card [task]="task"></app-task-card>
+    </div>
+
+    <div *ngIf="getEmptyMessage()" class="empty-message">
+      {{ getEmptyMessage() }}
+    </div>
+  </div>
 </div>
+
+<ng-template #previewContainer>
+  <div class="drag-preview-custom"></div>
+</ng-template>
