@@ -1,26 +1,24 @@
 <!--<p>board-page works!</p>-->
 
 <section class="board-page">
+  <div class="board-page-div">
   <!-- toolbar -->
-  <header class="board-page__header">
-    <h1 class="board-page__title">Board</h1>
+<header class="board-page__header">
+  <h1 class="board-page__title">Board</h1>
 
-    <div class="board-page__toolbar">
-      <div class="search">
-        <input
-          type="text"
-          placeholder="Find Task"
-        />
-        <button type="button" class="search__icon" aria-label="Search" >
-            <img src="assets/icons/search.png" alt="">
-        </button>
-      </div>
+  <div class="search">
+    <input type="text" placeholder="Find Task" />
+    <button type="button" class="search__icon" aria-label="Search">
+      <img src="assets/icons/search.png" alt="" />
+    </button>
+  </div>
 
-        <button type="button" class="add-task-btn" (click)="openAddTaskDialog()">
-        Add task <span>+</span>
-      </button>
-    </div>
-  </header>
+  <div class="board-page__toolbar">
+    <button type="button" class="add-task-btn" (click)="openAddTaskDialog()">
+      <span class="btn-text">Add task</span><span>+</span>
+    </button>
+  </div>
+</header>
 
   <!-- The main area where the 4 columns are located  -->
   <div class="board">
@@ -66,4 +64,5 @@
    *ngIf="showAddTaskDialog"
     (closed)="closeAddTaskDialog()"
   ></app-add-task-dialog>
+  </div>
 </section>
