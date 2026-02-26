@@ -148,4 +148,19 @@ export class TaskDetailDialog implements OnInit {
     await this.taskStore.deleteTask(this.task.id);
     this.closed.emit();
 }
+
+async toggleSubtask(subtaskId: string, done: boolean){
+  if(!this.task) return;
+ const updatedSubtasks = this.task.subtasks!.map(sub =>
+    sub.id === subtaskId ? { ...sub, done } : sub
+  );
+    await this.taskStore.updateTask(this.task.id, { subtasks: updatedSubtasks });
+  this.task = { ...this.task, subtasks: updatedSubtasks };
 }
+
+onSubtaskChange(subtaskId: string, event: Event) {
+  const checked = (event.target as HTMLInputElement).checked;
+  this.toggleSubtask(subtaskId, checked);
+}
+}
+
