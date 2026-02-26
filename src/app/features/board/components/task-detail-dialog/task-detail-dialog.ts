@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Task, TaskPriority } from '../../models/task.model';
 import { Supabase, Contact } from '../../../../supabase';
 import { avatarColors } from '../../../contacts/components/contact-list/contact-list';
@@ -8,7 +9,7 @@ import { TaskStore } from '../../services/task-store';
 @Component({
   selector: 'app-task-detail-dialog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task-detail-dialog.html',
   styleUrl: './task-detail-dialog.scss',
 })
@@ -38,6 +39,7 @@ export class TaskDetailDialog implements OnInit {
   selectedPriority = signal<TaskPriority | null>(null);
   searchText = signal('');
   editDueDate = signal('');
+  newSubtaskTitle = '';
 
   filteredContacts = computed(() => {
     const search = this.searchText().toLowerCase();
@@ -162,6 +164,27 @@ async toggleSubtask(subtaskId: string, done: boolean){
 onSubtaskChange(subtaskId: string, event: Event) {
   const checked = (event.target as HTMLInputElement).checked;
   this.toggleSubtask(subtaskId, checked);
+}
+
+ async addSubtask() {
+  if (!this.newSubtaskTitle.trim() || !this.task) return;
+  const newSubtask = {
+    id: crypto.randomUUID(),
+    title: this.newSubtaskTitle.trim(),
+    done: false
+  };
+  const updatedSubtasks = [...(this.task.subtasks ?? []), newSubtask];
+  this.task = { ...this.task, subtasks: updatedSubtasks };
+  this.newSubtaskTitle = '';
+  await this.taskStore.updateTask(this.task.id, { subtasks: updatedSubtasks });
+}
+
+async removeSubtask(subtaskId: string) {
+  if (!this.task) return;
+  const taskId = this.task.id;
+  const updatedSubtasks = (this.task.subtasks ?? []).filter(subtask => subtask.id !== subtaskId);
+  this.task = { ...this.task, subtasks: updatedSubtasks };
+  await this.taskStore.updateTask(taskId, { subtasks: updatedSubtasks });
 }
 }
 
