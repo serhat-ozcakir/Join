@@ -8,60 +8,62 @@
     @if (!isEditMode()) {
       <section class="content">
         <span class="view-badge" [style.background-color]="task?.type === 'Technical Task' ? '#1FD7C1' : '#0038FF'">{{ task?.type }}</span>
-        <h2 class="view-title">{{ task?.title }}</h2>
-        @if (task?.description) {
-          <p class="view-description">{{ task?.description }}</p>
-        }
-        <div class="view-row">
-          <span class="view-label">Due date:</span>
-          <span>{{ task?.dueDate ? (task?.dueDate | date:'dd/MM/yyyy') : '-' }}</span>
-        </div>
-        <div class="view-row">
-          <span class="view-label">Priority:</span>
-          <span class="view-priority">
-            @switch (task?.priority) {
-              @case ('high') {
-                Urgent
-                <img src="assets/icons/urgent.svg" alt="Urgent" />
+        <div class="view-scroll">
+          <h2 class="view-title">{{ task?.title }}</h2>
+          @if (task?.description) {
+            <p class="view-description">{{ task?.description }}</p>
+          }
+          <div class="view-row">
+            <span class="view-label">Due date:</span>
+            <span>{{ task?.dueDate ? (task?.dueDate | date:'dd/MM/yyyy') : '-' }}</span>
+          </div>
+          <div class="view-row">
+            <span class="view-label">Priority:</span>
+            <span class="view-priority">
+              @switch (task?.priority) {
+                @case ('high') {
+                  Urgent
+                  <img src="assets/icons/urgent.svg" alt="Urgent" />
+                }
+                @case ('medium') {
+                  Medium
+                  <img src="assets/icons/medium.svg" alt="Medium" />
+                }
+                @case ('low') {
+                  Low
+                  <img src="assets/icons/low.svg" alt="Low" />
+                }
               }
-              @case ('medium') {
-                Medium
-                <img src="assets/icons/medium.svg" alt="Medium" />
-              }
-              @case ('low') {
-                Low
-                <img src="assets/icons/low.svg" alt="Low" />
-              }
-            }
-          </span>
-        </div>
-        @if (task?.assignees?.length) {
-          <div class="view-section">
-            <span class="view-label">Assigned To:</span>
-            @for (a of task!.assignees; track a.id) {
-              <div class="view-assignee">
-                <div
-                  class="assigned-avatar"
-                  [style.background-color]="getAvatarColor(a.name || a.initials)"
-                >
-                  {{ a.initials }}
+            </span>
+          </div>
+          @if (task?.assignees?.length) {
+            <div class="view-section">
+              <span class="view-label">Assigned To:</span>
+              @for (a of task!.assignees; track a.id) {
+                <div class="view-assignee">
+                  <div
+                    class="assigned-avatar"
+                    [style.background-color]="getAvatarColor(a.name || a.initials)"
+                  >
+                    {{ a.initials }}
+                  </div>
+                  <span>{{ a.name }}</span>
                 </div>
-                <span>{{ a.name }}</span>
-              </div>
-            }
-          </div>
-        }
-        @if (task?.subtasks?.length) {
-          <div class="view-section">
-            <span class="view-label">Subtasks</span>
-            @for (sub of task!.subtasks; track sub.id) {
-              <div class="view-subtask">
-                <input type="checkbox" [checked]="sub.done" />
-                <span>{{ sub.title }}</span>
-              </div>
-            }
-          </div>
-        }
+              }
+            </div>
+          }
+          @if (task?.subtasks?.length) {
+            <div class="view-section">
+              <span class="view-label">Subtasks</span>
+              @for (sub of task!.subtasks; track sub.id) {
+                <div class="view-subtask">
+                  <input type="checkbox" [checked]="sub.done" />
+                  <span>{{ sub.title }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
         <div class="view-actions">
           <button class="view-action-btn" (click)="deleteTask()">
             <img class="icon-default" src="assets/icons/trash.svg" alt="Delete" />
