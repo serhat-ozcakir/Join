@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, effect } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task , Status} from '../../models/task.model';
@@ -16,10 +16,12 @@ import { TaskStore } from '../../services/task-store';
 })
 export class BoardPage implements OnInit {
   private taskStore = inject(TaskStore);
+  private cdr = inject(ChangeDetectorRef);
 
   dropListIds: string[] = ['todo', 'inProgress', 'awaitFeedback', 'done'];
 
   searchQuery = '';
+  allTasks: Task[] = [];
 
   columns: Array<{ title: string; status: Status; tasks: Task[] }> = [
     { title: 'To do', status: 'todo', tasks: [] },
@@ -36,30 +38,24 @@ export class BoardPage implements OnInit {
   selectedTask: Task | null = null;
   selectedStatus: Status | null = null;
 
-  constructor() {
-    effect(() => {
-      const allTasks = this.taskStore.tasks();
-      this.filterTasks(allTasks);
-    });
-  }
-
-  ngOnInit(): void {
-    this.loadTasks();
+  async ngOnInit(): Promise<void> {
+    await this.loadTasks();
   }
 
   async loadTasks(): Promise<void> {
     this.isLoading = true;
+    this.cdr.detectChanges();
     this.error = null;
 
     try {
-      await this.taskStore.loadTasks();
+      this.allTasks = await this.taskStore.getTasks();
+      this.filterTasks(this.allTasks);
     } catch (error: any) {
       this.error = `Failed to load tasks: ${error.message}`;
       console.error('Error loading tasks:', error);
     } finally {
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 0);
+      this.isLoading = false;
+      this.cdr.detectChanges(); 
     }
   }
 
@@ -81,8 +77,7 @@ export class BoardPage implements OnInit {
   }
 
   onSearchChange(): void {
-    const allTasks = this.taskStore.tasks();
-    this.filterTasks(allTasks);
+    this.filterTasks(this.allTasks);
   }
 
   openAddTaskDialog(): void {
@@ -100,8 +95,9 @@ export class BoardPage implements OnInit {
     this.selectedTask = null;
   }
 
-  onTaskUpdated(): void {
+  async onTaskUpdated(): Promise<void> {
     this.closeTaskDetail();
+    await this.loadTasks();
   }
 
   addTask(status: Status): void {
@@ -114,11 +110,13 @@ export class BoardPage implements OnInit {
     this.selectedStatus = null;
   }
 
-  onTaskCreated(): void {
+  async onTaskCreated(): Promise<void> {
     this.closeAddTask();
+    await this.loadTasks();
   }
 
   async onTaskDropped(event: { task: Task; newStatus: Status }): Promise<void> {
     await this.taskStore.updateTask(event.task.id, { status: event.newStatus });
+    await this.loadTasks();
   }
 }
