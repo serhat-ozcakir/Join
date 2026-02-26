@@ -76,15 +76,41 @@
 
 .content {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.view-scroll {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-right: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 3px;
+  }
 }
 
 .content-edit {
   padding-top: 42px;
-  margin-right: -24px;
+  // margin-right: -24px;
 }
 
 .edit-fields {
@@ -254,7 +280,7 @@ textarea.input {
   }
 
   &:hover {
-    background-color: #EBEBEB;
+    background-color: #ebebeb;
   }
 
   &.selected:hover {
@@ -273,7 +299,7 @@ textarea.input {
     cursor: pointer;
     appearance: none;
     box-sizing: border-box;
-    border: 2px solid #2A3647;
+    border: 2px solid #2a3647;
     border-radius: 3px;
 
     &:checked {
@@ -294,6 +320,7 @@ textarea.input {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  border: 2px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,13 +338,6 @@ textarea.input {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
-
-  .assigned-avatar {
-    width: 42px;
-    height: 42px;
-    border: 2px solid white;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  }
 }
 
 // Main Task Dialog
@@ -376,7 +396,7 @@ textarea.input {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
+  font-size: 20px;
   padding-left: 16px;
 }
 
@@ -401,8 +421,6 @@ textarea.input {
   gap: 8px;
   margin-top: auto;
   padding-top: 16px;
-  position: sticky;
-  bottom: 0;
   background: white;
 }
 
@@ -455,23 +473,24 @@ textarea.input {
   gap: 12px;
   flex-shrink: 0;
   padding-top: 16px;
+  padding-right: 16px;
   padding-bottom: 8px;
 }
 
-.btn-cancel {
-  padding: 10px 20px;
-  border: 1px solid #2a3647;
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-  transition: border-color 150ms;
+// .btn-cancel {
+//   padding: 10px 20px;
+//   border: 1px solid #2a3647;
+//   border-radius: 10px;
+//   background: white;
+//   cursor: pointer;
+//   font-size: 16px;
+//   transition: border-color 150ms;
 
-  &:hover {
-    border-color: #29abe2;
-    color: #29abe2;
-  }
-}
+//   &:hover {
+//     border-color: #29abe2;
+//     color: #29abe2;
+//   }
+// }
 
 .button-save {
   display: flex;
@@ -482,7 +501,7 @@ textarea.input {
   background: #2a3647;
   color: white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 21px;
   font-weight: 700;
   gap: 12px;
 
@@ -502,10 +521,11 @@ textarea.input {
 
   & .priority-button {
     flex: 1;
+    width: 33%;
     border-radius: 10px;
     background-color: white;
     border: none;
-    padding: 12px 8px;
+    padding: 16px 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -543,4 +563,133 @@ textarea.input {
       color: white;
     }
   }
+}
+
+@media (max-width: 550px) {
+  .dialog-card {
+    padding: 32px 24px;
+  }
+
+  .content {
+    gap: 16px;
+  }
+
+  .close-btn {
+    top: 24px;
+    right: 24px;
+  }
+
+  .view-scroll {
+    gap: 16px;
+  }
+
+  .edit-fields {
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  .input-label {
+    font-size: 16px;
+  }
+
+  .input {
+    padding: 8px 21px;
+    font-size: 16px;
+  }
+
+  .assigned-trigger{
+  .assigned-search {
+    font-size: 16px;
+  }
+}
+
+  .assigned-name {
+    font-size: 16px;
+  }
+
+  .assigned-item {
+  padding: 7px 16px;
+  }
+
+.view-badge {
+  padding: 4px 16px;
+  font-size: 16px;
+}
+
+.view-title {
+  font-size: 36px;
+}
+
+.view-description {
+  font-size: 16px;
+}
+
+.view-label {
+  font-size: 16px;
+}
+
+.view-priority {
+  font-size: 16px;
+
+  img {
+    width: 17px;
+  }
+}
+
+.view-assignee {
+  font-size: 16px;
+}
+
+.button-save {
+  height: 60px;
+  width: 75px;
+  padding: 18px 10px;
+
+  & img {
+    width: 16px;
+    height: 12px;
+  }
+}
+
+.priority-button-area {
+  display: flex;
+  gap: 16px;
+
+  & .priority-button {
+    padding: 18px 10px;
+    font-size: 16px;
+  }
+}
+}
+
+
+
+
+@media (max-width: 550px) {
+
+.priority-button-area {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .priority-button {
+    padding: 18px 10px;
+    font-size: 16px;
+    width: 90%;
+  }
+}
+
+}
+
+@media (max-width: 400px) {
+  .dialog-card {
+    padding: 32px 18px;
+  }
+
+    .edit-fields {
+    padding-right: 8px;
+  }
+
+    .assigned-trigger{
+    }
 }
