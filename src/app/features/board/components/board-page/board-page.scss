@@ -127,7 +127,7 @@ body {
     width: 25px;
 }
 
-    .board {
+.board {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
@@ -215,5 +215,16 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+@media (max-width: 991px) {
+    .board {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 548px) {
+    .board {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
