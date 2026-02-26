@@ -110,7 +110,6 @@
 
 .content-edit {
   padding-top: 42px;
-  // margin-right: -24px;
 }
 
 .edit-fields {
@@ -120,7 +119,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  // margin-right: -24px;
   padding-right: 16px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
@@ -690,6 +688,18 @@ textarea.input {
     padding-right: 8px;
   }
 
-    .assigned-trigger{
+    .assigned-trigger.input {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 12px;
+      padding-right: 12px;
     }
+
+     .assigned-search {
+min-width: 200px;
+     }
+
+      .dropdown-arrow {
+      flex-shrink: 0;
+      }
 }
