@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Task, Status, TaskPriority, TaskType } from '../models/task.model';
 import { Supabase } from '../../../supabase';
 
@@ -6,21 +6,24 @@ import { Supabase } from '../../../supabase';
   providedIn: 'root',
 })
 export class TaskStore {
-  constructor(private supabase: Supabase) {}
+  private tasksSignal = signal<Task[]>([]);
 
-  // Method to get all tasks
-  async getTasks(): Promise<Task[]> {
+  tasks = computed(() => this.tasksSignal());
+
+  constructor(private supabase: Supabase) {
+  }
+
+  async loadTasks(): Promise<void> {
     const { data, error } = await this.supabase.supabase
       .from('tasks')
       .select('*')
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching tasks:', error);
-      return [];
+      return;
     }
 
-    return (data || []).map(task => ({
+    const tasks: Task[] = (data || []).map(task => ({
       id: task.id,
       title: task.title,
       description: task.description,
@@ -32,9 +35,15 @@ export class TaskStore {
       createdAt: task.created_at,
       dueDate: task.due_at,
     }));
+
+    this.tasksSignal.set(tasks);
   }
 
-  // Method to add a new task
+  async getTasks(): Promise<Task[]> {
+    await this.loadTasks();
+    return this.tasksSignal();
+  }
+
   async addTask(data: {
     title: string;
     description?: string;
@@ -47,7 +56,6 @@ export class TaskStore {
   }): Promise<Task | null> {
     const userId = this.supabase.currentUser()?.id;
     if (!userId) {
-      console.error('User not authenticated');
       return null;
     }
 
@@ -68,9 +76,10 @@ export class TaskStore {
       .single();
 
     if (error) {
-      console.error('Error adding task:', error);
       return null;
     }
+
+    await this.loadTasks();
 
     return result ? {
       id: result.id,
@@ -108,6 +117,8 @@ export class TaskStore {
       return null;
     }
 
+    await this.loadTasks();
+
     return data ? {
       id: data.id,
       title: data.title,
@@ -129,9 +140,10 @@ export class TaskStore {
       .eq('id', taskId);
 
     if (error) {
-      console.error('Error deleting task:', error);
       return false;
     }
+
+    await this.loadTasks();
 
     return true;
   }
