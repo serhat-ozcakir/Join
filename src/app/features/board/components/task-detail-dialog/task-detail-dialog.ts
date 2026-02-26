@@ -151,11 +151,12 @@ export class TaskDetailDialog implements OnInit {
 
 async toggleSubtask(subtaskId: string, done: boolean){
   if(!this.task) return;
- const updatedSubtasks = this.task.subtasks!.map(sub =>
+  const updatedSubtasks = this.task.subtasks!.map(sub =>
     sub.id === subtaskId ? { ...sub, done } : sub
   );
-    await this.taskStore.updateTask(this.task.id, { subtasks: updatedSubtasks });
+  const taskId = this.task.id;
   this.task = { ...this.task, subtasks: updatedSubtasks };
+  await this.taskStore.updateTask(taskId, { subtasks: updatedSubtasks });
 }
 
 onSubtaskChange(subtaskId: string, event: Event) {
