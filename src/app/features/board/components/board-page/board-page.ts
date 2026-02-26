@@ -64,7 +64,7 @@ export class BoardPage implements OnInit {
 
     let filteredTasks = allTasks;
 
-    if (query.length >= 3) {
+    if (query.length >= 1) {
       filteredTasks = allTasks.filter(task =>
         task.title.toLowerCase().includes(query) ||
         (task.description && task.description.toLowerCase().includes(query))
