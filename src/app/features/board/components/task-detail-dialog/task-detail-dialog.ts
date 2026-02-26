@@ -142,4 +142,10 @@ export class TaskDetailDialog implements OnInit {
       this.dropdownOpen.set(false);
     }
   }
+
+  async deleteTask() {
+    if(!this.task?.id) return;
+    await this.taskStore.deleteTask(this.task.id);
+    this.closed.emit();
+}
 }
