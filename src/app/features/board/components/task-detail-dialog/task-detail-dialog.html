@@ -57,7 +57,8 @@
               <span class="view-label">Subtasks</span>
               @for (sub of task!.subtasks; track sub.id) {
                 <div class="view-subtask">
-                  <input type="checkbox" [checked]="sub.done" />
+                  <input type="checkbox" [checked]="sub.done"
+                  (change)="onSubtaskChange(sub.id, $event)" />
                   <span>{{ sub.title }}</span>
                 </div>
               }
