@@ -186,5 +186,12 @@ async removeSubtask(subtaskId: string) {
   this.task = { ...this.task, subtasks: updatedSubtasks };
   await this.taskStore.updateTask(taskId, { subtasks: updatedSubtasks });
 }
+
+openEditForm(subtaskId:string){
+if (!this.task) return {
+
+}
+
+}
 }
 

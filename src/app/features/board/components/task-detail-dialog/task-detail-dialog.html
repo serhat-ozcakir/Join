@@ -233,13 +233,20 @@
             />
           </div>
           @for (sub of task!.subtasks; track sub.id) {
-  <div class="edit-subtask-item">
-    <span>{{ sub.title }}</span>
-    <button type="button" (click)="removeSubtask(sub.id)">✕</button>
-  </div>
-}
+            <div class="edit-subtask-item">
+              <span>{{ sub.title }}</span>
+              <div class="edit-subtask-buttons">
+              <button type="button" (click)="openEditForm(sub.id)"><img src="assets/icons/pen.svg" alt="Edit Button"></button>
+              <button type="button" (click)="removeSubtask(sub.id)">✕</button>
+              </div>
+            </div>
+            <div class="d-none edit-input">
+              <input type="text" name="edit-input" id="edit-input" placeholder="{{sub.title}}">
 
 
+
+            </div>
+          }
         </div>
         <div class="edit-actions">
           <button
