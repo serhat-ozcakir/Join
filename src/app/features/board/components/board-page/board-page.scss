@@ -6,7 +6,7 @@ body {
 .board {
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: visible;
     display: flex;
     justify-content: flex-start;
     gap: 32px;
@@ -25,6 +25,7 @@ body {
     flex-direction: column;
     background-color: #F6F7F8;
     padding-top: 30px;
+    overflow-y: auto;
 
     &__header {
         display: flex;
