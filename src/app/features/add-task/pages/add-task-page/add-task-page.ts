@@ -17,9 +17,12 @@ import { Supabase } from '../../../../supabase';
   templateUrl: './add-task-page.html',
   styleUrl: './add-task-page.scss',
 })
+
 export class AddTaskPage {
 
   supabaseService = inject(Supabase);
+
+  today: string = new Date().toISOString().split('T')[0];
 
   taskForm = new FormGroup({
     title: new FormControl('', {

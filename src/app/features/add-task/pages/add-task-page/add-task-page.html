@@ -32,10 +32,11 @@
                     <label for="dueDate">
                         Due date<span>*</span>
                     </label>
-                    <input formControlName="due_at"
-                           id="dueDate"
-                           type="date"
-                           required>
+                       <input formControlName="due_at"
+                              id="dueDate"
+                              type="date"
+                              [min]="today"
+                              required>
                 </div>
 
             </div>
