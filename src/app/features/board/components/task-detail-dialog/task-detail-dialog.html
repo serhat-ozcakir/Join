@@ -223,29 +223,50 @@
           </div>
           <div class="dialog-fields">
             <label class="input-label" for="subtasks">Subtasks</label>
-            <input
-              type="text"
-              [(ngModel)]="newSubtaskTitle"
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="Add new subtask"
-              class="form-control"
-              (keyup.enter)="addSubtask()"
-            />
+            <div class="edit-input input">
+              <input
+                type="text"
+                [(ngModel)]="newSubtaskTitle"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Add new subtask"
+                (keyup.enter)="addSubtask()"
+              />
+              <button type="button" (click)="newSubtaskTitle = ''">
+                <img src="assets/icons/AddTask/clearIconDarkColor.svg" alt="Clear" />
+              </button>
+              <button type="button" (click)="addSubtask()">
+                <img src="assets/icons/check-grey.svg" alt="Add" />
+              </button>
+            </div>
           </div>
           @for (sub of task!.subtasks; track sub.id) {
-            <div class="edit-subtask-item">
-              <span>{{ sub.title }}</span>
-              <div class="edit-subtask-buttons">
-              <button type="button" (click)="openEditForm(sub.id)"><img src="assets/icons/pen.svg" alt="Edit Button"></button>
-              <button type="button" (click)="removeSubtask(sub.id)">✕</button>
+            @if (editingSubtaskId() === sub.id) {
+              <div class="edit-input input">
+                <input
+                  type="text"
+                  name="edit-input"
+                  id="edit-input"
+                  [(ngModel)]="editingSubtaskTitle"
+                  (keyup.enter)="saveSubtaskEdit()"
+                />
+                <button type="button" (click)="cancelSubtaskEdit()">
+                  <img src="assets/icons/trash.svg" alt="Cancel" />
+                </button>
+                <button type="button" (click)="saveSubtaskEdit()">
+                  <img src="assets/icons/check-grey.svg" alt="Confirm" />
+                </button>
               </div>
-            </div>
-            <div class="d-none edit-input">
-              <input type="text" name="edit-input" id="edit-input" placeholder="{{sub.title}}">
-
-
-
-            </div>
+            } @else {
+              <div class="edit-subtask-item" (click)="openEditForm(sub.id)">
+                <span>{{ sub.title }}</span>
+                <div class="edit-subtask-buttons">
+                  <button type="button" (click)="openEditForm(sub.id)">
+                    <img src="assets/icons/pen.svg" alt="Edit Button" />
+                  </button>
+                  <button type="button" (click)="removeSubtask(sub.id); $event.stopPropagation()"><img src="assets/icons/trash.svg" alt="Delete"></button>
+                </div>
+              </div>
+            }
           }
         </div>
         <div class="edit-actions">

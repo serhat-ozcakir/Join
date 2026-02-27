@@ -40,6 +40,8 @@ export class TaskDetailDialog implements OnInit {
   searchText = signal('');
   editDueDate = signal('');
   newSubtaskTitle = '';
+  editingSubtaskId = signal<string | null>(null);
+  editingSubtaskTitle = '';
 
   filteredContacts = computed(() => {
     const search = this.searchText().toLowerCase();
@@ -188,11 +190,29 @@ async removeSubtask(subtaskId: string) {
 
 }
 
-openEditForm(subtaskId:string){
-if (!this.task) return {
-
+openEditForm(subtaskId: string) {
+  if (!this.task) return;
+  const subtask = this.task.subtasks?.find(subtask => subtask.id === subtaskId);
+  if (!subtask) return;
+  this.editingSubtaskId.set(subtaskId);
+  this.editingSubtaskTitle = subtask.title;
 }
 
+async saveSubtaskEdit() {
+  if (!this.task || !this.editingSubtaskId() || !this.editingSubtaskTitle.trim()) return;
+  const taskId = this.task.id;
+  const updatedSubtasks = (this.task.subtasks ?? []).map(subtask =>
+    subtask.id === this.editingSubtaskId()
+      ? { ...subtask, title: this.editingSubtaskTitle.trim() }
+      : subtask
+  );
+  this.task = { ...this.task, subtasks: updatedSubtasks };
+  this.editingSubtaskId.set(null);
+  await this.taskStore.updateTask(taskId, { subtasks: updatedSubtasks });
+}
+
+cancelSubtaskEdit() {
+  this.editingSubtaskId.set(null);
 }
 }
 

@@ -464,6 +464,104 @@ textarea.input {
   }
 }
 
+// Subtask Edit Input
+.edit-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:focus-within {
+    border-color: #29abe2;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: inherit;
+    color: black;
+    padding: 0;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
+// Subtask Edit List
+.edit-subtask-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &::before {
+    content: '•';
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+  }
+
+  &:hover {
+    background-color: #f6f7f8;
+
+    .edit-subtask-buttons {
+      display: flex;
+    }
+  }
+}
+
+.edit-subtask-buttons {
+  display: none;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
 // Edit Task Dialog
 .edit-actions {
   display: flex;
@@ -474,21 +572,6 @@ textarea.input {
   padding-right: 16px;
   padding-bottom: 8px;
 }
-
-// .btn-cancel {
-//   padding: 10px 20px;
-//   border: 1px solid #2a3647;
-//   border-radius: 10px;
-//   background: white;
-//   cursor: pointer;
-//   font-size: 16px;
-//   transition: border-color 150ms;
-
-//   &:hover {
-//     border-color: #29abe2;
-//     color: #29abe2;
-//   }
-// }
 
 .button-save {
   display: flex;
@@ -562,6 +645,8 @@ textarea.input {
     }
   }
 }
+
+
 
 @media (max-width: 550px) {
   .dialog-card {
