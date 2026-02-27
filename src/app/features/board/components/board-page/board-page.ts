@@ -30,7 +30,7 @@ export class BoardPage implements OnInit {
     { title: 'Done', status: 'done', tasks: [] }
   ];
 
-  isLoading = false;
+  isLoading = true;
   error: string | null = null;
 
   showTaskDetail = false;
@@ -55,7 +55,7 @@ export class BoardPage implements OnInit {
       console.error('Error loading tasks:', error);
     } finally {
       this.isLoading = false;
-      this.cdr.detectChanges(); 
+      this.cdr.detectChanges();
     }
   }
 
@@ -98,11 +98,15 @@ export class BoardPage implements OnInit {
   async onTaskUpdated(): Promise<void> {
     this.closeTaskDetail();
     await this.loadTasks();
+          this.cdr.detectChanges();
+
   }
 
   addTask(status: Status): void {
     this.selectedStatus = status;
     this.showAddTask = true;
+          this.cdr.detectChanges();
+
   }
 
   closeAddTask(): void {
@@ -113,6 +117,8 @@ export class BoardPage implements OnInit {
   async onTaskCreated(): Promise<void> {
     this.closeAddTask();
     await this.loadTasks();
+          this.cdr.detectChanges();
+
   }
 
   async onTaskDropped(event: { task: Task; newStatus: Status }): Promise<void> {

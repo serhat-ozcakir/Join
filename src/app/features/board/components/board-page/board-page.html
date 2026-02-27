@@ -20,17 +20,6 @@
             </button>
           </div>
         </header>
-
-        <div *ngIf="isLoading" class="loading">
-          <p>Loading tasks...</p>
-        </div>
-
-        <div *ngIf="error" class="error-message">
-          {{ error }}
-          <button (click)="loadTasks()">Retry</button>
-        </div>
-
-
         <div class="board" *ngIf="!isLoading">
           <app-board-column *ngFor="let column of columns" [title]="column.title" [tasks]="column.tasks"
             [columnId]="column.status" [connectedDropLists]="dropListIds" (taskSelected)="selectTask($event)"
