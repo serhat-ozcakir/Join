@@ -17,7 +17,8 @@ export class TaskStore {
     const { data, error } = await this.supabase.supabase
       .from('tasks')
       .select('*')
-      .order('created_at', { ascending: false });
+       .order('position', { ascending: true })
+    .order('created_at', { ascending: false });
 
     if (error) {
       return;
@@ -34,6 +35,7 @@ export class TaskStore {
       subtasks: task.subtasks || [],
       createdAt: task.created_at,
       dueDate: task.due_at,
+       position: task.position ?? 999,
     }));
 
     this.tasksSignal.set(tasks);
