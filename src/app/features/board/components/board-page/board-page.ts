@@ -45,8 +45,8 @@ export class BoardPage implements OnInit {
       if (updatedTasks.length > 0) {
         this.allTasks = updatedTasks;
         this.filterTasks(this.allTasks);
-
-        if (this.selectedTask) {
+        
+if (this.selectedTask && !this.showTaskDetail) {
           const updatedSelectedTask = updatedTasks.find(t => t.id === this.selectedTask!.id);
           if (updatedSelectedTask) {
             this.selectedTask = updatedSelectedTask;
@@ -137,9 +137,7 @@ export class BoardPage implements OnInit {
     this.cdr.detectChanges();
   }
 
-  async onTaskDropped(event: { task: Task; newStatus: Status }): Promise<void> {
-    await this.taskStore.updateTask(event.task.id, { status: event.newStatus });
-    await this.taskStore.loadTasks();
-  }
+async onTaskDropped(event: { task: Task; newStatus: Status }): Promise<void> {
+  await this.taskStore.updateTask(event.task.id, { status: event.newStatus });
 }
-
+}

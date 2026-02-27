@@ -13,12 +13,16 @@ import { Supabase } from '../../../../supabase';
   templateUrl: './board-column.html',
   styleUrl: './board-column.scss',
 })
-export class BoardColumn implements AfterViewInit {
+export class BoardColumn  {
   @Input() title = '';
   @Input() tasks: Task[] = [];
   @Input() columnId!: Status;
-  @Input() connectedDropLists: string[] = [];
-  @Output() taskSelected = new EventEmitter<Task>();
+@Input() connectedDropLists: string[] = [
+  'todo',
+  'inProgress',
+  'awaitFeedback',
+  'done'
+];  @Output() taskSelected = new EventEmitter<Task>();
   @Output() addClicked = new EventEmitter<void>();
   @Output() taskDropped = new EventEmitter<{ task: Task; newStatus: Status }>();
 
@@ -33,14 +37,6 @@ export class BoardColumn implements AfterViewInit {
   draggedTaskIndex = -1;
   previewContainer: TemplateRef<any> | string = 'body';
   draggedElement: ElementRef | null = null;
-
-  ngAfterViewInit(): void {
-    if (!this.connectedDropLists || this.connectedDropLists.length === 0) {
-      this.connectedDropLists = ['todo', 'inProgress', 'awaitFeedback', 'done'];
-    }
-    this.previewContainer = this.previewTemplate;
-    this.cdr.detectChanges();
-  }
 
   onDrop(event: CdkDragDrop<Task[]>): void {
     const task = event.previousContainer.data[event.previousIndex];
@@ -90,32 +86,28 @@ export class BoardColumn implements AfterViewInit {
   }
 
   onDropListEntered(): void {
-    setTimeout(() => {
-      this.isDragOver = true;
-      this.cdr.detectChanges();
-    });
-  }
+
+      this.isDragOver = true
+    };
+
 
   onDropListExited(): void {
-    setTimeout(() => {
+
       this.isDragOver = false;
-      this.cdr.detectChanges();
-    });
-  }
+    };
+
 
   onDragStarted(event: any): void {
-    setTimeout(() => {
+
       this.isDragging = true;
-      this.cdr.detectChanges();
-    });
-  }
+    };
+
 
   onDragEnded(event: any): void {
-    setTimeout(() => {
+
       this.isDragging = false;
-      this.cdr.detectChanges();
-    });
-  }
+    };
+  
 
   onTaskSelected(task: Task): void {
     if (!this.isDragging) {

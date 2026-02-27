@@ -97,44 +97,36 @@ export class TaskStore {
     } : null;
   }
 
-  async updateTask(id: string, updates: Partial<Task>): Promise<Task | null> {
-    const { data, error } = await this.supabase.supabase
-      .from('tasks')
-      .update({
-        title: updates.title,
-        description: updates.description,
-        status: updates.status,
-        type: updates.type,
-        priority: updates.priority,
-        assignees: updates.assignees,
-        subtasks: updates.subtasks,
-        due_at: updates.dueDate || null,
-      })
-      .eq('id', id)
-      .select()
-      .single();
+ async updateTask(id: string, updates: Partial<Task>): Promise<Task | null> {  this.tasksSignal.update(tasks =>
+    tasks.map(t =>
+      t.id === id ? { ...t, ...updates } : t
+    )
+  );
 
-    if (error) {
-      console.error('Error updating task:', error);
-      return null;
-    }
+  const { data, error } = await this.supabase.supabase
+    .from('tasks')
+    .update({
+      title: updates.title,
+      description: updates.description,
+      status: updates.status,
+      type: updates.type,
+      priority: updates.priority,
+      assignees: updates.assignees,
+      subtasks: updates.subtasks,
+      due_at: updates.dueDate || null,
+    })
+    .eq('id', id)
+    .select()
+    .single();
 
+  if (error) {
+    console.error('Error updating task:', error);
     await this.loadTasks();
-
-    return data ? {
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      status: data.status,
-      type: data.type || 'Technical Task',
-      priority: data.priority,
-      assignees: data.assignees || [],
-      subtasks: data.subtasks || [],
-      createdAt: data.created_at,
-      dueDate: data.due_at,
-    } : null;
+    return null;
   }
 
+  return data;
+}
   async deleteTask(taskId: string): Promise<boolean> {
     const { error } = await this.supabase.supabase
       .from('tasks')
