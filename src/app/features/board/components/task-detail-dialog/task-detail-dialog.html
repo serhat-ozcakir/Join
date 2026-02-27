@@ -249,7 +249,7 @@
                   [(ngModel)]="editingSubtaskTitle"
                   (keyup.enter)="saveSubtaskEdit()"
                 />
-                <button type="button" (click)="cancelSubtaskEdit()">
+                <button type="button" (click)="removeSubtask(sub.id)">
                   <img src="assets/icons/trash.svg" alt="Cancel" />
                 </button>
                 <button type="button" (click)="saveSubtaskEdit()">
