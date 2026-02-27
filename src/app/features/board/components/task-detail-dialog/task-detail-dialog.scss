@@ -407,6 +407,7 @@ textarea.input {
   input[type='checkbox'] {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
     accent-color: #29abe2;
     cursor: pointer;
   }
