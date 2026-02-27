@@ -1,13 +1,12 @@
 .task-card{
-  width: var(--card-w);            
+  width: var(--card-w);
   max-width: 100%;
   background: #fff;
-  border: 1px solid #E6E9F0; 
+  border: 1px solid #E6E9F0;
   border-radius: 16px;
   padding: 16px;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0,0,0,.06);
-  margin-bottom: 10px;
 }
 
 .badge{
