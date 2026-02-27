@@ -401,15 +401,26 @@ textarea.input {
 .view-subtask {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   font-size: 16px;
 
   input[type='checkbox'] {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-    accent-color: #29abe2;
     cursor: pointer;
+    box-sizing: border-box;
+    border: 2px solid #2a3647;
+    border-radius: 3px;
+    appearance: none;
+
+    &:checked {
+      background-image: url(../../../../../../public/assets/icons/checked-input-dark.svg);
+      background-repeat: no-repeat;
+      background-size: 130%;
+      background-position: center;
+      border: none;
+    }
   }
 }
 
