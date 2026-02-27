@@ -45,8 +45,8 @@ export class BoardPage implements OnInit {
       if (updatedTasks.length > 0) {
         this.allTasks = updatedTasks;
         this.filterTasks(this.allTasks);
-        
-if (this.selectedTask && !this.showTaskDetail) {
+
+        if (this.selectedTask) {
           const updatedSelectedTask = updatedTasks.find(t => t.id === this.selectedTask!.id);
           if (updatedSelectedTask) {
             this.selectedTask = updatedSelectedTask;

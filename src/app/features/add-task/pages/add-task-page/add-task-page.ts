@@ -1,34 +1,63 @@
-import { Component } from '@angular/core';
-import {FormBuilder,FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { 
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { Supabase } from '../../../../supabase';
 
-/** Page for creating new tasks with title, description, priority, and assignment. */
 @Component({
   selector: 'app-add-task-page',
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [
+    RouterOutlet,
+    ReactiveFormsModule
+  ],
   templateUrl: './add-task-page.html',
   styleUrl: './add-task-page.scss',
 })
+
 export class AddTaskPage {
+
+  supabaseService = inject(Supabase);
+
+  today: string = new Date().toISOString().split('T')[0];
+
   taskForm = new FormGroup({
-    titel: new FormControl('', {
-      validators: [Validators.maxLength(10)]
+    title: new FormControl('', {
+      validators: [Validators.required, Validators.minLength(3)]
     }),
     description: new FormControl('', {
       validators: [Validators.maxLength(10)]
     }),
-    date: new FormControl('', {
-      validators: [Validators.minLength(1)]
+    due_at: new FormControl('', {
+      validators: [Validators.required]
     }),
-    category: new FormControl('', {
-      validators: [Validators.minLength(1)]
+    priority: new FormControl('medium'),
+    type: new FormControl('Technical Task', {
+      validators: [Validators.required]
     }),
     subtasks: new FormControl('', {
       validators: [Validators.minLength(1)]
     }),
-  })
+  });
 
-    formSubmit(){
-    console.log('Erfolgreich');
+  async formSubmit() {
+    if (this.taskForm.invalid) return;
+
+    console.log(this.taskForm.value);
+
+    const { data, error } = await this.supabaseService.supabase
+      .from('tasks')
+      .insert([this.taskForm.value])
+      .select();
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    console.log('Task erstellt:', data);
   }
 }
