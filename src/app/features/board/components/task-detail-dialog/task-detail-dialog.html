@@ -239,6 +239,7 @@
               </button>
             </div>
           </div>
+          <aside class="subtask-list">
           @for (sub of task!.subtasks; track sub.id) {
             @if (editingSubtaskId() === sub.id) {
               <div class="edit-input input">
@@ -268,6 +269,7 @@
               </div>
             }
           }
+          </aside>
         </div>
         <div class="edit-actions">
           <button

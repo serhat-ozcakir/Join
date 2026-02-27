@@ -39,6 +39,7 @@ export class BoardColumn implements AfterViewInit {
       this.connectedDropLists = ['todo', 'inProgress', 'awaitFeedback', 'done'];
     }
     this.previewContainer = this.previewTemplate;
+    this.cdr.detectChanges();
   }
 
   onDrop(event: CdkDragDrop<Task[]>): void {
