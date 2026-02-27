@@ -184,7 +184,16 @@ body {
       background: #cc0000;
     }
 
-    @media (max-width: 1024px) {
+       @media (min-width: 992px) and (max-width: 1075px) {
+            .board-page__header {
+        padding-right: 45px;
+    }
+        .board {
+        grid-template-columns: repeat(3, 1fr);
+    }
+       }
+
+    @media (max-width: 991px) {
     .board-page__header {
         flex-wrap: wrap;
     }
