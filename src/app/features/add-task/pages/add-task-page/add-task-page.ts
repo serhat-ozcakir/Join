@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { 
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -9,9 +8,6 @@ import {
 import { RouterOutlet } from '@angular/router';
 import { Supabase } from '../../../../supabase';
 
-/** 
- * Page for creating new tasks with title, description, priority, and assignment.
- */
 @Component({
   selector: 'app-add-task-page',
   imports: [
@@ -33,14 +29,12 @@ export class AddTaskPage {
       validators: [Validators.maxLength(10)]
     }),
     due_at: new FormControl('', {
-      validators: [Validators.minLength(1)]
+      validators: [Validators.required]
     }),
     priority: new FormControl('medium'),
-
     type: new FormControl('Technical Task', {
       validators: [Validators.required]
     }),
-
     subtasks: new FormControl('', {
       validators: [Validators.minLength(1)]
     }),
@@ -48,6 +42,8 @@ export class AddTaskPage {
 
   async formSubmit() {
     if (this.taskForm.invalid) return;
+
+    console.log(this.taskForm.value);
 
     const { data, error } = await this.supabaseService.supabase
       .from('tasks')

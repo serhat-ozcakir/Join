@@ -50,22 +50,21 @@
                     <div class="priorityContentElements">
 
                         <input class="prioRadio"
+                               id="prioUrgent"
                                type="radio"
                                formControlName="priority"
-                               value="urgent">
-
+                               value="high">
                         <label for="prioUrgent"
                                class="priorityBasic priorityUrgent">
-                            Urgent
+                            High
                             <div class="priorityUrgentIMG priorityBasicIMG"></div>
                         </label>
 
                         <input class="prioRadio"
+                               id="prioMedium"
                                type="radio"
                                formControlName="priority"
-                               value="medium"
-                               checked>
-
+                               value="medium">
                         <label for="prioMedium"
                                class="priorityBasic priorityMedium">
                             Medium
@@ -73,10 +72,10 @@
                         </label>
 
                         <input class="prioRadio"
+                               id="prioLow"
                                type="radio"
                                formControlName="priority"
                                value="low">
-
                         <label for="prioLow"
                                class="priorityBasic priorityLow">
                             Low
@@ -119,11 +118,11 @@
 
         <footer>
             <p>
-                <span>*</span>This field is rehhquired
+                <span>*</span>This field is required
             </p>
 
             <div class="btnDiv">
-                <button class="btnClear btnBasic">
+                <button class="btnClear btnBasic" type="button">
                     Clear
                     <div class="btnClearIcon btnBasicIcon"></div>
                 </button>
