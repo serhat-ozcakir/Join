@@ -98,12 +98,13 @@
                         Category<span>*</span>
                     </label>
                     
-                    <select formControlName="type"
-                            id="category"
-                            required>
-                        <option value="Technical Task">Technical Task</option>
-                        <option value="User Story">User Story</option>
-                    </select>
+                <div class="selectWrapper">
+                  <select formControlName="type" id="category" required>
+                    <option value="Technical Task">Technical Task</option>
+                    <option value="User Story">User Story</option>
+                  </select>
+                  <div class="arrowImg"></div>
+                </div>
                 </div>
 
                 <div class="subtaskContent">
