@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task , Status} from '../../models/task.model';
@@ -37,6 +37,24 @@ export class BoardPage implements OnInit {
   showAddTask = false;
   selectedTask: Task | null = null;
   selectedStatus: Status | null = null;
+
+  constructor() {
+    effect(() => {
+      const updatedTasks = this.taskStore.tasks();
+
+      if (updatedTasks.length > 0) {
+        this.allTasks = updatedTasks;
+        this.filterTasks(this.allTasks);
+
+        if (this.selectedTask) {
+          const updatedSelectedTask = updatedTasks.find(t => t.id === this.selectedTask!.id);
+          if (updatedSelectedTask) {
+            this.selectedTask = updatedSelectedTask;
+          }
+        }
+      }
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     await this.loadTasks();
@@ -96,17 +114,16 @@ export class BoardPage implements OnInit {
   }
 
   async onTaskUpdated(): Promise<void> {
-    this.closeTaskDetail();
-    await this.loadTasks();
-          this.cdr.detectChanges();
+ this.closeTaskDetail();
+    await this.taskStore.loadTasks();
+
 
   }
 
   addTask(status: Status): void {
     this.selectedStatus = status;
     this.showAddTask = true;
-          this.cdr.detectChanges();
-
+    this.cdr.detectChanges();
   }
 
   closeAddTask(): void {
@@ -116,13 +133,13 @@ export class BoardPage implements OnInit {
 
   async onTaskCreated(): Promise<void> {
     this.closeAddTask();
-    await this.loadTasks();
-          this.cdr.detectChanges();
-
+    await this.taskStore.loadTasks();
+    this.cdr.detectChanges();
   }
 
   async onTaskDropped(event: { task: Task; newStatus: Status }): Promise<void> {
     await this.taskStore.updateTask(event.task.id, { status: event.newStatus });
-    await this.loadTasks();
+    await this.taskStore.loadTasks();
   }
 }
+
