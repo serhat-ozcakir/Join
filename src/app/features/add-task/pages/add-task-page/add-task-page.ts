@@ -29,7 +29,7 @@ export class AddTaskPage {
       validators: [Validators.required, Validators.minLength(3)]
     }),
     description: new FormControl('', {
-      validators: [Validators.maxLength(10)]
+      validators: [Validators.required, Validators.maxLength(10)]
     }),
     due_at: new FormControl('', {
       validators: [Validators.required]

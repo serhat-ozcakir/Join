@@ -8,7 +8,6 @@
         <div class="divContent">
 
             <div class="leftContent">
-
                 <div class="titleInContent">
                     <label for="title">
                         Title<span>*</span>
@@ -17,7 +16,11 @@
                            id="title"
                            type="text"
                            required
-                           placeholder="Enter a title">
+                           placeholder="Enter a title"
+                           [class.invalid]="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+                    @if (taskForm.get('title')?.invalid && taskForm.get('title')?.touched) {
+                            <p class="if">This field is required</p>
+                           }       
                 </div>
 
                 <div class="descriptionInContent">
@@ -25,7 +28,8 @@
                     <textarea formControlName="description"
                               id="description"
                               placeholder="Enter a description">
-                    </textarea>
+                    </textarea> 
+                    
                 </div>
 
                 <div class="dueDateContent">
@@ -36,7 +40,11 @@
                               id="dueDate"
                               type="date"
                               [min]="today"
-                              required>
+                              required
+                              [class.invalid]="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">
+                                                                                      @if (taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched) {
+                            <p class="if">This field is required</p>
+                           }   
                 </div>
 
             </div>
