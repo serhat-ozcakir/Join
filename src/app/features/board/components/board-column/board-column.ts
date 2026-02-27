@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewChildren, AfterViewInit, QueryList, ElementRef, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewChildren, AfterViewInit, QueryList, ElementRef, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { TaskCard } from '../task-card/task-card';
 import { Task, Status } from '../../models/task.model';
 import { CommonModule } from '@angular/common';
@@ -23,19 +23,16 @@ export class BoardColumn implements AfterViewInit {
   @Output() taskDropped = new EventEmitter<{ task: Task; newStatus: Status }>();
 
   @ViewChild(CdkDropList) dropList!: CdkDropList<Task[]>;
-@ViewChildren('taskElement') taskElements!: QueryList<ElementRef>;
+  @ViewChildren('taskElement') taskElements!: QueryList<ElementRef>;
   @ViewChild('previewContainer', { read: TemplateRef }) previewTemplate!: TemplateRef<any>;
 
-
-
   private supabase = inject(Supabase);
-
+  private cdr = inject(ChangeDetectorRef);
   isDragOver = false;
   isDragging = false;
-   draggedTaskIndex = -1;
+  draggedTaskIndex = -1;
   previewContainer: TemplateRef<any> | string = 'body';
   draggedElement: ElementRef | null = null;
-
 
   ngAfterViewInit(): void {
     if (!this.connectedDropLists || this.connectedDropLists.length === 0) {
@@ -69,11 +66,11 @@ export class BoardColumn implements AfterViewInit {
     }
 
     this.isDragOver = false;
+    setTimeout(() => this.cdr.detectChanges());
   }
 
   private async updateTaskStatus(task: Task): Promise<void> {
     try {
-      console.log(`Updating task ${task.id} to status ${task.status}`);
 
       const { error } = await this.supabase.supabase
         .from('tasks')
@@ -85,7 +82,6 @@ export class BoardColumn implements AfterViewInit {
         throw error;
       }
 
-      console.log(`Task ${task.id} updated successfully`);
     } catch (error) {
       console.error('Error updating task status:', error);
       alert('Failed to update task. Please try again.');
@@ -93,20 +89,31 @@ export class BoardColumn implements AfterViewInit {
   }
 
   onDropListEntered(): void {
-    this.isDragOver = true;
+    setTimeout(() => {
+      this.isDragOver = true;
+      this.cdr.detectChanges();
+    });
   }
 
   onDropListExited(): void {
-    this.isDragOver = false;
+    setTimeout(() => {
+      this.isDragOver = false;
+      this.cdr.detectChanges();
+    });
   }
 
   onDragStarted(event: any): void {
-    this.isDragging = true;
+    setTimeout(() => {
+      this.isDragging = true;
+      this.cdr.detectChanges();
+    });
   }
 
   onDragEnded(event: any): void {
-    this.isDragging = false;
-    this.isDragOver = false;
+    setTimeout(() => {
+      this.isDragging = false;
+      this.cdr.detectChanges();
+    });
   }
 
   onTaskSelected(task: Task): void {
