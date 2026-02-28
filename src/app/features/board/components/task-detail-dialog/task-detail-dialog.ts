@@ -110,7 +110,7 @@ export class TaskDetailDialog implements OnInit {
 
   toggleContact(contact: Contact) {
     if (this.isSelected(contact)) {
-      this.selectedContacts.set(this.selectedContacts().filter(c => c.id !== contact.id));
+      this.selectedContacts.set(this.selectedContacts().filter(contacts => contacts.id !== contact.id));
     } else {
       this.selectedContacts.set([...this.selectedContacts(), contact]);
     }

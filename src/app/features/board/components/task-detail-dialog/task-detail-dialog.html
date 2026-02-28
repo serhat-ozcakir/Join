@@ -176,7 +176,7 @@
                   placeholder="Select contacts to assign"
                   [value]="searchText()"
                   (input)="onSearchInput($event)"
-                  (focus)="dropdownOpen.set(true)"
+                  (click)="toggleDropdown()"
                 />
                 <img
                   src="assets/icons/arrow-drop-down.svg"
