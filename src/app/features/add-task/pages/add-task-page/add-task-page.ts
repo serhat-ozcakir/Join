@@ -60,4 +60,15 @@ export class AddTaskPage {
 
     console.log('Task erstellt:', data);
   }
+
+clearForm() {
+  this.taskForm.reset({
+    title: '',
+    description: '',
+    due_at: '',
+    priority: 'medium',
+    type: 'Technical Task',
+    subtasks: ''
+  });
+}
 }
