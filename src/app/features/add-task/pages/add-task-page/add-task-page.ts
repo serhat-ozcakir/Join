@@ -73,6 +73,6 @@ clearForm() {
   });
 }
 actionDropdown(){
-  this.dropdownCategory = true;
-}
+  !this.dropdownCategory ? this.dropdownCategory = true : this.dropdownCategory = false 
+   }
 }
