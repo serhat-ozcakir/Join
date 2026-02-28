@@ -42,7 +42,7 @@
                               [min]="today"
                               required
                               [class.invalid]="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">
-                                                                                      @if (taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched) {
+                        @if (taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched) {
                             <p class="if">This field is required</p>
                            }   
                 </div>
@@ -107,11 +107,22 @@
                     </label>
                     
                 <div class="selectWrapper">
-                  <select formControlName="type" id="category" required>
-                    <option value="Technical Task">Technical Task</option>
-                    <option value="User Story">User Story</option>
-                  </select>
-                  <div class="arrowImg"></div>
+                    <input type="text" class="categorySelection" (click)="actionDropdown()" formControlName="type">
+                    @if(dropdownCategory){
+                        <div class="categoryOptions">
+                        <p>Technical Task</p>
+                        <p>User Story</p>
+                    </div>
+                    }
+                    
+<!--                         <select (click)="openDropdown()" formControlName="type" id="category" required>
+                        <option value="" disabled hidden>Select task category</option>
+                        @if(dropdownCategory){
+                        <option value="Technical Task">Technical Task</option>
+                        <option value="User Story">User Story</option>
+                        }
+                        </select>  -->
+<!--                   <div class="arrowImg"></div> -->
                 </div>
                 </div>
 

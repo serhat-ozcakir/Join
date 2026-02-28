@@ -19,6 +19,7 @@ import { Supabase } from '../../../../supabase';
 })
 
 export class AddTaskPage {
+  dropdownCategory = false;
 
   supabaseService = inject(Supabase);
 
@@ -35,7 +36,7 @@ export class AddTaskPage {
       validators: [Validators.required]
     }),
     priority: new FormControl('medium'),
-    type: new FormControl('Technical Task', {
+    type: new FormControl('Select task category', {
       validators: [Validators.required]
     }),
     subtasks: new FormControl('', {
@@ -70,5 +71,8 @@ clearForm() {
     type: 'Technical Task',
     subtasks: ''
   });
+}
+actionDropdown(){
+  this.dropdownCategory = true;
 }
 }
