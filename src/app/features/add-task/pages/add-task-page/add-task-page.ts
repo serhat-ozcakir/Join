@@ -81,11 +81,13 @@ TTSelction(){
   this.taskForm.patchValue({
     type: "Technical Task"
   })
+  this.dropdownCategory = false;
  }
 
 USSelction(){
     this.taskForm.patchValue({
     type: "User Story"
   })
+  this.dropdownCategory = false;
  }
 }
