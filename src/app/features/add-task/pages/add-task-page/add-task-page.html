@@ -101,12 +101,17 @@
                            placeholder="Select contacts to assign">
                 </div>
 
-                <div class="categoryContent">
+                <div class="categoryContent" >
                     <label for="category">
                         Category<span>*</span>
                     </label>
                 
-                    <input type="text" class="categorySelection" (click)="actionDropdown()" formControlName="type" readonly>
+                    <input
+                        type="text"
+                        class="categorySelection"
+                        (click)="actionDropdown()"
+                        formControlName="type"
+                        readonly>
                     @if(dropdownCategory){
                         <div class="categoryOptions">
                         <p (click)="TTSelction()">Technical Task</p>

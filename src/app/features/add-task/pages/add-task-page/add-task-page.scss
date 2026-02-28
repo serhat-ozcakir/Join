@@ -121,6 +121,7 @@ select {
             justify-content: space-between;
             align-items: flex-start;
             min-height: 400px;
+            border: #29ABE2 2px solid;
         }
 
         .rightContent{
@@ -260,6 +261,7 @@ select {
     flex-direction: column;
     width: 440px;
     position: relative;
+    gap: 0px;
 }
 
 .categorySelection {
@@ -270,8 +272,18 @@ select {
     font-size: 20px;
     background-color: white;
     cursor: pointer;
+    margin-top: 8px;
 
+
+    background-image: url('../../../../../../public/assets/icons/AddTask/arrow_triangle.svg');
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
     z-index: 1;
+}
+
+.categoryContent.open .categorySelection {
+    transform: rotate(180deg);
 }
 
 .categoryOptions {
@@ -298,8 +310,6 @@ select {
     }
 }
 
-
-            
 
         }
 
