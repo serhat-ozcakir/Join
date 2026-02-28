@@ -32,7 +32,7 @@ export class TaskStore {
       type: task.type || 'Technical Task',
       priority: task.priority,
       assignees: task.assignees || [],
-      subtasks: task.subtasks || [],
+      subtasks: Array.isArray(task.subtasks) ? task.subtasks : [],
       createdAt: task.created_at,
       dueDate: task.due_at,
        position: task.position ?? 999,
@@ -111,8 +111,8 @@ export class TaskStore {
       status: updates.status,
       type: updates.type,
       priority: updates.priority,
-      assignees: updates.assignees,
-      subtasks: updates.subtasks,
+      ...(updates.assignees !== undefined && { assignees: updates.assignees }),
+      ...(updates.subtasks !== undefined && { subtasks: updates.subtasks }),
       due_at: updates.dueDate || null,
     })
     .eq('id', id)

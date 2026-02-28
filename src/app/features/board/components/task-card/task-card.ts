@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Task, TaskPriority } from '../../models/task.model';
 import { CommonModule } from '@angular/common';
 import { avatarColors } from '../../../contacts/components/contact-list/contact-list';
-import { Supabase, Contact } from '../../../../supabase';
 
 @Component({
   selector: 'app-task-card',
@@ -14,7 +13,7 @@ export class TaskCard {
    @Input({ required: true }) task!: Task;
 
    get doneSubtasksCount(): number {
-    if (!this.task.subtasks) {
+    if (!Array.isArray(this.task.subtasks)) {
       return 0;
     }
     return this.task.subtasks.filter(sub => sub.done).length;
