@@ -121,6 +121,14 @@ select {
             justify-content: space-between;
             align-items: flex-start;
             min-height: 400px;
+            border: #29ABE2 2px solid;
+        }
+
+        .rightContent{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
         }
 
         .titleInContent,
@@ -248,51 +256,52 @@ select {
             }
         }
 
-        .categorySelection{
-            position: relative;
-            width: 440px;
-            height: 48px;
-            border: 1px solid #D1D1D1;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 20px;
-            color: black;
-            font-weight: 400;
-            font-style: 400;
-            background-color: white;
-            z-index: 2;
+.categoryContent {
+    display: flex;
+    flex-direction: column;
+    width: 440px;
+    position: relative;
+        gap: 0px;
+}
+
+.categorySelection {
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 20px;
+    background-color: white;
+    cursor: pointer;
+
+    z-index: 1;
+}
+
+.categoryOptions {
+    width: 100%;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 10px;
+
+    margin-top: -10px;
+    z-index: 0;
+
+    p {
+        padding: 12px 16px;
+        font-size: 20px;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: #D1D1D1;
         }
+    }
+}
 
-        .categoryOptions{
-            top: 30px;
-            position: absolute;
-            border: 1px solid white;
-            width: 440px;
-            height: auto;
-            border-radius: 0px 0px 20px 20px;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            padding-top: 17px;
-            p{
-                padding: 12px 16px;
-                border-radius: 10px;
-                font-size: 20px;
-                color: black;
-                font-weight: 400;
-                font-style: 400;
-                &:hover{
-                    background-color: #D1D1D1;
-                }
-            }
-            }
 
-            .subtaskContent{
-                margin-top: 120px;
-            }
+            
 
         }
 

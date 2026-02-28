@@ -105,8 +105,7 @@
                     <label for="category">
                         Category<span>*</span>
                     </label>
-                    
-                <div class="selectWrapper">
+                
                     <input type="text" class="categorySelection" (click)="actionDropdown()" formControlName="type" readonly>
                     @if(dropdownCategory){
                         <div class="categoryOptions">
@@ -114,16 +113,6 @@
                         <p (click)="USSelction()">User Story</p>
                     </div>
                     }
-                    
-<!--                         <select (click)="openDropdown()" formControlName="type" id="category" required>
-                        <option value="" disabled hidden>Select task category</option>
-                        @if(dropdownCategory){
-                        <option value="Technical Task">Technical Task</option>
-                        <option value="User Story">User Story</option>
-                        }
-                        </select>  -->
-<!--                   <div class="arrowImg"></div> -->
-                </div>
                 </div>
 
                 <div class="subtaskContent">
