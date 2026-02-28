@@ -68,11 +68,24 @@ clearForm() {
     description: '',
     due_at: '',
     priority: 'medium',
-    type: 'Technical Task',
+    type: 'Select task category',
     subtasks: ''
   });
+  this.dropdownCategory = false;
 }
 actionDropdown(){
   !this.dropdownCategory ? this.dropdownCategory = true : this.dropdownCategory = false 
    }
+
+TTSelction(){
+  this.taskForm.patchValue({
+    type: "Technical Task"
+  })
+ }
+
+USSelction(){
+    this.taskForm.patchValue({
+    type: "User Story"
+  })
+ }
 }

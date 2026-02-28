@@ -110,8 +110,8 @@
                     <input type="text" class="categorySelection" (click)="actionDropdown()" formControlName="type" readonly>
                     @if(dropdownCategory){
                         <div class="categoryOptions">
-                        <p>Technical Task</p>
-                        <p>User Story</p>
+                        <p (click)="TTSelction()">Technical Task</p>
+                        <p (click)="USSelction()">User Story</p>
                     </div>
                     }
                     
