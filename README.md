@@ -42,7 +42,7 @@ The application focuses on clean architecture, usability and performance.
 
 ## 🌐 Live Demo
 
-👉 [[Live Demo Link]](https://serhat-oezcakir.de/join/#/login)
+👉 [Join](https://serhat-oezcakir.de/join/#/login)
 
 ---
 
